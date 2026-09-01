@@ -13,14 +13,25 @@ export default async function Footer() {
           <div className="large:col-span-1">
             <LocalizedClientLink
               href="/"
-              className="inline-flex items-center gap-3"
+              className="group inline-flex items-center gap-3.5"
             >
-              <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-purple-600 text-xl font-black shadow-[0_0_30px_rgba(124,58,237,0.3)]">
-                G
+              <span className="relative grid h-14 w-[72px] shrink-0 place-items-center">
+                <span className="absolute inset-2 rounded-full bg-purple-600/25 blur-xl transition duration-300 group-hover:bg-purple-500/40" />
+                <img
+                  src="/gamint-footer-mark.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="relative h-full w-full object-contain mix-blend-screen transition duration-300 group-hover:scale-105"
+                />
               </span>
 
-              <span className="text-xl font-black tracking-[0.18em]">
-                GAMINT
+              <span
+                dir="ltr"
+                className="flex -skew-x-[8deg] items-center text-[27px] font-black italic leading-none tracking-[0.13em] drop-shadow-[0_0_16px_rgba(124,58,237,.25)] small:text-[30px]"
+              >
+                <span className="text-white">G</span>
+                <span className="bg-gradient-to-b from-violet-200 via-purple-400 to-purple-700 bg-clip-text text-transparent">A</span>
+                <span className="text-white">MINT</span>
               </span>
             </LocalizedClientLink>
 
