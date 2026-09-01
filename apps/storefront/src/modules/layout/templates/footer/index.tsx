@@ -26,12 +26,10 @@ export default async function Footer() {
               </span>
 
               <span
-                dir="ltr"
-                className="flex -skew-x-[8deg] items-center text-[27px] font-black italic leading-none tracking-[0.13em] drop-shadow-[0_0_16px_rgba(124,58,237,.25)] small:text-[30px]"
+                dir="rtl"
+                className="-skew-x-[6deg] bg-gradient-to-l from-white via-white to-purple-400 bg-clip-text text-[28px] font-black leading-none text-transparent drop-shadow-[0_0_16px_rgba(124,58,237,.28)] small:text-[32px]"
               >
-                <span className="text-white">G</span>
-                <span className="bg-gradient-to-b from-violet-200 via-purple-400 to-purple-700 bg-clip-text text-transparent">A</span>
-                <span className="text-white">MINT</span>
+                گیمینت
               </span>
             </LocalizedClientLink>
 
