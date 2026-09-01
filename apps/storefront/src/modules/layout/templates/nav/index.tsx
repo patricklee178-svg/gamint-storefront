@@ -66,7 +66,7 @@ export default async function Nav() {
                 href="#psplus"
                 className="transition-colors hover:text-white"
               >
-                PS Plus
+                پلی‌استیشن پلاس
               </a>
             </div>
           </div>
