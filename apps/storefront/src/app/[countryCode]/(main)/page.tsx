@@ -183,30 +183,30 @@ const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => {
   }
 
   return (
-    <span className="relative grid h-14 w-14 place-items-center sm:h-16 sm:w-16">
-      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full drop-shadow-[0_5px_12px_rgba(245,158,11,.35)]" aria-hidden="true">
+    <span className="relative grid h-[62px] w-[62px] place-items-center sm:h-[74px] sm:w-[74px]">
+      <svg viewBox="0 0 80 80" className="absolute inset-0 h-full w-full drop-shadow-[0_7px_18px_rgba(245,158,11,.38)]" aria-hidden="true">
         <defs>
-          <radialGradient id="support-gold" cx="42%" cy="32%" r="70%">
-            <stop stopColor="#FFF6A4" />
-            <stop offset=".42" stopColor="#F7C948" />
-            <stop offset="1" stopColor="#A85A00" />
+          <radialGradient id="support-gold-clean" cx="32%" cy="24%" r="78%">
+            <stop stopColor="#FFF7B2" />
+            <stop offset=".34" stopColor="#FACC3B" />
+            <stop offset=".72" stopColor="#D88908" />
+            <stop offset="1" stopColor="#7A3900" />
           </radialGradient>
-          <linearGradient id="support-ribbon" x1="20" y1="60" x2="80" y2="78" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#B56800" />
-            <stop offset=".5" stopColor="#FFD85A" />
-            <stop offset="1" stopColor="#9B4E00" />
+          <linearGradient id="support-dark-clean" x1="22" y1="16" x2="62" y2="67" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#271708" />
+            <stop offset="1" stopColor="#0F0A06" />
           </linearGradient>
         </defs>
-        <path d="M50 2 58 10 68 6 72 16 83 15 84 26 95 30 90 40 98 49 90 57 95 67 84 71 83 82 72 81 68 92 58 88 50 98 42 88 32 92 28 81 17 82 16 71 5 67 10 57 2 49 10 40 5 30 16 26 17 15 28 16 32 6 42 10 50 2Z" fill="url(#support-gold)" stroke="#FFDE66" strokeWidth="1.5" />
-        <circle cx="50" cy="48" r="32" fill="#19130B" stroke="#FFD85A" strokeWidth="4" />
-        <circle cx="50" cy="48" r="25" fill="url(#support-gold)" stroke="#8B4A00" strokeWidth="1.4" />
-        <path d="M17 61Q50 72 83 61l-5 19Q50 88 22 80l-5-19Z" fill="url(#support-ribbon)" stroke="#7E4100" strokeWidth="1.2" />
+        <circle cx="40" cy="40" r="37" fill="url(#support-gold-clean)" stroke="#FFE89A" strokeWidth="1.5" />
+        <circle cx="40" cy="40" r="30.5" fill="url(#support-dark-clean)" stroke="#F7C948" strokeWidth="1.5" />
+        <path d="M25 25.5c4-4.2 9-6.3 15-6.3s11 2.1 15 6.3M24 55c4.4 4 9.7 6 16 6s11.6-2 16-6" fill="none" stroke="#F8D66A" strokeWidth="1.2" strokeLinecap="round" opacity=".65" />
+        <circle cx="21.5" cy="40" r="1.7" fill="#FFE58A" />
+        <circle cx="58.5" cy="40" r="1.7" fill="#FFE58A" />
       </svg>
-      <span dir="rtl" className="absolute top-[25%] z-10 text-center leading-none text-[#211300]">
-        <span className="block text-[7px] font-black sm:text-[8px]">پشتیبانی</span>
-        <strong className="mt-0.5 block text-[14px] font-black tracking-tight sm:text-base">۲۴/۷</strong>
+      <span dir="rtl" className="relative z-10 flex -translate-y-0.5 flex-col items-center text-center leading-none">
+        <strong className="block whitespace-nowrap text-[19px] font-black tracking-[-0.08em] text-[#FFE686] drop-shadow-sm sm:text-[23px]">۲۴/۷</strong>
+        <span className="mt-1 block whitespace-nowrap text-[8px] font-extrabold leading-none text-white sm:text-[9px]">پشتیبانی</span>
       </span>
-      <span className="absolute bottom-[14%] z-10 text-[5px] font-black tracking-[.12em] text-[#2A1600] sm:text-[6px]">GAMINT</span>
     </span>
   )
 }
