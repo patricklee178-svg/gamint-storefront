@@ -116,24 +116,33 @@ export async function middleware(request: NextRequest) {
   const firstPathSegment = request.nextUrl.pathname.split("/")[1]?.toLowerCase()
   const urlHasCountry = firstPathSegment === country.toLowerCase()
 
+  // the country code is an internal routing detail, never shown in the URL:
+  // strip it back to the canonical bare path if someone lands on /ir/...
   if (urlHasCountry) {
-    if (!cacheIdCookie) {
-      const response = NextResponse.next()
-      response.cookies.set("_medusa_cache_id", cacheId, {
-        maxAge: 60 * 60 * 24,
-      })
-      return response
-    }
-    return NextResponse.next()
+    const strippedPath = request.nextUrl.pathname.slice(
+      `/${firstPathSegment}`.length
+    )
+    const redirectUrl = `${request.nextUrl.origin}${strippedPath || "/"}${
+      request.nextUrl.search
+    }`
+    return NextResponse.redirect(redirectUrl, 307)
   }
 
-  // if the url doesn't have the country, redirect to it
-  const redirectPath =
+  // rewrite internally to the country-scoped route without changing the
+  // visible URL
+  const targetPath =
     request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
-  const queryString = request.nextUrl.search || ""
-  const redirectUrl = `${request.nextUrl.origin}/${country}${redirectPath}${queryString}`
+  const rewriteUrl = request.nextUrl.clone()
+  rewriteUrl.pathname = `/${country}${targetPath}`
+  const response = NextResponse.rewrite(rewriteUrl)
 
-  return NextResponse.redirect(redirectUrl, 307)
+  if (!cacheIdCookie) {
+    response.cookies.set("_medusa_cache_id", cacheId, {
+      maxAge: 60 * 60 * 24,
+    })
+  }
+
+  return response
 }
 
 export const config = {
