@@ -7,6 +7,7 @@ SERVICE_FILE="/etc/systemd/system/gamint-auto-deploy.service"
 TIMER_FILE="/etc/systemd/system/gamint-auto-deploy.timer"
 NGINX_ENABLED="/etc/nginx/sites-enabled/gamint.ir"
 NGINX_SNIPPET="/etc/nginx/snippets/gamint-storefront-active.conf"
+NGINX_MAIN="/etc/nginx/nginx.conf"
 STATE_DIR="/var/lib/gamint-deploy"
 ACTIVE_FILE="$STATE_DIR/active-slot"
 DEPLOYED_FILE="$STATE_DIR/deployed-sha"
@@ -18,7 +19,7 @@ if [ "${EUID:-$(id -u)}" -ne 0 ]; then
   exit 1
 fi
 
-for command_name in docker git curl nginx systemctl flock; do
+for command_name in docker git curl nginx systemctl flock ps perl; do
   if ! command -v "$command_name" >/dev/null 2>&1; then
     echo "ERROR: دستور $command_name نصب نیست."
     exit 1
@@ -102,6 +103,22 @@ cp -a "$DEPLOY_SCRIPT" "$BACKUP/gamint-auto-deploy.old" 2>/dev/null || true
 cp -a "$SERVICE_FILE" "$BACKUP/gamint-auto-deploy.service.old" 2>/dev/null || true
 cp -a "$TIMER_FILE" "$BACKUP/gamint-auto-deploy.timer.old" 2>/dev/null || true
 cp -aL "$NGINX_CONF" "$BACKUP/gamint.ir.nginx.old"
+cp -a "$NGINX_MAIN" "$BACKUP/nginx.conf.old"
+
+perl -0pi -e '
+  if (/worker_shutdown_timeout\s+[^;]+;/) {
+    s/worker_shutdown_timeout\s+[^;]+;/worker_shutdown_timeout 30s;/;
+  } else {
+    s/\nevents\s*\{/\nworker_shutdown_timeout 30s;\n\nevents {/;
+  }
+' "$NGINX_MAIN"
+
+if ! grep -Eq 'worker_shutdown_timeout[[:space:]]+30s;' "$NGINX_MAIN"; then
+  cp -a "$BACKUP/nginx.conf.old" "$NGINX_MAIN"
+  echo "ERROR: تنظیم worker_shutdown_timeout در Nginx اعمال نشد."
+  systemctl start gamint-auto-deploy.timer >/dev/null 2>&1 || true
+  exit 1
+fi
 
 if ! grep -Fq "include $NGINX_SNIPPET;" "$NGINX_CONF"; then
   if ! grep -Eq 'proxy_pass[[:space:]]+http://127\.0\.0\.1:8000;' "$NGINX_CONF"; then
@@ -128,6 +145,7 @@ fi
 
 if ! nginx -t; then
   cp -a "$BACKUP/gamint.ir.nginx.old" "$NGINX_CONF"
+  cp -a "$BACKUP/nginx.conf.old" "$NGINX_MAIN"
   nginx -t && systemctl reload nginx
   systemctl start gamint-auto-deploy.timer >/dev/null 2>&1 || true
   echo "ERROR: تست Nginx ناموفق بود و تنظیم قبلی بازیابی شد."
@@ -245,7 +263,10 @@ esac
 NEW_CONTAINER="gamint-storefront-$NEW_SLOT"
 docker rm -f "$NEW_CONTAINER" >/dev/null 2>&1 || true
 
-if ! docker compose run -d --no-deps --name "$NEW_CONTAINER" -p "127.0.0.1:$NEW_PORT:8000" storefront >/dev/null; then
+if ! docker compose run -d --no-deps --name "$NEW_CONTAINER" \
+  -p "127.0.0.1:$NEW_PORT:8000" \
+  -e NODE_ENV=production \
+  storefront sh -lc 'pnpm build && exec pnpm start' >/dev/null; then
   printf '%s\n' "$REMOTE_SHA" > "$BLOCKED_FILE"
   git reset --hard "$SOURCE_SHA"
   echo "CANDIDATE_START_FAILED_OLD_STOREFRONT_STILL_ACTIVE"
@@ -254,7 +275,7 @@ fi
 docker update --restart unless-stopped "$NEW_CONTAINER" >/dev/null
 
 NEW_STATUS="000"
-for _ in $(seq 1 120); do
+for _ in $(seq 1 360); do
   NEW_STATUS="$(curl -sS -o /dev/null --max-time 10 -w '%{http_code}' "http://127.0.0.1:$NEW_PORT/ir" 2>/dev/null || true)"
   [ "$NEW_STATUS" = "200" ] && break
   sleep 2
@@ -284,6 +305,12 @@ if ! nginx -t; then
   exit 1
 fi
 
+NGINX_MASTER_PID="$(cat /run/nginx.pid 2>/dev/null || true)"
+OLD_WORKERS=""
+if [ -n "$NGINX_MASTER_PID" ]; then
+  OLD_WORKERS="$(ps --ppid "$NGINX_MASTER_PID" -o pid= 2>/dev/null | tr '\n' ' ' || true)"
+fi
+
 systemctl reload nginx
 
 PUBLIC_STATUS="000"
@@ -297,6 +324,7 @@ if [ "$PUBLIC_STATUS" != "200" ]; then
   cp -a "$SNIPPET_BACKUP" "$NGINX_SNIPPET"
   nginx -t && systemctl reload nginx
   rm -f "$SNIPPET_BACKUP"
+  sleep 35
   docker rm -f "$NEW_CONTAINER" >/dev/null 2>&1 || true
   printf '%s\n' "$REMOTE_SHA" > "$BLOCKED_FILE"
   git reset --hard "$SOURCE_SHA"
@@ -310,9 +338,31 @@ mv "$ACTIVE_FILE.tmp" "$ACTIVE_FILE"
 printf '%s\n' "$REMOTE_SHA" > "$DEPLOYED_FILE.tmp"
 mv "$DEPLOYED_FILE.tmp" "$DEPLOYED_FILE"
 
-sleep 60
-if [ -n "$OLD_CONTAINER" ] && docker inspect "$OLD_CONTAINER" >/dev/null 2>&1; then
-  docker rm -f "$OLD_CONTAINER" >/dev/null 2>&1 || true
+WORKERS_DRAINED="yes"
+if [ -n "$OLD_WORKERS" ]; then
+  WORKERS_DRAINED="no"
+  for _ in $(seq 1 90); do
+    WORKER_ALIVE="no"
+    for WORKER_PID in $OLD_WORKERS; do
+      if kill -0 "$WORKER_PID" 2>/dev/null; then
+        WORKER_ALIVE="yes"
+        break
+      fi
+    done
+    if [ "$WORKER_ALIVE" = "no" ]; then
+      WORKERS_DRAINED="yes"
+      break
+    fi
+    sleep 1
+  done
+fi
+
+if [ "$WORKERS_DRAINED" = "yes" ]; then
+  if [ -n "$OLD_CONTAINER" ] && docker inspect "$OLD_CONTAINER" >/dev/null 2>&1; then
+    docker rm -f "$OLD_CONTAINER" >/dev/null 2>&1 || true
+  fi
+else
+  echo "OLD_WORKERS_STILL_DRAINING_OLD_CONTAINER_KEPT=$OLD_CONTAINER"
 fi
 
 find "$APP/.gamint-backups" -type f -name 'source-*.tar.gz' -mtime +30 -delete 2>/dev/null || true
@@ -377,6 +427,7 @@ Deploy script: $DEPLOY_SCRIPT
 Active slot file: $ACTIVE_FILE
 Deployed commit file: $DEPLOYED_FILE
 Nginx switch file: $NGINX_SNIPPET
+Nginx worker drain timeout: 30s
 Backup: $BACKUP
 Timer: gamint-auto-deploy.timer
 Blue port: 8001
