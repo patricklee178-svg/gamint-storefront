@@ -1,0 +1,371 @@
+import { Metadata } from "next"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+
+export const metadata: Metadata = {
+  title: "GAMINT | فروشگاه تخصصی گیم",
+  description:
+    "خرید بازی PS5، اکانت ظرفیتی، پیش‌فروش، گیفت کارت و اشتراک‌های گیمینگ از GAMINT",
+}
+
+const categories = [
+  {
+    icon: "🎮",
+    title: "بازی‌های دیجیتال",
+    description: "اکانت و بازی",
+  },
+  {
+    icon: "👥",
+    title: "اکانت ظرفیت‌دار",
+    description: "ظرفیت ۱، ۲ و ۳",
+  },
+  {
+    icon: "📅",
+    title: "پیش‌فروش",
+    description: "بازی‌های آینده",
+  },
+  {
+    icon: "✚",
+    title: "PS Plus",
+    description: "اشتراک پلی‌استیشن",
+  },
+  {
+    icon: "💳",
+    title: "گیفت کارت",
+    description: "شارژ حساب پلی‌استیشن",
+  },
+  {
+    icon: "🏷",
+    title: "تخفیف‌ها",
+    description: "بهترین پیشنهادها",
+  },
+]
+
+const bestSellers = [
+  { title: "EA Sports FC 26", platform: "PS5", price: "۲,۵۹۰,۰۰۰", tone: "from-blue-800 to-cyan-500" },
+  { title: "God of War Ragnarök", platform: "PS5", price: "۲,۷۸۰,۰۰۰", tone: "from-slate-900 to-blue-600" },
+  { title: "Marvel's Spider-Man 2", platform: "PS5", price: "۲,۶۵۰,۰۰۰", tone: "from-red-900 to-red-500" },
+  { title: "The Last of Us Part II", platform: "PS5", price: "۲,۴۹۰,۰۰۰", tone: "from-amber-900 to-orange-500" },
+  { title: "Hogwarts Legacy", platform: "PS5", price: "۲,۳۸۰,۰۰۰", tone: "from-indigo-950 to-amber-500" },
+  { title: "Red Dead Redemption 2", platform: "PS4", price: "۱,۹۵۰,۰۰۰", tone: "from-red-950 to-orange-600" },
+]
+
+const newestGames = [
+  { title: "Stellar Blade", platform: "PS5", price: "۲,۵۶۰,۰۰۰", tone: "from-blue-950 to-violet-500" },
+  { title: "Rise of the Ronin", platform: "PS5", price: "۲,۴۹۰,۰۰۰", tone: "from-slate-950 to-red-700" },
+  { title: "Dragon's Dogma 2", platform: "PS5", price: "۲,۷۲۵,۰۰۰", tone: "from-stone-950 to-amber-700" },
+  { title: "Helldivers 2", platform: "PS5", price: "۱,۹۹۰,۰۰۰", tone: "from-blue-900 to-cyan-500" },
+  { title: "Final Fantasy VII Rebirth", platform: "PS5", price: "۲,۶۸۰,۰۰۰", tone: "from-indigo-900 to-fuchsia-700" },
+  { title: "Suicide Squad", platform: "PS5", price: "۲,۲۹۰,۰۰۰", tone: "from-zinc-950 to-zinc-500" },
+]
+
+const preorders = [
+  { title: "GTA VI", platform: "PS5", price: "۲,۹۵۰,۰۰۰", tone: "from-fuchsia-900 via-purple-700 to-orange-500" },
+  { title: "Death Stranding 2", platform: "PS5", price: "۲,۳۰۰,۰۰۰", tone: "from-stone-900 to-orange-900" },
+  { title: "Ghost of Yōtei", platform: "PS5", price: "۲,۷۵۰,۰۰۰", tone: "from-yellow-900 to-slate-700" },
+  { title: "Assassin's Creed Shadows", platform: "PS5", price: "۲,۳۵۰,۰۰۰", tone: "from-red-950 to-red-600" },
+  { title: "Monster Hunter Wilds", platform: "PS5", price: "۲,۱۵۰,۰۰۰", tone: "from-sky-950 to-cyan-700" },
+  { title: "DOOM: The Dark Ages", platform: "PS5", price: "۲,۲۵۰,۰۰۰", tone: "from-amber-950 to-orange-800" },
+]
+
+function GameCard({
+  game,
+  preorder = false,
+}: {
+  game: {
+    title: string
+    platform: string
+    price: string
+    tone: string
+  }
+  preorder?: boolean
+}) {
+  return (
+    <LocalizedClientLink
+      href="/store"
+      className="group min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#111117] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50"
+    >
+      <div
+        className={`relative aspect-[4/5] overflow-hidden bg-gradient-to-br ${game.tone}`}
+      >
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(255,255,255,.18),transparent_30%)]" />
+
+        {preorder && (
+          <div className="absolute right-3 top-3 rounded-md bg-purple-600 px-2 py-1 text-[10px] font-bold text-white">
+            پیش‌فروش
+          </div>
+        )}
+
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/30 to-transparent p-4 pt-20">
+          <div className="text-xl font-black text-white/90">{game.title}</div>
+        </div>
+      </div>
+
+      <div className="p-3">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <div dir="ltr" className="truncate text-xs font-bold text-white">
+              {game.title}
+            </div>
+
+            <div className="mt-2 text-[11px] text-white/45">
+              از {game.price} تومان
+            </div>
+          </div>
+
+          <div className="shrink-0 rounded-md border border-white/10 bg-white/[0.04] px-2 py-1 text-[10px] font-bold">
+            {game.platform}
+          </div>
+        </div>
+
+        <div className="mt-3 flex justify-end">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-600 text-sm shadow-[0_0_18px_rgba(147,51,234,.35)]">
+            🛒
+          </div>
+        </div>
+      </div>
+    </LocalizedClientLink>
+  )
+}
+
+function ProductSection({
+  title,
+  games,
+  preorder = false,
+}: {
+  title: string
+  games: typeof bestSellers
+  preorder?: boolean
+}) {
+  return (
+    <section className="content-container py-7">
+      <div className="mb-5 flex items-center justify-between">
+        <LocalizedClientLink
+          href="/store"
+          className="text-xs font-bold text-purple-400 transition hover:text-purple-300"
+        >
+          ← مشاهده همه
+        </LocalizedClientLink>
+
+        <h2 className="text-xl font-black small:text-2xl">{title}</h2>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 small:grid-cols-3 large:grid-cols-6">
+        {games.map((game) => (
+          <GameCard
+            key={game.title}
+            game={game}
+            preorder={preorder}
+          />
+        ))}
+      </div>
+    </section>
+  )
+}
+
+export default async function Home() {
+  return (
+    <main
+      dir="rtl"
+      className="min-h-screen overflow-hidden bg-[#07070a] text-white"
+    >
+      {/* HERO */}
+      <section className="content-container pt-5 small:pt-8">
+        <div className="relative min-h-[430px] overflow-hidden rounded-[24px] border border-white/10 bg-[#100916] small:min-h-[520px]">
+          <div
+            className="absolute inset-0 bg-cover bg-[center_20%] small:bg-[center_18%] large:bg-[center_15%]"
+            style={{ backgroundImage: "url('/images/games/gta6-hero.jpg')" }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-l from-black/5 via-black/20 to-[#07070a]/95" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#07070a]/45 via-transparent to-black/10" />
+
+          <div className="absolute -left-16 bottom-[-110px] h-80 w-80 rounded-full bg-fuchsia-600/20 blur-[80px]" />
+          <div className="absolute right-[-40px] top-[-60px] h-80 w-80 rounded-full bg-purple-600/20 blur-[100px]" />
+
+          <div className="relative z-10 ml-auto flex min-h-[430px] flex-col items-end justify-center p-7 text-right small:min-h-[520px] small:p-12 large:w-[36%] large:translate-x-[25px]">
+            <div className="mb-6 text-base font-black text-purple-400 small:text-lg">
+              پیش‌فروش رسمی
+            </div>
+
+            <div
+              dir="ltr"
+              className="text-[46px] font-black leading-[0.86] tracking-[-3px] small:text-[68px]"
+            >
+              <div className="text-white">grand</div>
+              <div className="text-white">theft</div>
+              <div className="text-white">auto</div>
+              <div className="mt-2 bg-gradient-to-r from-orange-400 via-fuchsia-500 to-purple-500 bg-clip-text text-[78px] leading-none text-transparent small:text-[108px]">
+                VI
+              </div>
+            </div>
+
+            <h1 className="mt-5 w-full max-w-[360px] text-right text-lg font-black leading-[1.7] small:text-xl">
+              افسانه‌ای جدید در راه است...
+            </h1>
+
+            <div className="mt-5 flex max-w-[360px] flex-wrap justify-end gap-x-4 gap-y-2 text-[13px] font-bold text-white/80 small:text-sm">
+              <span>⚡ تحویل سریع</span>
+              <span>🛡 ضمانت اصالت</span>
+              <span>🎧 پشتیبانی ۲۴/۷</span>
+            </div>
+
+            <LocalizedClientLink
+              href="/store"
+              className="mt-7 inline-flex max-w-[360px] items-center justify-center rounded-xl bg-purple-600 px-8 py-4 text-base font-black shadow-[0_0_28px_rgba(147,51,234,.4)] transition hover:bg-purple-500"
+            >
+              سفارش پیش‌فروش ←
+            </LocalizedClientLink>
+          </div>
+
+          <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+            <span className="h-2 w-7 rounded-full bg-purple-500" />
+            <span className="h-2 w-2 rounded-full bg-white/70" />
+            <span className="h-2 w-2 rounded-full bg-white/30" />
+            <span className="h-2 w-2 rounded-full bg-white/30" />
+          </div>
+        </div>
+      </section>
+
+      {/* CATEGORIES */}
+      <section className="content-container py-4">
+        <div className="grid grid-cols-2 gap-3 small:grid-cols-3 large:grid-cols-6">
+          {categories.map((item) => (
+            <LocalizedClientLink
+              key={item.title}
+              href="/store"
+              className="group flex min-h-[92px] items-center gap-3 rounded-2xl border border-white/10 bg-[#0f0f15] p-4 transition hover:border-purple-500/40 hover:bg-[#14131b]"
+            >
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-purple-500/20 bg-purple-500/10 text-xl">
+                {item.icon}
+              </div>
+
+              <div>
+                <div className="text-sm font-black">{item.title}</div>
+                <div className="mt-1 text-[11px] text-white/40">
+                  {item.description}
+                </div>
+              </div>
+            </LocalizedClientLink>
+          ))}
+        </div>
+      </section>
+
+      <ProductSection title="پرفروش‌ترین بازی‌ها" games={bestSellers} />
+      <ProductSection title="جدیدترین بازی‌ها" games={newestGames} />
+      <ProductSection title="پیش‌فروش‌ها" games={preorders} preorder />
+
+      {/* PROMO CARDS */}
+      <section className="content-container py-8">
+        <div className="grid gap-4 large:grid-cols-3">
+          <div className="relative overflow-hidden rounded-2xl border border-purple-500/20 bg-gradient-to-br from-purple-700/60 via-purple-950 to-[#101018] p-6">
+            <div className="absolute -left-10 -top-10 h-40 w-40 rounded-full bg-fuchsia-500/20 blur-3xl" />
+            <div className="relative">
+              <div className="text-4xl">✚</div>
+              <h3 className="mt-5 text-xl font-black">PS Plus Essential</h3>
+              <p className="mt-2 text-sm leading-7 text-white/60">
+                اشتراک‌های پلی‌استیشن با تحویل سریع و فعال‌سازی مطمئن
+              </p>
+              <LocalizedClientLink
+                href="/store"
+                className="mt-5 inline-flex rounded-lg bg-purple-600 px-4 py-2 text-xs font-black"
+              >
+                مشاهده و خرید
+              </LocalizedClientLink>
+            </div>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-blue-950 to-[#101018] p-6">
+            <div className="text-4xl">💳</div>
+            <h3 className="mt-5 text-xl font-black">گیفت کارت آمریکا</h3>
+            <p className="mt-2 text-sm leading-7 text-white/60">
+              شارژ سریع حساب PlayStation با مبالغ مختلف
+            </p>
+            <LocalizedClientLink
+              href="/store"
+              className="mt-5 inline-flex rounded-lg border border-white/15 px-4 py-2 text-xs font-black"
+            >
+              مشاهده و خرید
+            </LocalizedClientLink>
+          </div>
+
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-950 to-[#101018] p-6">
+            <div className="text-4xl">🎧</div>
+            <h3 className="mt-5 text-xl font-black">پشتیبانی ۲۴/۷</h3>
+            <p className="mt-2 text-sm leading-7 text-white/60">
+              همیشه کنار شما هستیم؛ قبل و بعد از خرید
+            </p>
+            <div className="mt-5 inline-flex rounded-lg border border-white/15 px-4 py-2 text-xs font-black">
+              تماس با پشتیبانی
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFITS */}
+      <section className="content-container pb-8">
+        <div className="grid grid-cols-2 overflow-hidden rounded-2xl border border-white/10 bg-[#0e0e14] large:grid-cols-4">
+          {[
+            ["⚡", "تحویل سریع", "سریع‌ترین زمان ممکن"],
+            ["🛡", "ضمانت اصالت", "تضمین محصولات"],
+            ["🎧", "پشتیبانی ۲۴/۷", "همیشه پاسخگوی شما"],
+            ["🔒", "پرداخت امن", "خرید مطمئن و امن"],
+          ].map(([icon, title, desc]) => (
+            <div
+              key={title}
+              className="flex items-center gap-3 border-b border-white/[0.06] p-5 last:border-0 large:border-b-0 large:border-l"
+            >
+              <div className="text-2xl">{icon}</div>
+              <div>
+                <div className="text-sm font-black">{title}</div>
+                <div className="mt-1 text-[11px] text-white/40">{desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="content-container py-10">
+        <div className="mb-6 flex items-center justify-between">
+          <LocalizedClientLink
+            href="/store"
+            className="text-xs font-bold text-purple-400"
+          >
+            ← مشاهده همه
+          </LocalizedClientLink>
+
+          <h2 className="text-2xl font-black">سوالات متداول</h2>
+        </div>
+
+        <div className="grid gap-3 large:grid-cols-2">
+          {[
+            "اکانت‌های ظرفیت‌دار چگونه کار می‌کنند؟",
+            "آیا بازی‌ها روی اکانت شخصی من فعال می‌شوند؟",
+            "زمان تحویل سفارش چقدر است؟",
+            "در صورت بروز مشکل چه کاری باید انجام دهم؟",
+            "آیا امکان تغییر ریجن اکانت وجود دارد؟",
+            "روش‌های پرداخت در GAMINT چگونه است؟",
+          ].map((question) => (
+            <details
+              key={question}
+              className="group rounded-xl border border-white/[0.07] bg-[#101016] px-5 py-4"
+            >
+              <summary className="cursor-pointer list-none text-sm font-bold">
+                <div className="flex items-center justify-between gap-4">
+                  <span>{question}</span>
+                  <span className="text-purple-400 transition group-open:rotate-45">
+                    +
+                  </span>
+                </div>
+              </summary>
+
+              <p className="mt-4 border-t border-white/[0.06] pt-4 text-xs leading-7 text-white/50">
+                توضیحات کامل این بخش همزمان با تکمیل محصولات و قوانین GAMINT
+                اضافه خواهد شد.
+              </p>
+            </details>
+          ))}
+        </div>
+      </section>
+    </main>
+  )
+}

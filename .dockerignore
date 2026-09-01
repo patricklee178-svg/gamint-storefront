@@ -1,0 +1,11 @@
+.git
+node_modules
+**/node_modules
+.next
+**/.next
+.medusa
+**/.medusa
+.env
+**/.env
+npm-debug.log
+pnpm-debug.log

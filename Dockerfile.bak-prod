@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+RUN apk add --no-cache libc6-compat python3 make g++
+RUN corepack enable
+
+WORKDIR /server
+
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+COPY apps/backend/package.json ./apps/backend/package.json
+COPY apps/storefront/package.json ./apps/storefront/package.json
+
+RUN pnpm install --frozen-lockfile
+
+COPY . .
+
+RUN chmod +x /server/start-backend.sh
+
+EXPOSE 9000
+
+CMD ["/server/start-backend.sh"]
