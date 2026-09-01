@@ -105,26 +105,72 @@ const CartIcon = () => (
   </svg>
 )
 
-const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" className="h-9 w-9 sm:h-10 sm:w-10" aria-hidden="true">
-    {name === "plus" && <>
-      <path d="M12 4.2v15.6M4.2 12h15.6" strokeLinecap="round" />
-      <path d="m18.5 3 .6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6.6-1.7Z" fill="currentColor" stroke="none" />
-      <path d="m5.2 16.8.45 1.25 1.25.45-1.25.45-.45 1.25-.45-1.25-1.25-.45 1.25-.45.45-1.25Z" fill="currentColor" stroke="none" />
-    </>}
-    {name === "gift" && <>
-      <rect x="2.8" y="5.5" width="18.4" height="13" rx="3" />
-      <path d="M2.8 9.2h18.4M7 13h5M7 15.8h3.2" strokeLinecap="round" />
-      <path d="m17 11.8.65 1.45 1.55.2-1.15 1.05.3 1.55L17 15.3l-1.35.75.3-1.55-1.15-1.05 1.55-.2L17 11.8Z" strokeLinejoin="round" />
-    </>}
-    {name === "support" && <>
-      <path d="M4.2 13v-2a7.8 7.8 0 0 1 15.6 0v2" strokeLinecap="round" />
-      <path d="M6.5 18H6a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h.5v6Zm11 0h.5a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-.5v6Z" strokeLinejoin="round" />
-      <path d="M17.5 18.1c-.8 1.15-2.2 1.7-4.1 1.7h-1.2" strokeLinecap="round" />
-      <circle cx="10.7" cy="19.8" r="1" fill="currentColor" stroke="none" />
-    </>}
-  </svg>
-)
+const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => {
+  if (name === "plus") {
+    return (
+      <svg viewBox="0 0 64 64" className="h-12 w-12 sm:h-14 sm:w-14" aria-hidden="true">
+        <defs>
+          <linearGradient id="plus-gold" x1="9" y1="7" x2="53" y2="58" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#FFF27A" />
+            <stop offset=".48" stopColor="#FFD21F" />
+            <stop offset="1" stopColor="#B66A00" />
+          </linearGradient>
+        </defs>
+        <path d="M27 7h14v16h16v14H41v20H27V37H7V23h20V7Z" fill="#8D5100" transform="translate(0 3)" opacity=".85" />
+        <path d="M25 4h14v16h18v14H39v23H25V34H7V20h18V4Z" fill="url(#plus-gold)" stroke="#FFE66A" strokeWidth="1.2" strokeLinejoin="round" />
+        <path d="m32 9 4 7h-8l4-7ZM12 24h8v7h-8v-7ZM46 24a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM29 41l7 8M36 41l-7 8" fill="none" stroke="#8A5400" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  }
+
+  if (name === "gift") {
+    return (
+      <svg viewBox="0 0 64 64" className="h-12 w-12 sm:h-14 sm:w-14" aria-hidden="true">
+        <defs>
+          <linearGradient id="gift-blue" x1="9" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#1E63FF" />
+            <stop offset="1" stopColor="#073A9E" />
+          </linearGradient>
+        </defs>
+        <rect x="8" y="4" width="48" height="56" rx="9" fill="white" />
+        <path d="M8 21h48v30a9 9 0 0 1-9 9H17a9 9 0 0 1-9-9V21Z" fill="url(#gift-blue)" />
+        <rect x="12" y="9" width="14" height="8" rx="4" fill="#F3F6FF" stroke="#D9E0EF" />
+        <path d="M13 10h12M13 12h12M13 14h12M13 16h12" stroke="#E63946" strokeWidth=".8" />
+        <path d="M13 10h6v4h-6z" fill="#2446A8" />
+        <path d="M33 31v15M33 31c8-1 10 2 9 6-1 3-4 4-9 4M22 47c5 3 16 3 21-1" fill="none" stroke="white" strokeWidth="3.1" strokeLinecap="round" />
+        <text x="46" y="15" textAnchor="middle" fontSize="6" fontWeight="900" fill="#1746B0">US</text>
+      </svg>
+    )
+  }
+
+  return (
+    <span className="relative grid h-14 w-14 place-items-center sm:h-16 sm:w-16">
+      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full drop-shadow-[0_5px_12px_rgba(245,158,11,.35)]" aria-hidden="true">
+        <defs>
+          <radialGradient id="support-gold" cx="42%" cy="32%" r="70%">
+            <stop stopColor="#FFF6A4" />
+            <stop offset=".42" stopColor="#F7C948" />
+            <stop offset="1" stopColor="#A85A00" />
+          </radialGradient>
+          <linearGradient id="support-ribbon" x1="20" y1="60" x2="80" y2="78" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#B56800" />
+            <stop offset=".5" stopColor="#FFD85A" />
+            <stop offset="1" stopColor="#9B4E00" />
+          </linearGradient>
+        </defs>
+        <path d="M50 2 58 10 68 6 72 16 83 15 84 26 95 30 90 40 98 49 90 57 95 67 84 71 83 82 72 81 68 92 58 88 50 98 42 88 32 92 28 81 17 82 16 71 5 67 10 57 2 49 10 40 5 30 16 26 17 15 28 16 32 6 42 10 50 2Z" fill="url(#support-gold)" stroke="#FFDE66" strokeWidth="1.5" />
+        <circle cx="50" cy="48" r="32" fill="#19130B" stroke="#FFD85A" strokeWidth="4" />
+        <circle cx="50" cy="48" r="25" fill="url(#support-gold)" stroke="#8B4A00" strokeWidth="1.4" />
+        <path d="M17 61Q50 72 83 61l-5 19Q50 88 22 80l-5-19Z" fill="url(#support-ribbon)" stroke="#7E4100" strokeWidth="1.2" />
+      </svg>
+      <span dir="rtl" className="absolute top-[25%] z-10 text-center leading-none text-[#211300]">
+        <span className="block text-[7px] font-black sm:text-[8px]">پشتیبانی</span>
+        <strong className="mt-0.5 block text-[14px] font-black tracking-tight sm:text-base">۲۴/۷</strong>
+      </span>
+      <span className="absolute bottom-[14%] z-10 text-[5px] font-black tracking-[.12em] text-[#2A1600] sm:text-[6px]">GAMINT</span>
+    </span>
+  )
+}
 
 function GameCard({ game }: { game: Game }) {
   return (
@@ -200,13 +246,13 @@ export default function Home() {
         <GameSection eyebrow="قبل از همه بازی کن" title="پیش‌فروش‌های ویژه" games={preorders} />
 
         <section className="mt-12 grid gap-4 lg:grid-cols-3">
-          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#141026] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-purple-400/30 sm:pl-28">
-            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-purple-500/20 blur-3xl" />
-            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-purple-300/25 bg-purple-500/10 text-purple-300 shadow-[0_0_35px_rgba(168,85,247,.25)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-purple-500/20 sm:h-20 sm:w-20">
+          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#211706] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-amber-400/30 sm:pl-28">
+            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-amber-400/20 blur-3xl" />
+            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-amber-300/30 bg-amber-400/10 text-amber-300 shadow-[0_0_35px_rgba(251,191,36,.28)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-amber-400/15 sm:h-20 sm:w-20">
               <PromoIcon name="plus" />
             </div>
             <div className="relative z-10">
-              <p className="text-xs font-bold text-purple-400">اشتراک ویژه</p>
+              <p className="text-xs font-bold text-amber-300">اشتراک ویژه</p>
               <h3 className="mt-2 text-2xl font-black">PS Plus Essential</h3>
               <p className="mt-2 text-sm leading-7 text-gray-400">اشتراک ۱۲ ماهه با فعال‌سازی مطمئن و پشتیبانی GAMINT</p>
               <LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
@@ -224,13 +270,13 @@ export default function Home() {
               <LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
             </div>
           </article>
-          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#191020] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-fuchsia-400/30 sm:pl-28">
-            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-fuchsia-500/20 blur-3xl" />
-            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-fuchsia-300/25 bg-fuchsia-500/10 text-fuchsia-300 shadow-[0_0_35px_rgba(217,70,239,.25)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-fuchsia-500/20 sm:h-20 sm:w-20">
+          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#241608] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-amber-400/30 sm:pl-28">
+            <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-amber-500/20 blur-3xl" />
+            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-amber-300/30 bg-amber-500/10 text-amber-300 shadow-[0_0_38px_rgba(245,158,11,.30)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-amber-500/15 sm:h-20 sm:w-20">
               <PromoIcon name="support" />
             </div>
             <div className="relative z-10">
-              <p className="text-xs font-bold text-fuchsia-400">همیشه کنار شما</p>
+              <p className="text-xs font-bold text-amber-300">همیشه کنار شما</p>
               <h3 className="mt-2 text-2xl font-black">پشتیبانی ۲۴/۷</h3>
               <p className="mt-2 text-sm leading-7 text-gray-400">قبل و بعد از خرید برای انتخاب، فعال‌سازی و رفع مشکلات</p>
               <LocalizedClientLink href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">تماس با پشتیبانی <ArrowIcon /></LocalizedClientLink>
