@@ -41,33 +41,33 @@ export default async function Nav() {
                 بازی‌ها
               </LocalizedClientLink>
 
-              <a
-                href="#gta6"
+              <LocalizedClientLink
+                href="/preorders"
                 className="transition-colors hover:text-white"
               >
                 پیش‌فروش
-              </a>
+              </LocalizedClientLink>
 
-              <a
-                href="#playstation"
+              <LocalizedClientLink
+                href="/playstation"
                 className="transition-colors hover:text-white"
               >
                 پلی‌استیشن
-              </a>
+              </LocalizedClientLink>
 
-              <a
-                href="#giftcards"
+              <LocalizedClientLink
+                href="/gift-cards"
                 className="transition-colors hover:text-white"
               >
                 گیفت کارت
-              </a>
+              </LocalizedClientLink>
 
-              <a
-                href="#psplus"
+              <LocalizedClientLink
+                href="/ps-plus"
                 className="transition-colors hover:text-white"
               >
                 پلی‌استیشن پلاس
-              </a>
+              </LocalizedClientLink>
             </div>
           </div>
 

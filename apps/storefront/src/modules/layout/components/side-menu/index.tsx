@@ -13,10 +13,14 @@ import { Locale } from "@lib/data/locales"
 
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Account: "/account",
-  Cart: "/cart",
+  "خانه": "/",
+  "بازی‌ها": "/store",
+  "پیش‌فروش": "/preorders",
+  "پلی‌استیشن": "/playstation",
+  "گیفت کارت": "/gift-cards",
+  "پلی‌استیشن پلاس": "/ps-plus",
+  "حساب کاربری": "/account",
+  "سبد خرید": "/cart",
 }
 
 type SideMenuProps = {
