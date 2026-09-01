@@ -148,6 +148,7 @@ ACTIVE_FILE="$STATE_DIR/active-slot"
 DEPLOYED_FILE="$STATE_DIR/deployed-sha"
 BLOCKED_FILE="$STATE_DIR/blocked-sha"
 NGINX_SNIPPET="/etc/nginx/snippets/gamint-storefront-active.conf"
+FORCE_DEPLOY="${FORCE_DEPLOY:-0}"
 
 mkdir -p "$STATE_DIR"
 exec 9>"$LOCK_FILE"
@@ -164,7 +165,7 @@ if ! git cat-file -e "$DEPLOYED_SHA^{commit}" 2>/dev/null; then
   DEPLOYED_SHA="$SOURCE_SHA"
 fi
 
-if [ "$DEPLOYED_SHA" = "$REMOTE_SHA" ]; then
+if [ "$DEPLOYED_SHA" = "$REMOTE_SHA" ] && [ "$FORCE_DEPLOY" != "1" ]; then
   exit 0
 fi
 
@@ -179,7 +180,11 @@ if ! git diff --quiet || ! git diff --cached --quiet; then
   exit 1
 fi
 
-CHANGED_FILES="$(git diff --name-only "$DEPLOYED_SHA" "$REMOTE_SHA")"
+if [ "$FORCE_DEPLOY" = "1" ] && [ "$SOURCE_SHA" = "$REMOTE_SHA" ]; then
+  CHANGED_FILES="apps/storefront/"
+else
+  CHANGED_FILES="$(git diff --name-only "$DEPLOYED_SHA" "$REMOTE_SHA")"
+fi
 if printf '%s\n' "$CHANGED_FILES" | grep -Eq '^(apps/backend/|Dockerfile$|docker-compose\.yml$|start-backend\.sh$)'; then
   printf '%s\n' "$REMOTE_SHA" > "$BLOCKED_FILE"
   echo "BACKEND_DEPLOY_BLOCKED: تغییر backend باید جداگانه و برنامه‌ریزی‌شده منتشر شود."
@@ -350,6 +355,14 @@ WantedBy=timers.target
 EOF
 
 systemctl daemon-reload
+
+echo "BOOTSTRAPPING_BLUE_GREEN..."
+if ! FORCE_DEPLOY=1 "$DEPLOY_SCRIPT"; then
+  systemctl enable --now gamint-auto-deploy.timer >/dev/null 2>&1 || true
+  echo "ERROR: راه‌اندازی آزمایشی Blue-Green موفق نبود؛ نسخه قبلی سایت همچنان فعال است."
+  exit 1
+fi
+
 systemctl enable --now gamint-auto-deploy.timer
 
 PUBLIC_STATUS="$(curl -ksS --resolve gamint.ir:443:127.0.0.1 -o /dev/null --max-time 20 -w '%{http_code}' https://gamint.ir/ir 2>/dev/null || true)"
