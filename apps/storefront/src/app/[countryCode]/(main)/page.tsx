@@ -27,6 +27,16 @@ const categories: { icon: CategoryIconName; title: string; text: string }[] = [
   { icon: "discount", title: "تخفیف‌ها", text: "بهترین پیشنهادها" },
 ]
 
+type TrustIconName = "price" | "support" | "secure" | "authentic" | "delivery"
+
+const trustItems: { icon: TrustIconName; title: string; text: string }[] = [
+  { icon: "price", title: "قیمت‌های رقابتی", text: "بهترین قیمت بازار" },
+  { icon: "support", title: "پشتیبانی ۲۴/۷", text: "چت و تلگرام" },
+  { icon: "secure", title: "پرداخت امن", text: "درگاه معتبر" },
+  { icon: "authentic", title: "ضمانت اصالت", text: "تضمین محصولات" },
+  { icon: "delivery", title: "تحویل سریع", text: "در کمترین زمان" },
+]
+
 const bestSellers: Game[] = [
   { title: "EA SPORTS FC 26", platform: "PS5", price: "۲,۵۹۰,۰۰۰", image: "/images/games/fc26.jpg" },
   { title: "God of War Ragnarök", platform: "PS5", price: "۲,۷۸۰,۰۰۰", image: "/images/games/god-of-war.jpg" },
@@ -88,6 +98,35 @@ const CategoryIcon = ({ name }: { name: CategoryIconName }) => (
     {name === "discount" && <>
       <path d="M20.2 13.2 13.3 20a2.4 2.4 0 0 1-3.4 0L4 14.1V4h10.1l6.1 5.8a2.4 2.4 0 0 1 0 3.4Z" strokeLinejoin="round" />
       <circle cx="8.2" cy="8.2" r="1.2" /><path d="m10 16 5-5M10.5 11h.01M14.5 16h.01" strokeLinecap="round" />
+    </>}
+  </svg>
+)
+
+const TrustIcon = ({ name }: { name: TrustIconName }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-6 w-6" aria-hidden="true">
+    {name === "price" && <>
+      <path d="M20.2 13.2 13.3 20a2.4 2.4 0 0 1-3.4 0L4 14.1V4h10.1l6.1 5.8a2.4 2.4 0 0 1 0 3.4Z" strokeLinejoin="round" />
+      <circle cx="8.2" cy="8.2" r="1.25" />
+      <path d="m10.2 16.2 5.2-5.2M10.7 11.1h.01M15 16h.01" strokeLinecap="round" strokeWidth="2" />
+    </>}
+    {name === "support" && <>
+      <path d="M4 13v-1a8 8 0 0 1 16 0v1" strokeLinecap="round" />
+      <path d="M4 13.2a2 2 0 0 1 2-2h1v6H6a2 2 0 0 1-2-2v-2ZM20 13.2a2 2 0 0 0-2-2h-1v6h1a2 2 0 0 0 2-2v-2Z" />
+      <path d="M17 18c-.8 1.4-2.2 2-4.1 2H11" strokeLinecap="round" />
+      <circle cx="9.5" cy="20" r="1" fill="currentColor" stroke="none" />
+    </>}
+    {name === "secure" && <>
+      <path d="M12 2.8 20 6v5.7c0 4.8-3.1 8.1-8 9.5-4.9-1.4-8-4.7-8-9.5V6l8-3.2Z" strokeLinejoin="round" />
+      <path d="m8.3 12 2.4 2.4 5-5" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+    </>}
+    {name === "authentic" && <>
+      <path d="m12 2.7 2.2 2 3-.2.8 2.9 2.5 1.7-1.1 2.8 1.1 2.8-2.5 1.7-.8 2.9-3-.2-2.2 2-2.2-2-3 .2-.8-2.9-2.5-1.7 1.1-2.8-1.1-2.8L6 7.4l.8-2.9 3 .2 2.2-2Z" strokeLinejoin="round" />
+      <path d="m8.2 12 2.5 2.5 5.2-5.2" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
+    </>}
+    {name === "delivery" && <>
+      <path d="M8 7.2 12 5l4 2.2v5.1L12 14.5l-4-2.2V7.2Z" strokeLinejoin="round" />
+      <path d="m8 7.2 4 2.2 4-2.2M12 9.4v5.1M6 17h11M3.5 20h11" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="m17.3 13.5 3.2 2-3.2 2" strokeLinecap="round" strokeLinejoin="round" />
     </>}
   </svg>
 )
@@ -284,16 +323,19 @@ export default function Home() {
           </article>
         </section>
 
-        <section className="mt-7 grid overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14] sm:grid-cols-2 lg:grid-cols-5">
-          {[
-            ["◇", "قیمت‌های رقابتی", "بهترین قیمت بازار"],
-            ["◉", "پشتیبانی ۲۴/۷", "چت و تلگرام"],
-            ["♢", "پرداخت امن", "درگاه معتبر"],
-            ["♧", "ضمانت اصالت", "تضمین محصولات"],
-            ["⚡", "تحویل سریع", "در کمترین زمان"],
-          ].map(([icon, title, text], index) => (
-            <div key={title} className={`flex items-center gap-3 px-5 py-5 ${index < 4 ? "lg:border-l lg:border-white/10" : ""}`}>
-              <span className="text-2xl text-purple-400">{icon}</span><span><strong className="block text-sm">{title}</strong><small className="text-[10px] text-gray-500">{text}</small></span>
+        <section className="mt-7 grid overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14]/95 shadow-[0_18px_60px_rgba(0,0,0,.18)] sm:grid-cols-2 lg:grid-cols-5">
+          {trustItems.map((item, index) => (
+            <div
+              key={item.title}
+              className={`group flex min-h-[132px] flex-col items-center justify-center gap-3 px-5 py-6 text-center transition duration-300 hover:bg-purple-500/[.07] ${index < trustItems.length - 1 ? "lg:border-l lg:border-white/10" : ""}`}
+            >
+              <span className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl border border-purple-400/25 bg-gradient-to-br from-purple-500/20 via-purple-500/10 to-fuchsia-500/5 text-purple-300 shadow-[0_8px_28px_rgba(126,34,206,.18)] transition duration-300 group-hover:-translate-y-0.5 group-hover:scale-105 group-hover:border-purple-300/45 group-hover:text-purple-200 group-hover:shadow-[0_10px_34px_rgba(168,85,247,.28)]">
+                <TrustIcon name={item.icon} />
+              </span>
+              <span className="block text-center">
+                <strong className="block text-center text-sm font-extrabold text-white">{item.title}</strong>
+                <small className="mt-1 block text-center text-[10px] leading-5 text-gray-500">{item.text}</small>
+              </span>
             </div>
           ))}
         </section>
