@@ -3,7 +3,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import HeroSlider from "@modules/home/components/hero-slider"
 
 export const metadata: Metadata = {
-  title: "GAMINT | فروشگاه تخصصی بازی و اکانت پلی‌استیشن",
+  title: "فروشگاه تخصصی بازی | گیمینت",
   description:
     "خرید بازی PS5، اکانت ظرفیتی، پیش‌فروش GTA VI، گیفت کارت و اشتراک‌های گیمینگ از GAMINT",
 }
