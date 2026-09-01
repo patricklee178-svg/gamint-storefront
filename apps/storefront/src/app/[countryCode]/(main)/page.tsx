@@ -289,7 +289,7 @@ export default function Home() {
           <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#211706] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-amber-400/30 sm:pl-28">
             <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-amber-400/20 blur-3xl" />
             <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-amber-300/30 bg-amber-400/10 text-amber-300 shadow-[0_0_35px_rgba(251,191,36,.28)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-amber-400/15 sm:h-20 sm:w-20">
-              <PromoIcon name="plus" />
+              <img src="/images/playstation-plus-logo.png" alt="" className="h-12 w-12 object-contain sm:h-14 sm:w-14" aria-hidden="true" />
             </div>
             <div className="relative z-10">
               <p className="text-xs font-bold text-amber-300">اشتراک ویژه</p>
