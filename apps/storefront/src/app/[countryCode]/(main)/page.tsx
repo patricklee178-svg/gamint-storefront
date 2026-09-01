@@ -271,7 +271,7 @@ export default function Home() {
       <div className="relative mx-auto w-full max-w-[1480px] px-4 sm:px-6 lg:px-8">
         <HeroSlider />
 
-        <section className="relative z-10 -mt-1 grid overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14]/95 shadow-2xl backdrop-blur sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
+        <section className="relative z-10 mt-4 grid overflow-hidden rounded-2xl sm:mt-5 border border-white/10 bg-[#0a0d14]/95 shadow-2xl backdrop-blur sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
           {categories.map((category, index) => (
             <LocalizedClientLink href="/store" key={category.title} className={`group flex items-center gap-3 border-white/10 px-4 py-5 transition hover:bg-purple-500/10 ${index < categories.length - 1 ? "xl:border-l" : ""}`}>
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[.03] text-purple-300 transition group-hover:border-purple-400/40 group-hover:bg-purple-500/15"><CategoryIcon name={category.icon} /></span>
