@@ -4,7 +4,7 @@ import { PageHero } from "@modules/marketing/components"
 
 export const metadata: Metadata = {
   title: "اشتراک پلی‌استیشن پلاس | گیمینت",
-  description: "خرید اشتراک PS Plus Essential، Extra و Premium با فعال‌سازی مطمئن از GAMINT",
+  description: "خرید اشتراک PS Plus Essential، Extra و Premium با فعال‌سازی مطمئن از گیمینت",
 }
 
 type Plan = {
@@ -98,7 +98,7 @@ export default function PsPlusPage() {
         <PageHero
           eyebrow="اشتراک ویژه"
           title="پلی‌استیشن پلاس"
-          description="اشتراک PS Plus با فعال‌سازی مطمئن، تحویل سریع و پشتیبانی کامل GAMINT تا اجرای کامل."
+          description="اشتراک PS Plus با فعال‌سازی مطمئن، تحویل سریع و پشتیبانی کامل گیمینت تا اجرای کامل."
         />
 
         <section className="mt-12 grid gap-5 lg:grid-cols-3">

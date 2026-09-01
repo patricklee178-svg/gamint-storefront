@@ -41,7 +41,7 @@ export default async function Footer() {
 
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-green-500/20 bg-green-500/5 px-3 py-2 text-xs text-green-300">
               <span className="h-2 w-2 rounded-full bg-green-400" />
-              پشتیبانی GAMINT فعال است
+              پشتیبانی گیمینت فعال است
             </div>
           </div>
 
@@ -162,7 +162,7 @@ export default async function Footer() {
 
         <div className="flex flex-col gap-4 border-t border-white/10 py-6 text-xs text-white/35 small:flex-row small:items-center small:justify-between">
           <p>
-            © {new Date().getFullYear()} GAMINT — تمامی حقوق محفوظ است.
+            © {new Date().getFullYear()} گیمینت — تمامی حقوق محفوظ است.
           </p>
 
           <div className="flex items-center gap-4">

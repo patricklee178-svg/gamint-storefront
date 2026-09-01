@@ -28,7 +28,7 @@ const slides: HeroSlide[] = [
     alt: "Grand Theft Auto VI",
     objectPosition: "50% 0%",
     publisher: "ROCKSTAR GAMES",
-    eyebrow: "پیش‌فروش رسمی GAMINT",
+    eyebrow: "پیش‌فروش رسمی گیمینت",
     title: "Grand Theft",
     accent: "Auto VI",
     accentClass: "from-fuchsia-400 via-purple-400 to-orange-300",
@@ -59,12 +59,12 @@ const slides: HeroSlide[] = [
     alt: "Call of Duty Modern Warfare 4",
     objectPosition: "50% 30%",
     publisher: "INFINITY WARD",
-    eyebrow: "پیش‌فروش ویژه GAMINT",
+    eyebrow: "پیش‌فروش ویژه گیمینت",
     title: "Modern",
     accentPrefix: "Warf",
     accent: "are 4",
     accentClass: "from-white via-gray-300 to-amber-300",
-    description: "نبرد مدرن دوباره آغاز می‌شود؛ نسخه PS5 با پشتیبانی کامل GAMINT.",
+    description: "نبرد مدرن دوباره آغاز می‌شود؛ نسخه PS5 با پشتیبانی کامل گیمینت.",
     badges: ["دانلود روز انتشار", "نسخه PS5", "پشتیبانی ۲۴/۷"],
     primaryLabel: "پیش‌خرید Modern Warfare 4",
     secondaryLabel: "دیدن تریلر بازی",
@@ -104,7 +104,7 @@ export default function HeroSlider() {
     <section
       className="group/hero relative mt-5 min-h-[460px] overflow-hidden rounded-[28px] border border-white/10 bg-[#080b12] shadow-[0_30px_90px_rgba(0,0,0,.45)] sm:min-h-[520px]"
       aria-roledescription="carousel"
-      aria-label="بازی‌های ویژه GAMINT"
+      aria-label="بازی‌های ویژه گیمینت"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}

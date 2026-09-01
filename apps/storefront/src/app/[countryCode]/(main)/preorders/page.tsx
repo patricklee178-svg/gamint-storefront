@@ -3,7 +3,7 @@ import { Game, GameCard, PageHero } from "@modules/marketing/components"
 
 export const metadata: Metadata = {
   title: "پیش‌فروش بازی‌ها | گیمینت",
-  description: "پیش‌خرید جدیدترین بازی‌های PS5 با تحویل فوری در زمان عرضه از GAMINT",
+  description: "پیش‌خرید جدیدترین بازی‌های PS5 با تحویل فوری در زمان عرضه از گیمینت",
 }
 
 const preorders: Game[] = [
@@ -24,7 +24,7 @@ export default function PreordersPage() {
         <PageHero
           eyebrow="قبل از همه بازی کن"
           title="پیش‌فروش‌های ویژه گیمینت"
-          description="با پیش‌خرید از GAMINT، بازی موردعلاقه‌ات همون روز عرضه با تحویل فوری و ضمانت اصالت دستته."
+          description="با پیش‌خرید از گیمینت، بازی موردعلاقه‌ات همون روز عرضه با تحویل فوری و ضمانت اصالت دستته."
           image="/images/games/gta6-hero.jpg"
         />
 

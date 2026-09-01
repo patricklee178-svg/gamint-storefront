@@ -4,7 +4,7 @@ import { ArrowIcon, PageHero } from "@modules/marketing/components"
 
 export const metadata: Metadata = {
   title: "گیفت کارت پلی‌استیشن | گیمینت",
-  description: "خرید گیفت کارت PSN با ریجن‌های مختلف و تحویل فوری کد دیجیتال از GAMINT",
+  description: "خرید گیفت کارت PSN با ریجن‌های مختلف و تحویل فوری کد دیجیتال از گیمینت",
 }
 
 type GiftCard = {

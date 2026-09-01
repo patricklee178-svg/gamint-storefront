@@ -3,7 +3,7 @@ import { Game, GameSection, PageHero } from "@modules/marketing/components"
 
 export const metadata: Metadata = {
   title: "بازی‌های پلی‌استیشن | گیمینت",
-  description: "خرید بازی‌های PS5 و PS4 با بهترین قیمت، تحویل سریع و ضمانت اصالت از GAMINT",
+  description: "خرید بازی‌های PS5 و PS4 با بهترین قیمت، تحویل سریع و ضمانت اصالت از گیمینت",
 }
 
 const ps5Games: Game[] = [
