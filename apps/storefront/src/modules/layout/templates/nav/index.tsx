@@ -71,12 +71,6 @@ export default async function Nav() {
             </div>
           </div>
 
-          <div className="flex flex-1 justify-center">
-            <div className="hidden w-full max-w-md items-center rounded-xl border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm text-white/40 medium:flex">
-              جستجوی بازی، گیفت کارت و اشتراک...
-            </div>
-          </div>
-
           <div className="flex items-center gap-4">
             <div className="hidden small:block">
               <LocalizedClientLink
@@ -110,6 +104,12 @@ export default async function Nav() {
                 locales={locales}
                 currentLocale={currentLocale}
               />
+            </div>
+          </div>
+
+          <div className="flex flex-1 justify-end">
+            <div className="hidden w-full max-w-md items-center text-right rounded-xl border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm text-white/40 medium:flex">
+              جستجوی بازی، گیفت کارت و اشتراک...
             </div>
           </div>
 
