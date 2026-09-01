@@ -68,12 +68,12 @@ export default async function Footer() {
               </li>
 
               <li>
-                <a
-                  href="#gta6"
+                <LocalizedClientLink
+                  href="/preorders"
                   className="transition hover:text-purple-300"
                 >
                   پیش‌فروش بازی‌ها
-                </a>
+                </LocalizedClientLink>
               </li>
 
               <li>
@@ -166,8 +166,12 @@ export default async function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <span>قوانین و مقررات</span>
-            <span>حریم خصوصی</span>
+            <LocalizedClientLink href="/terms" className="transition hover:text-purple-300">
+              قوانین و مقررات
+            </LocalizedClientLink>
+            <LocalizedClientLink href="/privacy" className="transition hover:text-purple-300">
+              حریم خصوصی
+            </LocalizedClientLink>
           </div>
         </div>
 
