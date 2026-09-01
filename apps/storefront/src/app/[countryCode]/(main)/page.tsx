@@ -105,6 +105,27 @@ const CartIcon = () => (
   </svg>
 )
 
+const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.65" className="h-9 w-9 sm:h-10 sm:w-10" aria-hidden="true">
+    {name === "plus" && <>
+      <path d="M12 4.2v15.6M4.2 12h15.6" strokeLinecap="round" />
+      <path d="m18.5 3 .6 1.7 1.7.6-1.7.6-.6 1.7-.6-1.7-1.7-.6 1.7-.6.6-1.7Z" fill="currentColor" stroke="none" />
+      <path d="m5.2 16.8.45 1.25 1.25.45-1.25.45-.45 1.25-.45-1.25-1.25-.45 1.25-.45.45-1.25Z" fill="currentColor" stroke="none" />
+    </>}
+    {name === "gift" && <>
+      <rect x="2.8" y="5.5" width="18.4" height="13" rx="3" />
+      <path d="M2.8 9.2h18.4M7 13h5M7 15.8h3.2" strokeLinecap="round" />
+      <path d="m17 11.8.65 1.45 1.55.2-1.15 1.05.3 1.55L17 15.3l-1.35.75.3-1.55-1.15-1.05 1.55-.2L17 11.8Z" strokeLinejoin="round" />
+    </>}
+    {name === "support" && <>
+      <path d="M4.2 13v-2a7.8 7.8 0 0 1 15.6 0v2" strokeLinecap="round" />
+      <path d="M6.5 18H6a2 2 0 0 1-2-2v-2a2 2 0 0 1 2-2h.5v6Zm11 0h.5a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-.5v6Z" strokeLinejoin="round" />
+      <path d="M17.5 18.1c-.8 1.15-2.2 1.7-4.1 1.7h-1.2" strokeLinecap="round" />
+      <circle cx="10.7" cy="19.8" r="1" fill="currentColor" stroke="none" />
+    </>}
+  </svg>
+)
+
 function GameCard({ game }: { game: Game }) {
   return (
     <article className="group min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]">
@@ -179,17 +200,41 @@ export default function Home() {
         <GameSection eyebrow="قبل از همه بازی کن" title="پیش‌فروش‌های ویژه" games={preorders} />
 
         <section className="mt-12 grid gap-4 lg:grid-cols-3">
-          <article className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#141026] to-[#0a0d14] p-6">
+          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#141026] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-purple-400/30 sm:pl-28">
             <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-purple-500/20 blur-3xl" />
-            <p className="text-xs font-bold text-purple-400">اشتراک ویژه</p><h3 className="mt-2 text-2xl font-black">PS Plus Essential</h3><p className="mt-2 text-sm leading-7 text-gray-400">اشتراک ۱۲ ماهه با فعال‌سازی مطمئن و پشتیبانی GAMINT</p><LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-purple-300/25 bg-purple-500/10 text-purple-300 shadow-[0_0_35px_rgba(168,85,247,.25)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-purple-500/20 sm:h-20 sm:w-20">
+              <PromoIcon name="plus" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-xs font-bold text-purple-400">اشتراک ویژه</p>
+              <h3 className="mt-2 text-2xl font-black">PS Plus Essential</h3>
+              <p className="mt-2 text-sm leading-7 text-gray-400">اشتراک ۱۲ ماهه با فعال‌سازی مطمئن و پشتیبانی GAMINT</p>
+              <LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+            </div>
           </article>
-          <article className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] p-6">
+          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-blue-400/30 sm:pl-28">
             <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-blue-500/20 blur-3xl" />
-            <p className="text-xs font-bold text-blue-400">تحویل فوری</p><h3 className="mt-2 text-2xl font-black">گیفت کارت آمریکا</h3><p className="mt-2 text-sm leading-7 text-gray-400">خرید گیفت کارت پلی‌استیشن با بهترین قیمت و کد دیجیتال</p><LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-blue-300/25 bg-blue-500/10 text-blue-300 shadow-[0_0_35px_rgba(59,130,246,.25)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-blue-500/20 sm:h-20 sm:w-20">
+              <PromoIcon name="gift" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-xs font-bold text-blue-400">تحویل فوری</p>
+              <h3 className="mt-2 text-2xl font-black">گیفت کارت آمریکا</h3>
+              <p className="mt-2 text-sm leading-7 text-gray-400">خرید گیفت کارت پلی‌استیشن با بهترین قیمت و کد دیجیتال</p>
+              <LocalizedClientLink href="/store" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+            </div>
           </article>
-          <article className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#191020] to-[#0a0d14] p-6">
+          <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#191020] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-fuchsia-400/30 sm:pl-28">
             <div className="absolute -left-8 -top-8 h-32 w-32 rounded-full bg-fuchsia-500/20 blur-3xl" />
-            <p className="text-xs font-bold text-fuchsia-400">همیشه کنار شما</p><h3 className="mt-2 text-2xl font-black">پشتیبانی ۲۴/۷</h3><p className="mt-2 text-sm leading-7 text-gray-400">قبل و بعد از خرید برای انتخاب، فعال‌سازی و رفع مشکلات</p><LocalizedClientLink href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">تماس با پشتیبانی <ArrowIcon /></LocalizedClientLink>
+            <div className="pointer-events-none absolute left-5 top-1/2 z-10 grid h-16 w-16 -translate-y-1/2 place-items-center rounded-2xl border border-fuchsia-300/25 bg-fuchsia-500/10 text-fuchsia-300 shadow-[0_0_35px_rgba(217,70,239,.25)] backdrop-blur transition duration-300 group-hover:scale-105 group-hover:bg-fuchsia-500/20 sm:h-20 sm:w-20">
+              <PromoIcon name="support" />
+            </div>
+            <div className="relative z-10">
+              <p className="text-xs font-bold text-fuchsia-400">همیشه کنار شما</p>
+              <h3 className="mt-2 text-2xl font-black">پشتیبانی ۲۴/۷</h3>
+              <p className="mt-2 text-sm leading-7 text-gray-400">قبل و بعد از خرید برای انتخاب، فعال‌سازی و رفع مشکلات</p>
+              <LocalizedClientLink href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">تماس با پشتیبانی <ArrowIcon /></LocalizedClientLink>
+            </div>
           </article>
         </section>
 
