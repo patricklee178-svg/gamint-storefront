@@ -149,22 +149,15 @@ const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => {
     return (
       <svg viewBox="0 0 64 64" className="h-12 w-12 sm:h-14 sm:w-14" aria-hidden="true">
         <defs>
-          <radialGradient id="psplus-disc" cx="35%" cy="25%" r="78%">
-            <stop stopColor="#34230B" />
-            <stop offset="1" stopColor="#100B05" />
-          </radialGradient>
-          <linearGradient id="psplus-gold" x1="12" y1="10" x2="52" y2="55" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#FFF3A0" />
-            <stop offset=".45" stopColor="#FACC32" />
-            <stop offset="1" stopColor="#B96B00" />
+          <linearGradient id="plus-gold" x1="9" y1="7" x2="53" y2="58" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#FFF27A" />
+            <stop offset=".48" stopColor="#FFD21F" />
+            <stop offset="1" stopColor="#B66A00" />
           </linearGradient>
         </defs>
-        <circle cx="31" cy="33" r="24" fill="url(#psplus-disc)" stroke="url(#psplus-gold)" strokeWidth="2.2" />
-        <circle cx="48.5" cy="16.5" r="9.5" fill="url(#psplus-gold)" stroke="#FFF0A0" strokeWidth="1.2" />
-        <path d="M48.5 12v9M44 16.5h9" stroke="#271400" strokeWidth="2.1" strokeLinecap="round" />
-        <text x="30.5" y="37.5" textAnchor="middle" fontSize="17" fontWeight="900" fontFamily="Arial Black, Arial, sans-serif" fill="url(#psplus-gold)">PS</text>
-        <path d="m18 45 3-5 3 5h-6ZM28 40h5v5h-5z" fill="none" stroke="#E8B92A" strokeWidth="1.2" strokeLinejoin="round" />
-        <circle cx="40.5" cy="42.5" r="2.7" fill="none" stroke="#E8B92A" strokeWidth="1.2" />
+        <path d="M27 7h14v16h16v14H41v20H27V37H7V23h20V7Z" fill="#8D5100" transform="translate(0 3)" opacity=".85" />
+        <path d="M25 4h14v16h18v14H39v23H25V34H7V20h18V4Z" fill="url(#plus-gold)" stroke="#FFE66A" strokeWidth="1.2" strokeLinejoin="round" />
+        <path d="m32 9 4 7h-8l4-7ZM12 24h8v7h-8v-7ZM46 24a4 4 0 1 1 0 8 4 4 0 0 1 0-8ZM29 41l7 8M36 41l-7 8" fill="none" stroke="#8A5400" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     )
   }
@@ -190,25 +183,31 @@ const PromoIcon = ({ name }: { name: "plus" | "gift" | "support" }) => {
   }
 
   return (
-    <svg viewBox="0 0 64 64" className="h-12 w-12 sm:h-14 sm:w-14" aria-hidden="true">
-      <defs>
-        <linearGradient id="support-headset-gold" x1="14" y1="10" x2="51" y2="54" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#FFF2A1" />
-          <stop offset=".46" stopColor="#F7C538" />
-          <stop offset="1" stopColor="#B96900" />
-        </linearGradient>
-        <radialGradient id="support-headset-dark" cx="35%" cy="25%" r="75%">
-          <stop stopColor="#35240C" />
-          <stop offset="1" stopColor="#100B05" />
-        </radialGradient>
-      </defs>
-      <circle cx="32" cy="32" r="27" fill="url(#support-headset-dark)" stroke="url(#support-headset-gold)" strokeWidth="2" />
-      <path d="M17 33v-2c0-8.8 6.5-15.5 15-15.5S47 22.2 47 31v2" fill="none" stroke="url(#support-headset-gold)" strokeWidth="3" strokeLinecap="round" />
-      <path d="M17 33.5a4 4 0 0 1 4-4h2v12h-2a4 4 0 0 1-4-4v-4ZM47 33.5a4 4 0 0 0-4-4h-2v12h2a4 4 0 0 0 4-4v-4Z" fill="url(#support-headset-gold)" />
-      <path d="M42 43c-1.7 3.5-4.9 5.2-9.5 5.2H29" fill="none" stroke="#F6CC52" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx="27" cy="48.2" r="2.5" fill="#FFE88A" />
-      <path d="M27 24.5c1.5-1.2 3.2-1.8 5-1.8s3.5.6 5 1.8" fill="none" stroke="#F8D971" strokeWidth="1.5" strokeLinecap="round" opacity=".75" />
-    </svg>
+    <span className="relative grid h-[62px] w-[62px] place-items-center sm:h-[74px] sm:w-[74px]">
+      <svg viewBox="0 0 80 80" className="absolute inset-0 h-full w-full drop-shadow-[0_7px_18px_rgba(245,158,11,.38)]" aria-hidden="true">
+        <defs>
+          <radialGradient id="support-gold-clean" cx="32%" cy="24%" r="78%">
+            <stop stopColor="#FFF7B2" />
+            <stop offset=".34" stopColor="#FACC3B" />
+            <stop offset=".72" stopColor="#D88908" />
+            <stop offset="1" stopColor="#7A3900" />
+          </radialGradient>
+          <linearGradient id="support-dark-clean" x1="22" y1="16" x2="62" y2="67" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#271708" />
+            <stop offset="1" stopColor="#0F0A06" />
+          </linearGradient>
+        </defs>
+        <circle cx="40" cy="40" r="37" fill="url(#support-gold-clean)" stroke="#FFE89A" strokeWidth="1.5" />
+        <circle cx="40" cy="40" r="30.5" fill="url(#support-dark-clean)" stroke="#F7C948" strokeWidth="1.5" />
+        <path d="M25 25.5c4-4.2 9-6.3 15-6.3s11 2.1 15 6.3M24 55c4.4 4 9.7 6 16 6s11.6-2 16-6" fill="none" stroke="#F8D66A" strokeWidth="1.2" strokeLinecap="round" opacity=".65" />
+        <circle cx="21.5" cy="40" r="1.7" fill="#FFE58A" />
+        <circle cx="58.5" cy="40" r="1.7" fill="#FFE58A" />
+      </svg>
+      <span dir="rtl" className="relative z-10 flex -translate-y-0.5 flex-col items-center text-center leading-none">
+        <strong className="block whitespace-nowrap text-[19px] font-black tracking-[-0.08em] text-[#FFE686] drop-shadow-sm sm:text-[23px]">۲۴/۷</strong>
+        <span className="mt-1 block whitespace-nowrap text-[8px] font-extrabold leading-none text-white sm:text-[9px]">پشتیبانی</span>
+      </span>
+    </span>
   )
 }
 
