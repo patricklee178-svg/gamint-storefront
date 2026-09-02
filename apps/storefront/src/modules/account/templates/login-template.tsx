@@ -10,6 +10,21 @@ export enum LOGIN_VIEW {
   REGISTER = "register",
 }
 
+const particles = [
+  { left: "6%", size: 3, delay: "0s", duration: "7s" },
+  { left: "14%", size: 2, delay: "1.2s", duration: "9s" },
+  { left: "22%", size: 4, delay: "2.4s", duration: "6.5s" },
+  { left: "31%", size: 2, delay: "0.6s", duration: "8s" },
+  { left: "40%", size: 3, delay: "3.1s", duration: "7.5s" },
+  { left: "49%", size: 2, delay: "1.8s", duration: "9.5s" },
+  { left: "58%", size: 4, delay: "0.3s", duration: "6.8s" },
+  { left: "67%", size: 2, delay: "2.9s", duration: "8.4s" },
+  { left: "75%", size: 3, delay: "1.5s", duration: "7.2s" },
+  { left: "83%", size: 2, delay: "3.6s", duration: "9.2s" },
+  { left: "91%", size: 3, delay: "0.9s", duration: "6.6s" },
+  { left: "97%", size: 2, delay: "2.1s", duration: "8.8s" },
+]
+
 const perks = [
   {
     title: "تحویل آنی",
@@ -32,38 +47,68 @@ const LoginTemplate = () => {
     <div dir="rtl" className="relative min-h-[calc(100vh-72px)] w-full overflow-hidden bg-[#05070b] text-white">
       <style>{`
         @keyframes gmDrift1 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(-6%, 8%) scale(1.12); }
+          0%, 100% { transform: translate(0px, 0px) scale(1); opacity: .55; }
+          50% { transform: translate(-120px, 90px) scale(1.35); opacity: .95; }
         }
         @keyframes gmDrift2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(8%, -6%) scale(1.08); }
+          0%, 100% { transform: translate(0px, 0px) scale(1); opacity: .4; }
+          50% { transform: translate(110px, -80px) scale(1.3); opacity: .8; }
         }
         @keyframes gmDrift3 {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .5; }
-          50% { transform: translate(-50%, -50%) scale(1.25); opacity: .8; }
+          0%, 100% { transform: translate(-50%, -50%) scale(0.9); opacity: .35; }
+          50% { transform: translate(-50%, -50%) scale(1.5); opacity: .85; }
         }
         @keyframes gmPulseRing {
-          0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,.35); }
-          50% { box-shadow: 0 0 0 6px rgba(168,85,247,0); }
+          0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,.45); transform: scale(1); }
+          50% { box-shadow: 0 0 0 10px rgba(168,85,247,0); transform: scale(1.06); }
+        }
+        @keyframes gmRise {
+          0% { transform: translateY(0); opacity: 0; }
+          10% { opacity: .9; }
+          90% { opacity: .5; }
+          100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        .gm-particle {
+          position: absolute;
+          bottom: -10px;
+          border-radius: 9999px;
+          background: rgb(196 132 252 / 0.85);
+          box-shadow: 0 0 8px 2px rgb(168 85 247 / 0.55);
+          animation-name: gmRise;
+          animation-timing-function: ease-in;
+          animation-iteration-count: infinite;
         }
         @media (prefers-reduced-motion: reduce) {
-          .gm-blob-1, .gm-blob-2, .gm-blob-3, .gm-badge-pulse { animation: none !important; }
+          .gm-blob-1, .gm-blob-2, .gm-blob-3, .gm-badge-pulse, .gm-particle { animation: none !important; }
         }
       `}</style>
 
       <div
-        className="gm-blob-1 pointer-events-none absolute -top-40 right-1/4 h-[420px] w-[420px] rounded-full bg-purple-600/20 blur-[120px]"
-        style={{ animation: "gmDrift1 16s ease-in-out infinite" }}
+        className="gm-blob-1 pointer-events-none absolute -top-40 right-1/4 h-[420px] w-[420px] rounded-full bg-purple-600/25 blur-[110px]"
+        style={{ animation: "gmDrift1 9s ease-in-out infinite" }}
       />
       <div
-        className="gm-blob-2 pointer-events-none absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-fuchsia-600/10 blur-[120px]"
-        style={{ animation: "gmDrift2 20s ease-in-out infinite" }}
+        className="gm-blob-2 pointer-events-none absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-fuchsia-600/20 blur-[110px]"
+        style={{ animation: "gmDrift2 11s ease-in-out infinite" }}
       />
       <div
-        className="gm-blob-3 pointer-events-none absolute right-1/2 top-1/2 h-[260px] w-[260px] rounded-full bg-purple-500/10 blur-[100px]"
-        style={{ animation: "gmDrift3 12s ease-in-out infinite" }}
+        className="gm-blob-3 pointer-events-none absolute right-1/2 top-1/2 h-[260px] w-[260px] rounded-full bg-purple-500/20 blur-[90px]"
+        style={{ animation: "gmDrift3 7s ease-in-out infinite" }}
       />
+
+      {particles.map((p, i) => (
+        <span
+          key={i}
+          className="gm-particle pointer-events-none"
+          style={{
+            left: p.left,
+            width: p.size,
+            height: p.size,
+            animationDuration: p.duration,
+            animationDelay: p.delay,
+          }}
+        />
+      ))}
 
       <div className="relative mx-auto grid min-h-[calc(100vh-72px)] w-full max-w-6xl grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
         <div className="relative hidden flex-col justify-between overflow-hidden border-l border-white/10 bg-gradient-to-br from-[#0c1018] via-[#0a0d14] to-[#05070b] px-12 py-14 lg:flex">
