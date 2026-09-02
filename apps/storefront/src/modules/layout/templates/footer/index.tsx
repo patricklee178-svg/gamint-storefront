@@ -51,7 +51,7 @@ export default async function Footer() {
             <ul className="mt-5 space-y-3 text-sm text-white/45">
               <li>
                 <LocalizedClientLink
-                  href="/store"
+                  href="/categories/games"
                   className="transition hover:text-purple-300"
                 >
                   بازی‌های PS5

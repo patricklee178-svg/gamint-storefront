@@ -14,7 +14,7 @@ import { Locale } from "@lib/data/locales"
 
 const SideMenuItems = {
   "خانه": "/",
-  "بازی‌ها": "/store",
+  "بازی‌ها": "/categories/games",
   "پیش‌فروش": "/preorders",
   "پلی‌استیشن": "/playstation",
   "گیفت کارت": "/gift-cards",

@@ -49,7 +49,7 @@ export default async function Nav() {
 
             <div className="hidden items-center gap-6 text-sm text-white/70 large:flex">
               <LocalizedClientLink
-                href="/store"
+                href="/categories/games"
                 className="transition-colors hover:text-white"
               >
                 بازی‌ها
