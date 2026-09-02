@@ -95,6 +95,7 @@ export default async function PsPlusPage({
     const {
       response: { products },
     } = await listProductsWithSort({
+      page: 1,
       queryParams: { category_id: [category.id], limit: 20 },
       sortBy: "created_at",
       countryCode,

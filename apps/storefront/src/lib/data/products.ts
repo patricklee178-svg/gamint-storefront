@@ -97,7 +97,7 @@ export const listProducts = async ({
  * It will then return the paginated products based on the page and limit parameters.
  */
 export const listProductsWithSort = async ({
-  page = 0,
+  page = 1,
   queryParams,
   sortBy = "created_at",
   countryCode,

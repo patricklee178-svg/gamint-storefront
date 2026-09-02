@@ -29,6 +29,7 @@ export async function listCategoryGames({
   const {
     response: { products },
   } = await listProductsWithSort({
+    page: 1,
     queryParams: { category_id: [category.id], limit },
     sortBy: "created_at",
     countryCode,
