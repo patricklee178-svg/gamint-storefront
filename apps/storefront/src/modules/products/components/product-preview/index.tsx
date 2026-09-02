@@ -1,48 +1,65 @@
-import { Text } from "@modules/common/components/ui"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import Thumbnail from "../thumbnail"
-import PreviewPrice from "./price"
+import { CartIcon } from "@modules/marketing/components"
 
 export default async function ProductPreview({
   product,
-  isFeatured,
+  isFeatured: _isFeatured,
   region: _region,
 }: {
   product: HttpTypes.StoreProduct
   isFeatured?: boolean
   region: HttpTypes.StoreRegion
 }) {
-  // const pricedProduct = await listProducts({
-  //   regionId: region.id,
-  //   queryParams: { id: [product.id!] },
-  // }).then(({ response }) => response.products[0])
-
-  // if (!pricedProduct) {
-  //   return null
-  // }
-
   const { cheapestPrice } = getProductPrice({
     product,
   })
 
+  const thumbnail = product.thumbnail || product.images?.[0]?.url
+
   return (
-    <LocalizedClientLink href={`/products/${product.handle}`} className="group">
-      <div data-testid="product-wrapper">
-        <Thumbnail
-          thumbnail={product.thumbnail}
-          images={product.images}
-          size="full"
-          isFeatured={isFeatured}
-        />
-        <div className="flex txt-compact-medium mt-4 justify-between">
-          <Text className="text-ui-fg-subtle" data-testid="product-title">
-            {product.title}
-          </Text>
-          <div className="flex items-center gap-x-2">
-            {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+    <LocalizedClientLink
+      href={`/products/${product.handle}`}
+      className="group block min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]"
+      data-testid="product-wrapper"
+    >
+      <div className="relative aspect-video overflow-hidden bg-[#111827]">
+        {thumbnail ? (
+          <img
+            src={thumbnail}
+            alt={product.title}
+            loading="lazy"
+            className="block h-full w-full object-cover object-center transition duration-300"
+          />
+        ) : (
+          <div className="grid h-full w-full place-items-center text-xs text-gray-600">
+            بدون تصویر
           </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
+      </div>
+      <div className="p-3.5">
+        <div className="mb-2 flex items-start justify-between gap-2">
+          <h3
+            className="line-clamp-1 text-[13px] font-bold text-white"
+            data-testid="product-title"
+          >
+            {product.title}
+          </h3>
+        </div>
+        <div className="flex items-end justify-between gap-2">
+          <p className="text-xs font-semibold text-gray-100" data-testid="price">
+            {cheapestPrice && (
+              <>
+                <span className="text-[11px] text-gray-500">از </span>
+                {cheapestPrice.calculated_price}
+              </>
+            )}
+          </p>
+          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-white text-gray-950 transition group-hover:bg-purple-500 group-hover:text-white">
+            <CartIcon />
+          </span>
         </div>
       </div>
     </LocalizedClientLink>

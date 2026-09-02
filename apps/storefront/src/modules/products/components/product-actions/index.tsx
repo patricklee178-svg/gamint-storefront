@@ -177,10 +177,10 @@ export default function ProductActions({
           data-testid="add-product-button"
         >
           {!selectedVariant
-            ? "Select variant"
+            ? "انتخاب نسخه"
             : !inStock || !isValidVariant
-            ? "Out of stock"
-            : "Add to cart"}
+            ? "ناموجود"
+            : "افزودن به سبد خرید"}
         </Button>
         <MobileActions
           product={product}

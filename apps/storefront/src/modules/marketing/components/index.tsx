@@ -6,6 +6,7 @@ export type Game = {
   price: string
   image: string
   badge?: string
+  handle?: string
 }
 
 export const ArrowIcon = () => (
@@ -24,7 +25,10 @@ export const CartIcon = () => (
 export function GameCard({ game }: { game: Game }) {
   return (
     <article className="group min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]">
-      <LocalizedClientLink href="/store" className="block">
+      <LocalizedClientLink
+        href={game.handle ? `/products/${game.handle}` : "/store"}
+        className="block"
+      >
         <div className="relative aspect-video overflow-hidden bg-[#111827]">
           <img
             src={game.image}
@@ -55,7 +59,17 @@ export function GameCard({ game }: { game: Game }) {
   )
 }
 
-export function GameSection({ title, eyebrow, games }: { title: string; eyebrow: string; games: Game[] }) {
+export function GameSection({
+  title,
+  eyebrow,
+  games,
+  viewAllHref = "/store",
+}: {
+  title: string
+  eyebrow: string
+  games: Game[]
+  viewAllHref?: string
+}) {
   return (
     <section className="mt-12">
       <div className="mb-5 flex items-end justify-between gap-4">
@@ -63,7 +77,7 @@ export function GameSection({ title, eyebrow, games }: { title: string; eyebrow:
           <p className="mb-1 text-xs font-semibold text-purple-400">{eyebrow}</p>
           <h2 className="text-xl font-black text-white sm:text-2xl">{title}</h2>
         </div>
-        <LocalizedClientLink href="/store" className="flex items-center gap-2 text-xs font-semibold text-purple-400 transition hover:text-purple-300">
+        <LocalizedClientLink href={viewAllHref} className="flex items-center gap-2 text-xs font-semibold text-purple-400 transition hover:text-purple-300">
           مشاهده همه <ArrowIcon />
         </LocalizedClientLink>
       </div>
