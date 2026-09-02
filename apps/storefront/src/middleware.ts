@@ -134,7 +134,6 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
   const rewriteUrl = request.nextUrl.clone()
   rewriteUrl.pathname = `/${country}${targetPath}`
-  console.log(`[mw] ${request.nextUrl.pathname} -> ${rewriteUrl.pathname}`)
   const response = NextResponse.rewrite(rewriteUrl)
 
   if (!cacheIdCookie) {
@@ -147,7 +146,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // NOTE: image extensions were previously listed here as bare words
+  // (`...|png|svg|jpg|...`), which is a *prefix* match, not a file
+  // extension match — it silently excluded any route merely starting
+  // with those letters (e.g. "/gift-cards" starts with "gif") from ever
+  // reaching this middleware. Actual asset requests already carry a
+  // "." in the path and are excluded generically inside the function
+  // above, so the extension list here was both redundant and unsafe.
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|images|assets|png|svg|jpg|jpeg|gif|webp).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|images|assets).*)",
   ],
 }
