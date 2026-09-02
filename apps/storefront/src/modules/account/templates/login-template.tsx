@@ -30,13 +30,48 @@ const LoginTemplate = () => {
 
   return (
     <div dir="rtl" className="relative min-h-[calc(100vh-72px)] w-full overflow-hidden bg-[#05070b] text-white">
-      <div className="pointer-events-none absolute -top-40 right-1/4 h-[420px] w-[420px] rounded-full bg-purple-600/20 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-fuchsia-600/10 blur-[120px]" />
+      <style>{`
+        @keyframes gmDrift1 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(-6%, 8%) scale(1.12); }
+        }
+        @keyframes gmDrift2 {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          50% { transform: translate(8%, -6%) scale(1.08); }
+        }
+        @keyframes gmDrift3 {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: .5; }
+          50% { transform: translate(-50%, -50%) scale(1.25); opacity: .8; }
+        }
+        @keyframes gmPulseRing {
+          0%, 100% { box-shadow: 0 0 0 0 rgba(168,85,247,.35); }
+          50% { box-shadow: 0 0 0 6px rgba(168,85,247,0); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .gm-blob-1, .gm-blob-2, .gm-blob-3, .gm-badge-pulse { animation: none !important; }
+        }
+      `}</style>
+
+      <div
+        className="gm-blob-1 pointer-events-none absolute -top-40 right-1/4 h-[420px] w-[420px] rounded-full bg-purple-600/20 blur-[120px]"
+        style={{ animation: "gmDrift1 16s ease-in-out infinite" }}
+      />
+      <div
+        className="gm-blob-2 pointer-events-none absolute bottom-0 left-0 h-[380px] w-[380px] rounded-full bg-fuchsia-600/10 blur-[120px]"
+        style={{ animation: "gmDrift2 20s ease-in-out infinite" }}
+      />
+      <div
+        className="gm-blob-3 pointer-events-none absolute right-1/2 top-1/2 h-[260px] w-[260px] rounded-full bg-purple-500/10 blur-[100px]"
+        style={{ animation: "gmDrift3 12s ease-in-out infinite" }}
+      />
 
       <div className="relative mx-auto grid min-h-[calc(100vh-72px)] w-full max-w-6xl grid-cols-1 lg:grid-cols-[1.05fr_1fr]">
         <div className="relative hidden flex-col justify-between overflow-hidden border-l border-white/10 bg-gradient-to-br from-[#0c1018] via-[#0a0d14] to-[#05070b] px-12 py-14 lg:flex">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-xs font-bold text-purple-300">
+            <span
+              className="gm-badge-pulse inline-flex items-center gap-2 rounded-full border border-purple-400/25 bg-purple-500/10 px-3 py-1 text-xs font-bold text-purple-300"
+              style={{ animation: "gmPulseRing 2.6s ease-in-out infinite" }}
+            >
               گیمینت
             </span>
             <h1 className="mt-8 max-w-md text-4xl font-black leading-[1.35]">
