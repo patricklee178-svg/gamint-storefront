@@ -76,6 +76,18 @@ const SideMenu = ({ regions, locales, currentLocale }: SideMenuProps) => {
                         <XMark />
                       </button>
                     </div>
+                    <form
+                      action="/search"
+                      method="GET"
+                      className="flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm"
+                    >
+                      <input
+                        type="search"
+                        name="q"
+                        placeholder="جستجوی بازی، گیفت کارت و اشتراک..."
+                        className="w-full bg-transparent text-right text-white placeholder:text-white/40 focus:outline-none"
+                      />
+                    </form>
                     <ul className="flex flex-col gap-6 items-start justify-start">
                       {Object.entries(SideMenuItems).map(([name, href]) => {
                         return (

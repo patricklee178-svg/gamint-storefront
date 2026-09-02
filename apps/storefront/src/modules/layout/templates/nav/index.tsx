@@ -8,6 +8,20 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 import CartButton from "@modules/layout/components/cart-button"
 import SideMenu from "@modules/layout/components/side-menu"
 
+const SearchIcon = () => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    className="h-4 w-4 shrink-0 text-white/40"
+    aria-hidden="true"
+  >
+    <circle cx="11" cy="11" r="7" />
+    <path d="m20 20-3.5-3.5" strokeLinecap="round" />
+  </svg>
+)
+
 export default async function Nav() {
   const [regions, locales, currentLocale] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
@@ -108,9 +122,19 @@ export default async function Nav() {
           </div>
 
           <div className="flex flex-1 justify-end">
-            <div className="hidden w-full max-w-md items-center text-right rounded-xl border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm text-white/40 medium:flex">
-              جستجوی بازی، گیفت کارت و اشتراک...
-            </div>
+            <form
+              action="/search"
+              method="GET"
+              className="hidden w-full max-w-md items-center gap-2 rounded-xl border border-white/10 bg-white/[0.06] px-4 py-2.5 text-sm text-white/70 transition focus-within:border-purple-400/40 medium:flex"
+            >
+              <SearchIcon />
+              <input
+                type="search"
+                name="q"
+                placeholder="جستجوی بازی، گیفت کارت و اشتراک..."
+                className="w-full bg-transparent text-right text-white placeholder:text-white/40 focus:outline-none"
+              />
+            </form>
           </div>
 
         </nav>
