@@ -3,8 +3,8 @@ import { Metadata } from "next"
 import LoginTemplate from "@modules/account/templates/login-template"
 
 export const metadata: Metadata = {
-  title: "Sign in",
-  description: "وارد حساب کاربری گیمینت خود شوید.",
+  title: "ورود | ثبت‌نام گیمینت",
+  description: "وارد حساب کاربری گیمینت خود شوید یا یک حساب جدید بسازید.",
 }
 
 export default function Login() {

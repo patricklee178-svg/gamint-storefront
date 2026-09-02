@@ -11,9 +11,13 @@ export default async function AccountPageLayout({
 }) {
   const customer = await retrieveCustomer().catch(() => null)
 
+  if (!customer) {
+    return <>{login}</>
+  }
+
   return (
     <AccountLayout customer={customer}>
-      {customer ? dashboard : login}
+      {dashboard}
       {/* TODO: Re-add Toaster component when needed */}
     </AccountLayout>
   )

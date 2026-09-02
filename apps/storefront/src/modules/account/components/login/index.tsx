@@ -1,8 +1,8 @@
 import { login } from "@lib/data/customer"
 import { LOGIN_VIEW } from "@modules/account/templates/login-template"
+import AuthInput from "@modules/account/components/auth-input"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import { SubmitButton } from "@modules/checkout/components/submit-button"
-import Input from "@modules/common/components/input"
 import { useActionState } from "react"
 
 type Props = {
@@ -13,36 +13,34 @@ const Login = ({ setCurrentView }: Props) => {
   const [message, formAction] = useActionState(login, null)
 
   return (
-    <div
-      className="max-w-sm w-full flex flex-col items-center"
-      data-testid="login-page"
-    >
-      <h1 className="text-large-semi uppercase mb-6">Welcome back</h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-8">
-        Sign in to access an enhanced shopping experience.
+    <div className="flex w-full flex-col" data-testid="login-page">
+      <h1 className="text-xl font-black text-white">خوش برگشتی</h1>
+      <p className="mt-1.5 text-sm text-white/45">
+        وارد حساب گیمینت خودت شو و به خرید ادامه بده.
       </p>
+
       {message?.state === "verification_required" && (
         <div
-          className="w-full mb-6 text-center text-base-regular text-ui-fg-base bg-ui-bg-subtle border border-ui-border-base rounded-rounded p-4"
+          className="mt-6 w-full rounded-xl border border-purple-400/20 bg-purple-500/10 p-4 text-center text-sm leading-6 text-white/70"
           data-testid="login-verification-message"
         >
-          We sent a verification link to <strong>{message.email}</strong>.
-          Please verify your email, then sign in.
+          یک لینک تایید برای <strong className="text-white">{message.email}</strong> ارسال شد.
+          ایمیلت رو تایید کن و دوباره وارد شو.
         </div>
       )}
-      <form className="w-full" action={formAction}>
-        <div className="flex flex-col w-full gap-y-2">
-          <Input
-            label="Email"
+
+      <form className="mt-6 w-full" action={formAction}>
+        <div className="flex flex-col w-full gap-4">
+          <AuthInput
+            label="ایمیل"
             name="email"
             type="email"
-            title="Enter a valid email address."
             autoComplete="email"
             required
             data-testid="email-input"
           />
-          <Input
-            label="Password"
+          <AuthInput
+            label="رمز عبور"
             name="password"
             type="password"
             autoComplete="current-password"
@@ -50,25 +48,30 @@ const Login = ({ setCurrentView }: Props) => {
             data-testid="password-input"
           />
         </div>
+
         <ErrorMessage
           error={message?.state === "error" ? message.error : null}
           data-testid="login-error-message"
         />
-        <SubmitButton data-testid="sign-in-button" className="w-full mt-6">
-          Sign in
+
+        <SubmitButton
+          data-testid="sign-in-button"
+          className="mt-6 h-12 w-full rounded-xl !bg-purple-600 text-sm font-bold hover:!bg-purple-500"
+        >
+          ورود
         </SubmitButton>
       </form>
-      <span className="text-center text-ui-fg-base text-small-regular mt-6">
-        Not a member?{" "}
+
+      <p className="mt-6 text-center text-sm text-white/45">
+        هنوز عضو گیمینت نیستی؟{" "}
         <button
           onClick={() => setCurrentView(LOGIN_VIEW.REGISTER)}
-          className="underline"
+          className="font-bold text-purple-400 transition hover:text-purple-300"
           data-testid="register-button"
         >
-          Join us
+          ثبت‌نام کن
         </button>
-        .
-      </span>
+      </p>
     </div>
   )
 }
