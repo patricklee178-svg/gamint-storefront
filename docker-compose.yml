@@ -49,8 +49,11 @@ services:
       STORE_CORS: https://gamint.ir,https://www.gamint.ir,http://localhost:8000
       ADMIN_CORS: https://admin.gamint.ir,http://localhost:9000
       AUTH_CORS: https://admin.gamint.ir,https://gamint.ir,https://www.gamint.ir,http://localhost:9000,http://localhost:8000
+      BACKEND_URL: https://admin.gamint.ir
     ports:
       - "127.0.0.1:9000:9000"
+    volumes:
+      - backend_uploads:/app/static
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:9000/health >/dev/null 2>&1 || exit 1"]
       interval: 5s
@@ -83,6 +86,7 @@ services:
 volumes:
   postgres_data:
   redis_data:
+  backend_uploads:
 
 networks:
   gamint:

@@ -6,6 +6,7 @@ import { HttpTypes } from "@medusajs/types"
 
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import { signout, submitSupportTicket } from "@lib/data/customer"
+import AvatarUpload from "@modules/account/components/avatar-upload"
 import { MembershipTier } from "@lib/util/dashboard"
 import {
   GridIcon,
@@ -50,9 +51,11 @@ const DashboardSidebar = ({ customer, tier }: Props) => {
     <aside className="w-full shrink-0 lg:w-[260px]" dir="rtl">
       <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
         <div className="flex items-center gap-3">
-          <div className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600 text-lg font-black text-white">
-            {initial}
-          </div>
+          <AvatarUpload
+            initial={initial}
+            initialAvatarUrl={customer.metadata?.avatar_url as string | undefined}
+            size={56}
+          />
           <div className="min-w-0">
             <p className="truncate text-sm font-bold text-white">{fullName}</p>
             <span

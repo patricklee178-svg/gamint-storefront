@@ -37,4 +37,22 @@ module.exports = defineConfig({
       cookieSecret: process.env.COOKIE_SECRET,
     },
   },
+
+  modules: [
+    {
+      resolve: "@medusajs/medusa/file",
+      options: {
+        providers: [
+          {
+            resolve: "@medusajs/medusa/file-local",
+            id: "local",
+            options: {
+              upload_dir: "static",
+              backend_url: `${process.env.BACKEND_URL || "https://admin.gamint.ir"}/static`,
+            },
+          },
+        ],
+      },
+    },
+  ],
 })
