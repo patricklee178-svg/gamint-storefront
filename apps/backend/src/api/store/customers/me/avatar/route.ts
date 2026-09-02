@@ -8,6 +8,7 @@ type MulterRequest = MedusaRequest & {
     buffer: Buffer
     size: number
   }
+  auth_context?: { actor_id?: string }
 }
 
 const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png", "image/webp", "image/gif"]
@@ -63,7 +64,7 @@ export async function POST(req: MulterRequest, res: MedusaResponse) {
   res.json({ avatar_url: uploaded.url })
 }
 
-export async function DELETE(req: MedusaRequest, res: MedusaResponse) {
+export async function DELETE(req: MulterRequest, res: MedusaResponse) {
   const customerId = req.auth_context?.actor_id
 
   if (!customerId) {
