@@ -52,29 +52,37 @@ export default async function GiftCardsPage({
   params: Promise<{ countryCode: string }>
 }) {
   const { countryCode } = await params
-  const category = await getCategoryByHandle(["gift-cards"])
 
   let giftCards: GiftCard[] = []
+  let debugError: string | null = null
 
-  if (category) {
-    const {
-      response: { products },
-    } = await listProductsWithSort({
-      page: 1,
-      queryParams: { category_id: [category.id], limit: 50 },
-      sortBy: "created_at",
-      countryCode,
-    })
+  try {
+    const category = await getCategoryByHandle(["gift-cards"])
 
-    giftCards = products.map((product) => {
-      const { cheapestPrice } = getProductPrice({ product })
-      return {
-        title: product.title,
-        flag: flagFor(product.title),
-        price: cheapestPrice?.calculated_price || "—",
-        handle: product.handle,
-      }
-    })
+    if (category) {
+      const {
+        response: { products },
+      } = await listProductsWithSort({
+        page: 1,
+        queryParams: { category_id: [category.id], limit: 50 },
+        sortBy: "created_at",
+        countryCode,
+      })
+
+      giftCards = products.map((product) => {
+        const { cheapestPrice } = getProductPrice({ product })
+        return {
+          title: product.title,
+          flag: flagFor(product.title),
+          price: cheapestPrice?.calculated_price || "—",
+          handle: product.handle,
+        }
+      })
+    } else {
+      debugError = "category not found"
+    }
+  } catch (err) {
+    debugError = err instanceof Error ? `${err.name}: ${err.message}` : String(err)
   }
 
   return (
@@ -85,6 +93,11 @@ export default async function GiftCardsPage({
           title="گیفت کارت پلی‌استیشن"
           description="گیفت کارت PSN با ریجن‌های آمریکا، ترکیه و امارات، تحویل آنی کد دیجیتال بعد از پرداخت."
         />
+        {debugError && (
+          <p className="mt-4 rounded-xl border border-red-500/40 bg-red-500/10 p-4 text-xs text-red-300">
+            DEBUG: {debugError}
+          </p>
+        )}
 
         <section className="mt-12">
           <div className="mb-5">
