@@ -134,6 +134,7 @@ export async function middleware(request: NextRequest) {
     request.nextUrl.pathname === "/" ? "" : request.nextUrl.pathname
   const rewriteUrl = request.nextUrl.clone()
   rewriteUrl.pathname = `/${country}${targetPath}`
+  console.log(`[mw] ${request.nextUrl.pathname} -> ${rewriteUrl.pathname}`)
   const response = NextResponse.rewrite(rewriteUrl)
 
   if (!cacheIdCookie) {
