@@ -11,12 +11,15 @@ import { useParams, usePathname, useSearchParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
 import ProductPrice from "../product-price"
 import MobileActions from "./mobile-actions"
+import WishlistButton from "@modules/products/components/wishlist-button"
 import { useRouter } from "next/navigation"
 
 type ProductActionsProps = {
   product: HttpTypes.StoreProduct
   region: HttpTypes.StoreRegion
   disabled?: boolean
+  isAuthenticated?: boolean
+  initialWishlisted?: boolean
 }
 
 const optionsAsKeymap = (
@@ -31,6 +34,8 @@ const optionsAsKeymap = (
 export default function ProductActions({
   product,
   disabled,
+  isAuthenticated = false,
+  initialWishlisted = false,
 }: ProductActionsProps) {
   const router = useRouter()
   const pathname = usePathname()
@@ -162,26 +167,33 @@ export default function ProductActions({
 
         <ProductPrice product={product} variant={selectedVariant} />
 
-        <Button
-          onClick={handleAddToCart}
-          disabled={
-            !inStock ||
-            !selectedVariant ||
-            !!disabled ||
-            isAdding ||
-            !isValidVariant
-          }
-          variant="primary"
-          className="w-full h-10"
-          isLoading={isAdding}
-          data-testid="add-product-button"
-        >
-          {!selectedVariant
-            ? "انتخاب نسخه"
-            : !inStock || !isValidVariant
-            ? "ناموجود"
-            : "افزودن به سبد خرید"}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            onClick={handleAddToCart}
+            disabled={
+              !inStock ||
+              !selectedVariant ||
+              !!disabled ||
+              isAdding ||
+              !isValidVariant
+            }
+            variant="primary"
+            className="h-10 flex-1"
+            isLoading={isAdding}
+            data-testid="add-product-button"
+          >
+            {!selectedVariant
+              ? "انتخاب نسخه"
+              : !inStock || !isValidVariant
+              ? "ناموجود"
+              : "افزودن به سبد خرید"}
+          </Button>
+          <WishlistButton
+            productId={product.id}
+            initialWishlisted={initialWishlisted}
+            isAuthenticated={isAuthenticated}
+          />
+        </div>
         <MobileActions
           product={product}
           variant={selectedVariant}

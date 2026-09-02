@@ -1,5 +1,5 @@
 import { retrieveCustomer } from "@lib/data/customer"
-// TODO: Re-add Toaster component when needed
+import { listOrders } from "@lib/data/orders"
 import AccountLayout from "@modules/account/templates/account-layout"
 
 export default async function AccountPageLayout({
@@ -15,10 +15,11 @@ export default async function AccountPageLayout({
     return <>{login}</>
   }
 
+  const orders = (await listOrders(100, 0).catch(() => [])) || []
+
   return (
-    <AccountLayout customer={customer}>
+    <AccountLayout customer={customer} orders={orders}>
       {dashboard}
-      {/* TODO: Re-add Toaster component when needed */}
     </AccountLayout>
   )
 }

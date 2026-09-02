@@ -3,6 +3,7 @@ import { Suspense } from "react"
 import { listLocales } from "@lib/data/locales"
 import { getLocale } from "@lib/data/locale-actions"
 import { listRegions } from "@lib/data/regions"
+import { retrieveCustomer } from "@lib/data/customer"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
@@ -23,10 +24,11 @@ const SearchIcon = () => (
 )
 
 export default async function Nav() {
-  const [regions, locales, currentLocale] = await Promise.all([
+  const [regions, locales, currentLocale, customer] = await Promise.all([
     listRegions().then((regions: StoreRegion[]) => regions),
     listLocales(),
     getLocale(),
+    retrieveCustomer().catch(() => null),
   ])
 
   return (
@@ -89,10 +91,19 @@ export default async function Nav() {
             <div className="hidden small:block">
               <LocalizedClientLink
                 href="/account"
-                className="text-sm text-white/70 transition-colors hover:text-white"
+                className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
                 data-testid="nav-account-link"
               >
-                حساب کاربری
+                {customer ? (
+                  <>
+                    <span className="grid h-7 w-7 place-items-center rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600 text-[11px] font-black text-white">
+                      {(customer.first_name?.[0] || customer.email[0]).toUpperCase()}
+                    </span>
+                    {customer.first_name || "حساب کاربری"}
+                  </>
+                ) : (
+                  "ورود / ثبت‌نام"
+                )}
               </LocalizedClientLink>
             </div>
 

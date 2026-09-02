@@ -7,8 +7,8 @@ import { getRegion } from "@lib/data/regions"
 import { retrieveCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
-  title: "Addresses",
-  description: "View your addresses",
+  title: "آدرس‌ها | گیمینت",
+  description: "مشاهده و مدیریت آدرس‌های شما.",
 }
 
 export default async function Addresses(props: {
@@ -24,15 +24,16 @@ export default async function Addresses(props: {
   }
 
   return (
-    <div className="w-full" data-testid="addresses-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Shipping Addresses</h1>
-        <p className="text-base-regular">
-          View and update your shipping addresses, you can add as many as you
-          like. Saving your addresses will make them available during checkout.
+    <div dir="rtl" className="w-full" data-testid="addresses-page-wrapper">
+      <div className="mb-6">
+        <h1 className="text-xl font-black text-white">آدرس‌ها</h1>
+        <p className="mt-1.5 text-sm text-white/45">
+          آدرس‌های خودت رو اینجا مدیریت کن تا موقع خرید سریع‌تر انتخابشون کنی.
         </p>
       </div>
-      <AddressBook customer={customer} region={region} />
+      <div className="rounded-2xl bg-white p-6">
+        <AddressBook customer={customer} region={region} />
+      </div>
     </div>
   )
 }

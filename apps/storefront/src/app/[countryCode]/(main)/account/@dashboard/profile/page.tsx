@@ -9,7 +9,7 @@ import { listRegions } from "@lib/data/regions"
 import { retrieveCustomer } from "@lib/data/customer"
 
 export const metadata: Metadata = {
-  title: "Profile",
+  title: "اطلاعات حساب کاربری | گیمینت",
   description: "مشاهده و ویرایش پروفایل شما در گیمینت.",
 }
 
@@ -22,24 +22,20 @@ export default async function Profile() {
   }
 
   return (
-    <div className="w-full" data-testid="profile-page-wrapper">
-      <div className="mb-8 flex flex-col gap-y-4">
-        <h1 className="text-2xl-semi">Profile</h1>
-        <p className="text-base-regular">
-          View and update your profile information, including your name, email,
-          and phone number. You can also update your billing address, or change
-          your password.
+    <div dir="rtl" className="w-full" data-testid="profile-page-wrapper">
+      <div className="mb-6">
+        <h1 className="text-xl font-black text-white">اطلاعات حساب کاربری</h1>
+        <p className="mt-1.5 text-sm text-white/45">
+          نام، ایمیل، شماره موبایل و آدرس صورت‌حساب خودت رو اینجا ویرایش کن.
         </p>
       </div>
-      <div className="flex flex-col gap-y-8 w-full">
+      <div className="flex flex-col gap-y-8 w-full rounded-2xl bg-white p-6">
         <ProfileName customer={customer} />
         <Divider />
         <ProfileEmail customer={customer} />
         <Divider />
         <ProfilePhone customer={customer} />
         <Divider />
-        {/* <ProfilePassword customer={customer} />
-        <Divider /> */}
         <ProfileBillingAddress customer={customer} regions={regions} />
       </div>
     </div>

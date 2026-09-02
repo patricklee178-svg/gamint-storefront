@@ -335,6 +335,84 @@ export const deleteCustomerAddress = async (
     })
 }
 
+export async function toggleWishlistItem(
+  productId: string
+): Promise<{ success: boolean; wishlisted?: boolean; error?: string }> {
+  const customer = await retrieveCustomer()
+
+  if (!customer) {
+    return { success: false, error: "not_authenticated" }
+  }
+
+  const currentWishlist = ((customer.metadata?.wishlist as string[] | undefined) || []).filter(
+    Boolean
+  )
+  const alreadyWishlisted = currentWishlist.includes(productId)
+  const nextWishlist = alreadyWishlisted
+    ? currentWishlist.filter((id) => id !== productId)
+    : [...currentWishlist, productId]
+
+  try {
+    await updateCustomer({
+      metadata: { ...customer.metadata, wishlist: nextWishlist },
+    })
+  } catch (error) {
+    return { success: false, error: String(error) }
+  }
+
+  return { success: true, wishlisted: !alreadyWishlisted }
+}
+
+export type SupportTicket = {
+  id: string
+  subject: string
+  message: string
+  status: "open" | "closed"
+  created_at: string
+}
+
+export async function submitSupportTicket(
+  _currentState: unknown,
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
+  const customer = await retrieveCustomer()
+
+  if (!customer) {
+    return { success: false, error: "ابتدا وارد حساب کاربری خود شوید." }
+  }
+
+  const subject = (formData.get("subject") as string)?.trim()
+  const message = (formData.get("message") as string)?.trim()
+
+  if (!subject || !message) {
+    return { success: false, error: "موضوع و پیام تیکت را وارد کنید." }
+  }
+
+  const existingTickets =
+    (customer.metadata?.support_tickets as SupportTicket[] | undefined) || []
+
+  const ticket: SupportTicket = {
+    id: `TCK-${Date.now().toString(36).toUpperCase()}`,
+    subject,
+    message,
+    status: "open",
+    created_at: new Date().toISOString(),
+  }
+
+  try {
+    await updateCustomer({
+      metadata: {
+        ...customer.metadata,
+        support_tickets: [ticket, ...existingTickets],
+      },
+    })
+  } catch (error) {
+    return { success: false, error: String(error) }
+  }
+
+  return { success: true }
+}
+
 export const updateCustomerAddress = async (
   currentState: Record<string, unknown>,
   formData: FormData

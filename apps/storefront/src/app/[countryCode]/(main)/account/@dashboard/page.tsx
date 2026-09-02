@@ -6,13 +6,13 @@ import { retrieveCustomer } from "@lib/data/customer"
 import { listOrders } from "@lib/data/orders"
 
 export const metadata: Metadata = {
-  title: "Account",
-  description: "Overview of your account activity.",
+  title: "داشبورد | گیمینت",
+  description: "خلاصه فعالیت‌های حساب کاربری شما در گیمینت.",
 }
 
 export default async function OverviewTemplate() {
   const customer = await retrieveCustomer().catch(() => null)
-  const orders = (await listOrders().catch(() => null)) || null
+  const orders = (await listOrders(100, 0).catch(() => [])) || []
 
   if (!customer) {
     notFound()

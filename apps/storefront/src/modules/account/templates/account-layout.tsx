@@ -1,40 +1,27 @@
 import React from "react"
-
-import UnderlineLink from "@modules/common/components/interactive-link"
-
-import AccountNav from "../components/account-nav"
 import { HttpTypes } from "@medusajs/types"
 
+import DashboardSidebar from "../components/dashboard-sidebar"
+import { getMembershipTier } from "@lib/util/dashboard"
+
 interface AccountLayoutProps {
-  customer: HttpTypes.StoreCustomer | null
+  customer: HttpTypes.StoreCustomer
+  orders: HttpTypes.StoreOrder[]
   children: React.ReactNode
 }
 
-const AccountLayout: React.FC<AccountLayoutProps> = ({
-  customer,
-  children,
-}) => {
+const AccountLayout: React.FC<AccountLayoutProps> = ({ customer, orders, children }) => {
+  const totalSpent = orders
+    .filter((o) => o.fulfillment_status !== "canceled" && o.payment_status !== "canceled")
+    .reduce((sum, o) => sum + (o.total || 0), 0)
+
+  const tier = getMembershipTier(totalSpent)
+
   return (
-    <div className="flex-1 small:py-12" data-testid="account-page">
-      <div className="flex-1 content-container h-full max-w-5xl mx-auto bg-white flex flex-col">
-        <div className="grid grid-cols-1  small:grid-cols-[240px_1fr] py-12">
-          <div>{customer && <AccountNav customer={customer} />}</div>
-          <div className="flex-1">{children}</div>
-        </div>
-        <div className="flex flex-col small:flex-row items-end justify-between small:border-t border-gray-200 py-12 gap-8">
-          <div>
-            <h3 className="text-xl-semi mb-4">Got questions?</h3>
-            <span className="txt-medium">
-              You can find frequently asked questions and answers on our
-              customer service page.
-            </span>
-          </div>
-          <div>
-            <UnderlineLink href="/customer-service">
-              Customer Service
-            </UnderlineLink>
-          </div>
-        </div>
+    <div dir="rtl" className="min-h-[calc(100vh-72px)] w-full bg-[#05070b] text-white">
+      <div className="content-container flex flex-col gap-6 py-8 lg:flex-row lg:items-start">
+        <DashboardSidebar customer={customer} tier={tier} />
+        <div className="min-w-0 flex-1">{children}</div>
       </div>
     </div>
   )
