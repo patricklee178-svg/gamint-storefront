@@ -88,25 +88,6 @@ export default async function Nav() {
           </div>
 
           <div className="flex items-center gap-4">
-            <div className="hidden small:block">
-              <LocalizedClientLink
-                href="/account"
-                className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
-                data-testid="nav-account-link"
-              >
-                {customer ? (
-                  <>
-                    <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600">
-                      <img src="/default-avatar.png" alt="" className="h-full w-full object-cover" />
-                    </span>
-                    {customer.first_name || "حساب کاربری"}
-                  </>
-                ) : (
-                  "ورود / ثبت‌نام"
-                )}
-              </LocalizedClientLink>
-            </div>
-
             <div className="text-sm text-white">
               <Suspense
                 fallback={
@@ -129,6 +110,25 @@ export default async function Nav() {
                 locales={locales}
                 currentLocale={currentLocale}
               />
+            </div>
+
+            <div className="hidden small:block">
+              <LocalizedClientLink
+                href="/account"
+                className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
+                data-testid="nav-account-link"
+              >
+                {customer ? (
+                  <>
+                    <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600">
+                      <img src="/default-avatar.png" alt="" className="h-full w-full object-cover" />
+                    </span>
+                    {customer.first_name || "حساب کاربری"}
+                  </>
+                ) : (
+                  "ورود / ثبت‌نام"
+                )}
+              </LocalizedClientLink>
             </div>
           </div>
 
