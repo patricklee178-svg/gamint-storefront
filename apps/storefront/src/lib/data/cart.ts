@@ -10,11 +10,40 @@ import {
   getCacheOptions,
   getCacheTag,
   getCartId,
+  removeAuthToken,
   removeCartId,
   setCartId,
 } from "./cookies"
 import { getRegion } from "./regions"
 import { getLocale } from "./locale-actions"
+
+// A customer's login cookie can outlive the customer record itself (e.g. the
+// account was removed while they were still logged in elsewhere). Medusa's
+// customer-scoped cart routes then fail with "Customer with id: ... was not
+// found" instead of just treating the request as unauthenticated. Detect that
+// specific failure and retry once as a guest, clearing the now-stale cookie
+// so the rest of the session (and the header's logged-out state) stays
+// consistent instead of repeatedly crashing.
+function isStaleCustomerError(error: unknown): boolean {
+  const message = error instanceof Error ? error.message : String(error)
+  return /customer with id:.*was not found/i.test(message)
+}
+
+async function withStaleSessionRetry<T>(
+  run: (headers: Record<string, string>) => Promise<T>
+): Promise<T> {
+  const headers = (await getAuthHeaders()) as Record<string, string>
+
+  try {
+    return await run(headers)
+  } catch (error) {
+    if ("authorization" in headers && isStaleCustomerError(error)) {
+      await removeAuthToken()
+      return await run({})
+    }
+    throw error
+  }
+}
 
 /**
  * Retrieves a cart by its ID. If no ID is provided, it will use the cart ID from the cookies.
@@ -61,16 +90,14 @@ export async function getOrSetCart(countryCode: string) {
 
   let cart = await retrieveCart(undefined, "id,region_id")
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
-
   if (!cart) {
     const locale = await getLocale()
-    const cartResp = await sdk.store.cart.create(
-      { region_id: region.id, locale: locale || undefined },
-      {},
-      headers
+    const cartResp = await withStaleSessionRetry((headers) =>
+      sdk.store.cart.create(
+        { region_id: region.id, locale: locale || undefined },
+        {},
+        headers
+      )
     )
     cart = cartResp.cart
 
@@ -81,7 +108,9 @@ export async function getOrSetCart(countryCode: string) {
   }
 
   if (cart && cart?.region_id !== region.id) {
-    await sdk.store.cart.update(cart.id, { region_id: region.id }, {}, headers)
+    await withStaleSessionRetry((headers) =>
+      sdk.store.cart.update(cart!.id, { region_id: region.id }, {}, headers)
+    )
     const cartCacheTag = await getCacheTag("carts")
     revalidateTag(cartCacheTag)
   }
@@ -96,22 +125,20 @@ export async function updateCart(data: HttpTypes.StoreUpdateCart) {
     throw new Error("No existing cart found, please create one before updating")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
+  return withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .update(cartId, data, {}, headers)
+      .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
 
-  return sdk.store.cart
-    .update(cartId, data, {}, headers)
-    .then(async ({ cart }: { cart: HttpTypes.StoreCart }) => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
+        const fulfillmentCacheTag = await getCacheTag("fulfillment")
+        revalidateTag(fulfillmentCacheTag)
 
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
-
-      return cart
-    })
-    .catch(medusaError)
+        return cart
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function addToCart({
@@ -133,28 +160,26 @@ export async function addToCart({
     throw new Error("Error retrieving or creating cart")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
+  await withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .createLineItem(
+        cart.id,
+        {
+          variant_id: variantId,
+          quantity,
+        },
+        {},
+        headers
+      )
+      .then(async () => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
 
-  await sdk.store.cart
-    .createLineItem(
-      cart.id,
-      {
-        variant_id: variantId,
-        quantity,
-      },
-      {},
-      headers
-    )
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
-    })
-    .catch(medusaError)
+        const fulfillmentCacheTag = await getCacheTag("fulfillment")
+        revalidateTag(fulfillmentCacheTag)
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function updateLineItem({
@@ -174,20 +199,18 @@ export async function updateLineItem({
     throw new Error("Missing cart ID when updating line item")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
+  await withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .updateLineItem(cartId, lineId, { quantity }, {}, headers)
+      .then(async () => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
 
-  await sdk.store.cart
-    .updateLineItem(cartId, lineId, { quantity }, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
-    })
-    .catch(medusaError)
+        const fulfillmentCacheTag = await getCacheTag("fulfillment")
+        revalidateTag(fulfillmentCacheTag)
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function deleteLineItem(lineId: string) {
@@ -201,20 +224,18 @@ export async function deleteLineItem(lineId: string) {
     throw new Error("Missing cart ID when deleting line item")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
+  await withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .deleteLineItem(cartId, lineId, {}, headers)
+      .then(async () => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
 
-  await sdk.store.cart
-    .deleteLineItem(cartId, lineId, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
-    })
-    .catch(medusaError)
+        const fulfillmentCacheTag = await getCacheTag("fulfillment")
+        revalidateTag(fulfillmentCacheTag)
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function setShippingMethod({
@@ -224,17 +245,15 @@ export async function setShippingMethod({
   cartId: string
   shippingMethodId: string
 }) {
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
-
-  return sdk.store.cart
-    .addShippingMethod(cartId, { option_id: shippingMethodId }, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-    })
-    .catch(medusaError)
+  return withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .addShippingMethod(cartId, { option_id: shippingMethodId }, {}, headers)
+      .then(async () => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function initiatePaymentSession(
@@ -262,20 +281,18 @@ export async function applyPromotions(codes: string[]) {
     throw new Error("No existing cart found")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
+  return withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .update(cartId, { promo_codes: codes }, {}, headers)
+      .then(async () => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
 
-  return sdk.store.cart
-    .update(cartId, { promo_codes: codes }, {}, headers)
-    .then(async () => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag)
-    })
-    .catch(medusaError)
+        const fulfillmentCacheTag = await getCacheTag("fulfillment")
+        revalidateTag(fulfillmentCacheTag)
+      })
+      .catch(medusaError)
+  )
 }
 
 export async function applyGiftCard(code: string) {
@@ -398,18 +415,16 @@ export async function placeOrder(cartId?: string) {
     throw new Error("No existing cart found when placing an order")
   }
 
-  const headers = {
-    ...(await getAuthHeaders()),
-  }
-
-  const cartRes = await sdk.store.cart
-    .complete(id, {}, headers)
-    .then(async (cartRes) => {
-      const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag)
-      return cartRes
-    })
-    .catch(medusaError)
+  const cartRes = await withStaleSessionRetry((headers) =>
+    sdk.store.cart
+      .complete(id, {}, headers)
+      .then(async (cartRes) => {
+        const cartCacheTag = await getCacheTag("carts")
+        revalidateTag(cartCacheTag)
+        return cartRes
+      })
+      .catch(medusaError)
+  )
 
   if (cartRes?.type === "order") {
     const countryCode =
