@@ -1,23 +1,26 @@
 import "server-only"
 
 import { getCategoryByHandle } from "./categories"
-import { listProductsWithSort } from "./products"
+import { listProducts } from "./products"
 import { getProductPrice } from "@lib/util/get-product-price"
 import { Game } from "@modules/marketing/components"
 
 /**
  * Fetches published products in a category and maps them to the `Game`
- * shape the marketing pages (preorders, playstation, ...) render with.
+ * shape the marketing pages (preorders, playstation, homepage, ...) render
+ * with.
  */
 export async function listCategoryGames({
   categoryHandle,
   countryCode,
   limit = 24,
+  offset = 0,
   badge,
 }: {
   categoryHandle: string
   countryCode: string
   limit?: number
+  offset?: number
   badge?: string
 }): Promise<Game[]> {
   const category = await getCategoryByHandle([categoryHandle])
@@ -28,11 +31,14 @@ export async function listCategoryGames({
 
   const {
     response: { products },
-  } = await listProductsWithSort({
-    page: 1,
-    queryParams: { category_id: [category.id], limit },
-    sortBy: "created_at",
+  } = await listProducts({
     countryCode,
+    queryParams: {
+      category_id: [category.id],
+      limit,
+      offset,
+      order: "-created_at",
+    },
   })
 
   return products.map((product) => {
