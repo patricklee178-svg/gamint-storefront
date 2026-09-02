@@ -96,16 +96,8 @@ export default async function Nav() {
               >
                 {customer ? (
                   <>
-                    <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600 text-[11px] font-black text-white">
-                      {customer.metadata?.avatar_url ? (
-                        <img
-                          src={customer.metadata.avatar_url as string}
-                          alt=""
-                          className="h-full w-full object-cover"
-                        />
-                      ) : (
-                        (customer.first_name?.[0] || customer.email[0]).toUpperCase()
-                      )}
+                    <span className="grid h-7 w-7 shrink-0 place-items-center overflow-hidden rounded-full bg-gradient-to-br from-purple-500 to-fuchsia-600">
+                      <img src="/default-avatar.png" alt="" className="h-full w-full object-cover" />
                     </span>
                     {customer.first_name || "حساب کاربری"}
                   </>
