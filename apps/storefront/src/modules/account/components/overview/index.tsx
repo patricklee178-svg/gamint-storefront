@@ -75,7 +75,7 @@ const Overview = ({ customer, orders }: Props) => {
               type="button"
               disabled
               title="شارژ آنلاین کیف پول به‌زودی فعال می‌شود"
-              className="mt-3 w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/[0.03] py-1.5 text-[11px] font-bold text-white/35"
+              className="w-full cursor-not-allowed rounded-lg border border-white/10 bg-white/[0.03] py-1.5 text-[11px] font-bold text-white/35"
             >
               شارژ کیف پول (به‌زودی)
             </button>
@@ -266,20 +266,22 @@ const StatCard = ({
   action?: ReactNode
 }) => {
   const content = (
-    <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-4 transition hover:border-purple-400/30">
-      <div className="flex items-center justify-between">
-        <span className="grid h-9 w-9 place-items-center rounded-xl border border-purple-400/20 bg-purple-500/10 text-purple-300">
-          {icon}
-        </span>
-      </div>
+    <div className="flex h-full flex-col rounded-2xl border border-white/10 bg-[#0a0d14] p-4 transition hover:border-purple-400/30">
+      <span className="grid h-9 w-9 place-items-center rounded-xl border border-purple-400/20 bg-purple-500/10 text-purple-300">
+        {icon}
+      </span>
       <p className="mt-3 text-lg font-black text-white">{value}</p>
       <p className="mt-0.5 text-[11px] text-white/40">{label}</p>
-      {action}
+      {action && <div className="mt-auto pt-3">{action}</div>}
     </div>
   )
 
   if (href) {
-    return <LocalizedClientLink href={href}>{content}</LocalizedClientLink>
+    return (
+      <LocalizedClientLink href={href} className="block h-full">
+        {content}
+      </LocalizedClientLink>
+    )
   }
 
   return content
