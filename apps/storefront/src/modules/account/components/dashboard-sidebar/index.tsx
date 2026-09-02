@@ -39,11 +39,10 @@ const navItems = [
 ]
 
 const DashboardSidebar = ({ customer, tier }: Props) => {
-  const pathname = usePathname()
+  const currentPath = usePathname()
   const countryCode = useParams().countryCode as string
   const [ticketOpen, setTicketOpen] = useState(false)
 
-  const currentPath = countryCode ? pathname.split(countryCode)[1] || "/" : pathname
   const initial = (customer.first_name?.[0] || customer.email[0] || "?").toUpperCase()
   const fullName = [customer.first_name, customer.last_name].filter(Boolean).join(" ") || customer.email
 
