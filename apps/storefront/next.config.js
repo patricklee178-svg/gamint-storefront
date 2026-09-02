@@ -39,6 +39,14 @@ const nextConfig = {
         protocol: "https",
         hostname: "*.s3.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "upload.wikimedia.org",
+      },
+      {
+        protocol: "https",
+        hostname: "gamint.ir",
+      },
       ...(S3_HOSTNAME && S3_PATHNAME
         ? [
             {
