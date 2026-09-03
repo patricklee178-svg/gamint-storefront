@@ -1,12 +1,9 @@
 import { ChevronUpDown } from "@medusajs/icons"
-import { clx } from "@modules/common/components/ui"
 import {
   SelectHTMLAttributes,
   forwardRef,
-  useEffect,
   useImperativeHandle,
   useRef,
-  useState,
 } from "react"
 
 export type NativeSelectProps = {
@@ -17,53 +14,32 @@ export type NativeSelectProps = {
 
 const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
   (
-    { placeholder = "Select...", defaultValue, className, children, ...props },
+    { placeholder = "انتخاب کن...", defaultValue, className: _className, children, ...props },
     ref
   ) => {
     const innerRef = useRef<HTMLSelectElement>(null)
-    const [isPlaceholder, setIsPlaceholder] = useState(false)
 
     useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
       ref,
       () => innerRef.current
     )
 
-    useEffect(() => {
-      if (innerRef.current && innerRef.current.value === "") {
-        setIsPlaceholder(true)
-      } else {
-        setIsPlaceholder(false)
-      }
-    }, [innerRef.current?.value])
-
     return (
-      <div>
-        <div
-          onFocus={() => innerRef.current?.focus()}
-          onBlur={() => innerRef.current?.blur()}
-          className={clx(
-            "relative flex items-center text-base-regular border border-ui-border-base bg-ui-bg-subtle rounded-md hover:bg-ui-bg-field-hover",
-            className,
-            {
-              "text-ui-fg-muted": isPlaceholder,
-            }
-          )}
+      <div className="relative flex h-11 w-full items-center rounded-xl border border-white/10 bg-white/[0.04] text-sm text-white transition focus-within:border-purple-400/50 focus-within:bg-white/[0.06] focus-within:ring-4 focus-within:ring-purple-500/10">
+        <select
+          ref={innerRef}
+          defaultValue={defaultValue}
+          {...props}
+          className="flex-1 appearance-none bg-transparent px-4 py-2.5 outline-none [&>option]:bg-[#0c1018] [&>option]:text-white"
         >
-          <select
-            ref={innerRef}
-            defaultValue={defaultValue}
-            {...props}
-            className="appearance-none flex-1 bg-transparent border-none px-4 py-2.5 transition-colors duration-150 outline-none "
-          >
-            <option disabled value="">
-              {placeholder}
-            </option>
-            {children}
-          </select>
-          <span className="absolute right-4 inset-y-0 flex items-center pointer-events-none ">
-            <ChevronUpDown />
-          </span>
-        </div>
+          <option disabled value="">
+            {placeholder}
+          </option>
+          {children}
+        </select>
+        <span className="pointer-events-none absolute right-4 flex items-center text-white/40">
+          <ChevronUpDown />
+        </span>
       </div>
     )
   }

@@ -1,5 +1,5 @@
 import { Disclosure } from "@headlessui/react"
-import { Badge, Button, clx } from "@modules/common/components/ui"
+import { clx } from "@modules/common/components/ui"
 import { useEffect } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -22,7 +22,7 @@ const AccountInfo = ({
   isSuccess,
   isError,
   clearState,
-  errorMessage = "An error occurred, please try again",
+  errorMessage = "مشکلی پیش اومد، دوباره امتحان کن.",
   children,
   'data-testid': dataTestid
 }: AccountInfoProps) => {
@@ -42,30 +42,30 @@ const AccountInfo = ({
   }, [isSuccess, close])
 
   return (
-    <div className="text-small-regular" data-testid={dataTestid}>
-      <div className="flex items-end justify-between">
-        <div className="flex flex-col">
-          <span className="uppercase text-ui-fg-base">{label}</span>
-          <div className="flex items-center flex-1 basis-0 justify-end gap-x-4">
-            {typeof currentInfo === "string" ? (
-              <span className="font-semibold" data-testid="current-info">{currentInfo}</span>
-            ) : (
-              currentInfo
-            )}
-          </div>
+    <div
+      className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5"
+      data-testid={dataTestid}
+    >
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex flex-col gap-1">
+          <span className="text-xs text-white/40">{label}</span>
+          {typeof currentInfo === "string" ? (
+            <span className="text-sm font-bold text-white" data-testid="current-info">
+              {currentInfo}
+            </span>
+          ) : (
+            currentInfo
+          )}
         </div>
-        <div>
-          <Button
-            variant="secondary"
-            className="w-[100px] min-h-[25px] py-1"
-            onClick={handleToggle}
-            type={state ? "reset" : "button"}
-            data-testid="edit-button"
-            data-active={state}
-          >
-            {state ? "Cancel" : "Edit"}
-          </Button>
-        </div>
+        <button
+          type={state ? "reset" : "button"}
+          onClick={handleToggle}
+          data-testid="edit-button"
+          data-active={state}
+          className="shrink-0 rounded-xl border border-white/15 px-4 py-2 text-xs font-bold text-white/70 transition hover:border-purple-400/40 hover:text-white"
+        >
+          {state ? "انصراف" : "ویرایش"}
+        </button>
       </div>
 
       {/* Success state */}
@@ -81,9 +81,9 @@ const AccountInfo = ({
           )}
           data-testid="success-message"
         >
-          <Badge className="p-2 my-4" color="green">
-            <span>{label} updated succesfully</span>
-          </Badge>
+          <div className="mt-4 rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-300">
+            {label} با موفقیت به‌روزرسانی شد.
+          </div>
         </Disclosure.Panel>
       </Disclosure>
 
@@ -100,9 +100,9 @@ const AccountInfo = ({
           )}
           data-testid="error-message"
         >
-          <Badge className="p-2 my-4" color="red">
-            <span>{errorMessage}</span>
-          </Badge>
+          <div className="mt-4 rounded-xl border border-rose-400/25 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-300">
+            {errorMessage}
+          </div>
         </Disclosure.Panel>
       </Disclosure>
 
@@ -117,17 +117,17 @@ const AccountInfo = ({
             }
           )}
         >
-          <div className="flex flex-col gap-y-2 py-4">
+          <div className="flex flex-col gap-y-3 pt-4">
             <div>{children}</div>
-            <div className="flex items-center justify-end mt-2">
-              <Button
-                isLoading={pending}
-                className="w-full small:max-w-[140px]"
+            <div className="flex items-center justify-end">
+              <button
                 type="submit"
+                disabled={pending}
                 data-testid="save-button"
+                className="rounded-xl bg-purple-600 px-6 py-2.5 text-xs font-bold text-white transition hover:bg-purple-500 disabled:opacity-50"
               >
-                Save changes
-              </Button>
+                {pending ? "در حال ذخیره..." : "ذخیره تغییرات"}
+              </button>
             </div>
           </div>
         </Disclosure.Panel>

@@ -29,19 +29,12 @@ export default async function Profile() {
           نام، ایمیل، شماره موبایل و آدرس صورت‌حساب خودت رو اینجا ویرایش کن.
         </p>
       </div>
-      <div className="flex flex-col gap-y-8 w-full rounded-2xl bg-white p-6">
+      <div className="flex w-full flex-col gap-4">
         <ProfileName customer={customer} />
-        <Divider />
         <ProfileEmail customer={customer} />
-        <Divider />
         <ProfilePhone customer={customer} />
-        <Divider />
         <ProfileBillingAddress customer={customer} regions={regions} />
       </div>
     </div>
   )
-}
-
-const Divider = () => {
-  return <div className="w-full h-px bg-gray-200" />
 }

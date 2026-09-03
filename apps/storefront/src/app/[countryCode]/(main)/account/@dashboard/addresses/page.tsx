@@ -31,9 +31,7 @@ export default async function Addresses(props: {
           آدرس‌های خودت رو اینجا مدیریت کن تا موقع خرید سریع‌تر انتخابشون کنی.
         </p>
       </div>
-      <div className="rounded-2xl bg-white p-6">
-        <AddressBook customer={customer} region={region} />
-      </div>
+      <AddressBook customer={customer} region={region} />
     </div>
   )
 }

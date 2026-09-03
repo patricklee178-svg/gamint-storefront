@@ -8,12 +8,26 @@ import useToggleState from "@lib/hooks/use-toggle-state"
 import { PencilSquare as Edit, Trash } from "@medusajs/icons"
 import { HttpTypes } from "@medusajs/types"
 import CountrySelect from "@modules/checkout/components/country-select"
-import { SubmitButton } from "@modules/checkout/components/submit-button"
 import Input from "@modules/common/components/input"
 import Modal from "@modules/common/components/modal"
-import { Button, Heading, Text, clx } from "@modules/common/components/ui"
+import { clx } from "@modules/common/components/ui"
 import Spinner from "@modules/common/icons/spinner"
 import React, { useActionState, useEffect, useState } from "react"
+import { useFormStatus } from "react-dom"
+
+const SaveButton = () => {
+  const { pending } = useFormStatus()
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      data-testid="save-button"
+      className="h-10 rounded-xl bg-purple-600 px-6 text-xs font-bold text-white transition hover:bg-purple-500 disabled:opacity-50"
+    >
+      {pending ? "در حال ذخیره..." : "ذخیره"}
+    </button>
+  )
+}
 
 type EditAddressProps = {
   region: HttpTypes.StoreRegion
@@ -63,29 +77,23 @@ const EditAddress: React.FC<EditAddressProps> = ({
     <>
       <div
         className={clx(
-          "border rounded-rounded p-5 min-h-[220px] h-full w-full flex flex-col justify-between transition-colors",
+          "flex h-full min-h-[220px] w-full flex-col justify-between rounded-2xl border border-white/10 bg-[#0a0d14] p-5 transition-colors",
           {
-            "border-gray-900": isActive,
+            "border-purple-400/40": isActive,
           }
         )}
         data-testid="address-container"
       >
         <div className="flex flex-col">
-          <Heading
-            className="text-left text-base-semi"
-            data-testid="address-name"
-          >
+          <span className="text-sm font-bold text-white" data-testid="address-name">
             {address.first_name} {address.last_name}
-          </Heading>
+          </span>
           {address.company && (
-            <Text
-              className="txt-compact-small text-ui-fg-base"
-              data-testid="address-company"
-            >
+            <span className="mt-1 text-xs text-white/45" data-testid="address-company">
               {address.company}
-            </Text>
+            </span>
           )}
-          <Text className="flex flex-col text-left text-base-regular mt-2">
+          <div className="mt-2 flex flex-col gap-0.5 text-xs text-white/45">
             <span data-testid="address-address">
               {address.address_1}
               {address.address_2 && <span>, {address.address_2}</span>}
@@ -97,39 +105,39 @@ const EditAddress: React.FC<EditAddressProps> = ({
               {address.province && `${address.province}, `}
               {address.country_code?.toUpperCase()}
             </span>
-          </Text>
+          </div>
         </div>
         <div className="flex items-center gap-x-4">
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex items-center gap-x-1.5 text-xs font-bold text-white/60 transition hover:text-white"
             onClick={open}
             data-testid="address-edit-button"
           >
             <Edit />
-            Edit
+            ویرایش
           </button>
           <button
-            className="text-small-regular text-ui-fg-base flex items-center gap-x-2"
+            className="flex items-center gap-x-1.5 text-xs font-bold text-white/60 transition hover:text-rose-400"
             onClick={removeAddress}
             data-testid="address-delete-button"
           >
             {removing ? <Spinner /> : <Trash />}
-            Remove
+            حذف
           </button>
         </div>
       </div>
 
       <Modal isOpen={state} close={close} data-testid="edit-address-modal">
         <Modal.Title>
-          <Heading className="mb-2">Edit address</Heading>
+          <span className="mb-2 text-lg font-bold text-white">ویرایش آدرس</span>
         </Modal.Title>
         <form action={formAction}>
           <input type="hidden" name="addressId" value={address.id} />
           <Modal.Body>
-            <div className="grid grid-cols-1 gap-y-2">
+            <div className="grid w-full grid-cols-1 gap-y-3">
               <div className="grid grid-cols-2 gap-x-2">
                 <Input
-                  label="First name"
+                  label="نام"
                   name="first_name"
                   required
                   autoComplete="given-name"
@@ -137,7 +145,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   data-testid="first-name-input"
                 />
                 <Input
-                  label="Last name"
+                  label="نام خانوادگی"
                   name="last_name"
                   required
                   autoComplete="family-name"
@@ -146,14 +154,14 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 />
               </div>
               <Input
-                label="Company"
+                label="شرکت (اختیاری)"
                 name="company"
                 autoComplete="organization"
                 defaultValue={address.company || undefined}
                 data-testid="company-input"
               />
               <Input
-                label="Address"
+                label="آدرس"
                 name="address_1"
                 required
                 autoComplete="address-line1"
@@ -161,7 +169,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 data-testid="address-1-input"
               />
               <Input
-                label="Apartment, suite, etc."
+                label="واحد، پلاک و... (اختیاری)"
                 name="address_2"
                 autoComplete="address-line2"
                 defaultValue={address.address_2 || undefined}
@@ -169,7 +177,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
               />
               <div className="grid grid-cols-[144px_1fr] gap-x-2">
                 <Input
-                  label="Postal code"
+                  label="کد پستی"
                   name="postal_code"
                   required
                   autoComplete="postal-code"
@@ -177,7 +185,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                   data-testid="postal-code-input"
                 />
                 <Input
-                  label="City"
+                  label="شهر"
                   name="city"
                   required
                   autoComplete="locality"
@@ -186,7 +194,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 />
               </div>
               <Input
-                label="Province / State"
+                label="استان (اختیاری)"
                 name="province"
                 autoComplete="address-level1"
                 defaultValue={address.province || undefined}
@@ -201,7 +209,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
                 data-testid="country-select"
               />
               <Input
-                label="Phone"
+                label="شماره موبایل (اختیاری)"
                 name="phone"
                 autoComplete="phone"
                 defaultValue={address.phone || undefined}
@@ -209,23 +217,22 @@ const EditAddress: React.FC<EditAddressProps> = ({
               />
             </div>
             {formState.error && (
-              <div className="text-rose-500 text-small-regular py-2">
+              <div className="py-2 text-xs font-semibold text-rose-400">
                 {formState.error}
               </div>
             )}
           </Modal.Body>
           <Modal.Footer>
-            <div className="flex gap-3 mt-6">
-              <Button
+            <div className="mt-6 flex gap-3">
+              <button
                 type="reset"
-                variant="secondary"
                 onClick={close}
-                className="h-10"
+                className="h-10 rounded-xl border border-white/15 px-6 text-xs font-bold text-white/70 transition hover:border-white/30 hover:text-white"
                 data-testid="cancel-button"
               >
-                Cancel
-              </Button>
-              <SubmitButton data-testid="save-button">Save</SubmitButton>
+                انصراف
+              </button>
+              <SaveButton />
             </div>
           </Modal.Footer>
         </form>
