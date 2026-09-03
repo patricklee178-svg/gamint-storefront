@@ -40,6 +40,9 @@ module.exports = defineConfig({
 
   modules: [
     {
+      resolve: "./src/modules/capacity-account",
+    },
+    {
       resolve: "@medusajs/medusa/file",
       options: {
         providers: [
