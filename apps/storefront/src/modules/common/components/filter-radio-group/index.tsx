@@ -1,5 +1,3 @@
-import { EllipseMiniSolid } from "@medusajs/icons"
-import { Label, RadioGroup, Text, clx } from "@modules/common/components/ui"
 type FilterRadioGroupProps = {
   title: string
   items: {
@@ -19,40 +17,45 @@ const FilterRadioGroup = ({
   "data-testid": dataTestId,
 }: FilterRadioGroupProps) => {
   return (
-    <div className="flex gap-x-3 flex-col gap-y-3">
-      <Text className="txt-compact-small-plus text-ui-fg-muted">{title}</Text>
-      <RadioGroup data-testid={dataTestId}>
-        {items?.map((i) => (
-          <div
-            key={i.value}
-            className={clx("flex gap-x-2 items-center", {
-              "ml-[-23px]": i.value === value,
-            })}
-          >
-            {i.value === value && <EllipseMiniSolid />}
-            <RadioGroup.Item
-              checked={i.value === value}
-              onChange={() => handleChange(i.value)}
-              className="hidden peer"
-              id={i.value}
-              value={i.value}
-            />
-            <Label
+    <div className="flex flex-col gap-y-3">
+      <p className="text-xs font-bold text-white/70">{title}</p>
+      <div className="flex flex-col gap-y-2" data-testid={dataTestId}>
+        {items?.map((i) => {
+          const active = i.value === value
+          return (
+            <label
+              key={i.value}
               htmlFor={i.value}
-              className={clx(
-                "!txt-compact-small !transform-none text-ui-fg-subtle hover:cursor-pointer",
-                {
-                  "text-ui-fg-base": i.value === value,
-                }
-              )}
-              data-testid="radio-label"
-              data-active={i.value === value}
+              className="flex cursor-pointer items-center gap-x-2.5"
             >
-              {i.label}
-            </Label>
-          </div>
-        ))}
-      </RadioGroup>
+              <input
+                type="radio"
+                checked={active}
+                onChange={() => handleChange(i.value)}
+                className="peer hidden"
+                id={i.value}
+                value={i.value}
+              />
+              <span
+                className={`grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 transition ${
+                  active ? "border-purple-400" : "border-white/25"
+                }`}
+              >
+                {active && <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />}
+              </span>
+              <span
+                className={`text-xs transition ${
+                  active ? "font-bold text-white" : "text-white/50"
+                }`}
+                data-testid="radio-label"
+                data-active={active}
+              >
+                {i.label}
+              </span>
+            </label>
+          )
+        })}
+      </div>
     </div>
   )
 }

@@ -25,6 +25,9 @@ export default async function PaginatedProducts({
   countryCode,
   optionValueIds,
   q,
+  genreCategoryIds,
+  minPrice,
+  maxPrice,
 }: {
   sortBy?: SortOptions
   page: number
@@ -34,6 +37,9 @@ export default async function PaginatedProducts({
   countryCode: string
   optionValueIds?: OptionValueIds
   q?: string
+  genreCategoryIds?: string[]
+  minPrice?: number
+  maxPrice?: number
 }) {
   const queryParams: PaginatedProductsParams = {
     limit: 12,
@@ -73,15 +79,20 @@ export default async function PaginatedProducts({
     sortBy,
     countryCode,
     optionValueIds,
+    genreCategoryIds,
+    minPrice,
+    maxPrice,
   })
 
   const totalPages = Math.ceil(count / PRODUCT_LIMIT)
 
-  if (q && products.length === 0) {
+  if (products.length === 0) {
     return (
       <div className="w-full rounded-2xl border border-white/10 bg-[#0a0d14] py-16 text-center">
         <p className="text-sm text-gray-400">
-          نتیجه‌ای برای «{q}» پیدا نشد. عبارت دیگری را امتحان کنید.
+          {q
+            ? `نتیجه‌ای برای «${q}» پیدا نشد. عبارت دیگری را امتحان کنید.`
+            : "با این فیلترها محصولی پیدا نشد. فیلترها رو تغییر بده."}
         </p>
       </div>
     )
