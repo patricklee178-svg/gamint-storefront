@@ -1,23 +1,16 @@
-import { Heading } from "@modules/common/components/ui"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import React from "react"
 
 const Help = () => {
   return (
-    <div className="mt-6">
-      <Heading className="text-base-semi">Need help?</Heading>
-      <div className="text-base-regular my-2">
-        <ul className="gap-y-2 flex flex-col">
-          <li>
-            <LocalizedClientLink href="/contact">Contact</LocalizedClientLink>
-          </li>
-          <li>
-            <LocalizedClientLink href="/contact">
-              Returns & Exchanges
-            </LocalizedClientLink>
-          </li>
-        </ul>
-      </div>
+    <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
+      <h2 className="mb-1.5 text-sm font-bold text-white">نیاز به کمک داری؟</h2>
+      <p className="text-xs leading-6 text-white/45">
+        برای هر سوالی درباره این سفارش می‌تونی از دکمه «ثبت تیکت جدید» کنار صفحه استفاده کنی یا با{" "}
+        <LocalizedClientLink href="/contact" className="font-bold text-purple-400 hover:text-purple-300">
+          پشتیبانی گیمینت
+        </LocalizedClientLink>{" "}
+        در تماس باشی.
+      </p>
     </div>
   )
 }
