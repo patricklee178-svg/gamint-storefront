@@ -92,7 +92,7 @@ export const listProducts = async ({
     })
 }
 
-export const minPriceOf = (product: HttpTypes.StoreProduct): number => {
+const minPriceOf = (product: HttpTypes.StoreProduct): number => {
   if (!product.variants?.length) {
     return 0
   }
