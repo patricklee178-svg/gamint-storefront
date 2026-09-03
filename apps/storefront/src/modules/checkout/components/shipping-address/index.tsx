@@ -1,7 +1,6 @@
 import { HttpTypes } from "@medusajs/types"
-import { Container } from "@modules/common/components/ui"
-import Checkbox from "@modules/common/components/checkbox"
-import Input from "@modules/common/components/input"
+import CheckoutInput from "@modules/checkout/components/checkout-input"
+import CheckoutSelect from "@modules/checkout/components/checkout-select"
 import { mapKeys } from "lodash"
 import React, { useEffect, useMemo, useState } from "react"
 import AddressSelect from "../address-select"
@@ -36,7 +35,6 @@ const ShippingAddress = ({
     [cart?.region]
   )
 
-  // check if customer has saved addresses that are in the current region
   const addressesInRegion = useMemo(
     () =>
       customer?.addresses.filter(
@@ -73,7 +71,6 @@ const ShippingAddress = ({
   }
 
   useEffect(() => {
-    // Ensure cart is not null and has a shipping_address before setting form data
     if (cart && cart.shipping_address) {
       setFormAddress(cart?.shipping_address, cart?.email)
     }
@@ -81,12 +78,10 @@ const ShippingAddress = ({
     if (cart && !cart.email && customer?.email) {
       setFormAddress(undefined, customer.email)
     }
-  }, [cart]) // Add cart as a dependency
+  }, [cart])
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLInputElement | HTMLSelectElement
-    >
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     setFormData({
       ...formData,
@@ -97,9 +92,9 @@ const ShippingAddress = ({
   return (
     <>
       {customer && (addressesInRegion?.length || 0) > 0 && (
-        <Container className="mb-6 flex flex-col gap-y-4 p-5">
-          <p className="text-small-regular">
-            {`Hi ${customer.first_name}, do you want to use one of your saved addresses?`}
+        <div className="mb-5 rounded-xl border border-white/10 bg-white/[0.03] p-4">
+          <p className="mb-3 text-sm text-white/60">
+            سلام {customer.first_name}، می‌خوای از یکی از آدرس‌های ذخیره‌شده‌ات استفاده کنی؟
           </p>
           <AddressSelect
             addresses={customer.addresses}
@@ -110,11 +105,11 @@ const ShippingAddress = ({
             }
             onSelect={setFormAddress}
           />
-        </Container>
+        </div>
       )}
-      <div className="grid grid-cols-2 gap-4">
-        <Input
-          label="First name"
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <CheckoutInput
+          label="نام"
           name="shipping_address.first_name"
           autoComplete="given-name"
           value={formData["shipping_address.first_name"]}
@@ -122,8 +117,8 @@ const ShippingAddress = ({
           required
           data-testid="shipping-first-name-input"
         />
-        <Input
-          label="Last name"
+        <CheckoutInput
+          label="نام خانوادگی"
           name="shipping_address.last_name"
           autoComplete="family-name"
           value={formData["shipping_address.last_name"]}
@@ -131,8 +126,8 @@ const ShippingAddress = ({
           required
           data-testid="shipping-last-name-input"
         />
-        <Input
-          label="Address"
+        <CheckoutInput
+          label="آدرس"
           name="shipping_address.address_1"
           autoComplete="address-line1"
           value={formData["shipping_address.address_1"]}
@@ -140,16 +135,16 @@ const ShippingAddress = ({
           required
           data-testid="shipping-address-input"
         />
-        <Input
-          label="Company"
+        <CheckoutInput
+          label="شرکت (اختیاری)"
           name="shipping_address.company"
           value={formData["shipping_address.company"]}
           onChange={handleChange}
           autoComplete="organization"
           data-testid="shipping-company-input"
         />
-        <Input
-          label="Postal code"
+        <CheckoutInput
+          label="کد پستی"
           name="shipping_address.postal_code"
           autoComplete="postal-code"
           value={formData["shipping_address.postal_code"]}
@@ -157,8 +152,8 @@ const ShippingAddress = ({
           required
           data-testid="shipping-postal-code-input"
         />
-        <Input
-          label="City"
+        <CheckoutInput
+          label="شهر"
           name="shipping_address.city"
           autoComplete="address-level2"
           value={formData["shipping_address.city"]}
@@ -175,8 +170,8 @@ const ShippingAddress = ({
           required
           data-testid="shipping-country-select"
         />
-        <Input
-          label="State / Province"
+        <CheckoutInput
+          label="استان"
           name="shipping_address.province"
           autoComplete="address-level1"
           value={formData["shipping_address.province"]}
@@ -184,31 +179,36 @@ const ShippingAddress = ({
           data-testid="shipping-province-input"
         />
       </div>
-      <div className="my-8">
-        <Checkbox
-          label="Billing address same as shipping address"
+
+      <label className="mt-6 flex cursor-pointer items-center gap-2.5 text-sm text-white/60">
+        <input
+          type="checkbox"
           name="same_as_billing"
           checked={checked}
           onChange={onChange}
           data-testid="billing-address-checkbox"
+          className="h-4 w-4 rounded border-white/20 bg-white/[0.04] accent-purple-500"
         />
-      </div>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-        <Input
-          label="Email"
+        آدرس صورت‌حساب همون آدرس تحویله
+      </label>
+
+      <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <CheckoutInput
+          label="ایمیل"
           name="email"
           type="email"
-          title="Enter a valid email address."
+          title="یک ایمیل معتبر وارد کنید."
           autoComplete="email"
           value={formData.email}
           onChange={handleChange}
           required
           data-testid="shipping-email-input"
         />
-        <Input
-          label="Phone"
+        <CheckoutInput
+          label="شماره موبایل"
           name="shipping_address.phone"
           autoComplete="tel"
+          dir="ltr"
           value={formData["shipping_address.phone"]}
           onChange={handleChange}
           data-testid="shipping-phone-input"

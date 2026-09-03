@@ -1,49 +1,36 @@
-import { forwardRef, useImperativeHandle, useMemo, useRef } from "react"
+import { forwardRef, useMemo } from "react"
 
-import NativeSelect, {
-  NativeSelectProps,
-} from "@modules/common/components/native-select"
+import CheckoutSelect from "@modules/checkout/components/checkout-select"
 import { HttpTypes } from "@medusajs/types"
 
-const CountrySelect = forwardRef<
-  HTMLSelectElement,
-  NativeSelectProps & {
-    region?: HttpTypes.StoreRegion
+type CountrySelectProps = React.SelectHTMLAttributes<HTMLSelectElement> & {
+  region?: HttpTypes.StoreRegion
+}
+
+const CountrySelect = forwardRef<HTMLSelectElement, CountrySelectProps>(
+  ({ region, ...props }, ref) => {
+    const countryOptions = useMemo(() => {
+      if (!region) {
+        return []
+      }
+
+      return region.countries?.map((country) => ({
+        value: country.iso_2,
+        label: country.display_name,
+      }))
+    }, [region])
+
+    return (
+      <CheckoutSelect ref={ref} label="کشور" placeholder="کشور" {...props}>
+        {countryOptions?.map(({ value, label }, index) => (
+          <option key={index} value={value} className="bg-[#0a0d14]">
+            {label}
+          </option>
+        ))}
+      </CheckoutSelect>
+    )
   }
->(({ placeholder = "Country", region, defaultValue, ...props }, ref) => {
-  const innerRef = useRef<HTMLSelectElement>(null)
-
-  useImperativeHandle<HTMLSelectElement | null, HTMLSelectElement | null>(
-    ref,
-    () => innerRef.current
-  )
-
-  const countryOptions = useMemo(() => {
-    if (!region) {
-      return []
-    }
-
-    return region.countries?.map((country) => ({
-      value: country.iso_2,
-      label: country.display_name,
-    }))
-  }, [region])
-
-  return (
-    <NativeSelect
-      ref={innerRef}
-      placeholder={placeholder}
-      defaultValue={defaultValue}
-      {...props}
-    >
-      {countryOptions?.map(({ value, label }, index) => (
-        <option key={index} value={value}>
-          {label}
-        </option>
-      ))}
-    </NativeSelect>
-  )
-})
+)
 
 CountrySelect.displayName = "CountrySelect"
 

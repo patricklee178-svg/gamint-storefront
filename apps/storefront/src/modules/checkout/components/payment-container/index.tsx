@@ -1,8 +1,5 @@
 import { Radio as RadioGroupOption } from "@headlessui/react"
-import { Text, clx } from "@modules/common/components/ui"
 import React, { useContext, type JSX } from "react"
-
-import Radio from "@modules/common/components/radio"
 
 import { isManual } from "@lib/constants"
 import SkeletonCardDetails from "@modules/skeletons/components/skeleton-card-details"
@@ -18,6 +15,16 @@ type PaymentContainerProps = {
   children?: React.ReactNode
 }
 
+const RadioDot = ({ checked }: { checked: boolean }) => (
+  <span
+    className={`grid h-4 w-4 shrink-0 place-items-center rounded-full border-2 ${
+      checked ? "border-purple-400" : "border-white/25"
+    }`}
+  >
+    {checked && <span className="h-1.5 w-1.5 rounded-full bg-purple-400" />}
+  </span>
+)
+
 const PaymentContainer: React.FC<PaymentContainerProps> = ({
   paymentProviderId,
   selectedPaymentOptionId,
@@ -25,38 +32,27 @@ const PaymentContainer: React.FC<PaymentContainerProps> = ({
   disabled = false,
   children,
 }) => {
-  const isDevelopment = process.env.NODE_ENV === "development"
+  const isSelected = selectedPaymentOptionId === paymentProviderId
 
   return (
     <RadioGroupOption
       key={paymentProviderId}
       value={paymentProviderId}
       disabled={disabled}
-      className={clx(
-        "flex flex-col gap-y-2 text-small-regular cursor-pointer py-4 border rounded-rounded px-8 mb-2 hover:shadow-borders-interactive-with-active",
-        {
-          "border-ui-border-interactive":
-            selectedPaymentOptionId === paymentProviderId,
-        }
-      )}
+      className={`mb-2 flex cursor-pointer flex-col gap-2 rounded-xl border px-4 py-3.5 text-sm transition ${
+        isSelected ? "border-purple-400/50 bg-purple-500/10" : "border-white/10 hover:border-white/20"
+      }`}
     >
-      <div className="flex items-center justify-between ">
-        <div className="flex items-center gap-x-4">
-          <Radio checked={selectedPaymentOptionId === paymentProviderId} />
-          <Text className="text-base-regular">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <RadioDot checked={isSelected} />
+          <span className="text-white">
             {paymentInfoMap[paymentProviderId]?.title || paymentProviderId}
-          </Text>
-          {isManual(paymentProviderId) && isDevelopment && (
-            <PaymentTest className="hidden small:block" />
-          )}
+          </span>
         </div>
-        <span className="justify-self-end text-ui-fg-base">
-          {paymentInfoMap[paymentProviderId]?.icon}
-        </span>
+        <span className="text-purple-300">{paymentInfoMap[paymentProviderId]?.icon}</span>
       </div>
-      {isManual(paymentProviderId) && isDevelopment && (
-        <PaymentTest className="small:hidden text-[10px]" />
-      )}
+      {isManual(paymentProviderId) && <PaymentTest />}
       {children}
     </RadioGroupOption>
   )
@@ -86,25 +82,17 @@ export const StripePaymentContainer = ({
     >
       {selectedPaymentOptionId === paymentProviderId &&
         (stripeReady ? (
-          <div className="my-4 transition-all duration-150 ease-in-out">
-            <Text className="txt-medium-plus text-ui-fg-base mb-1">
-              Enter your payment details:
-            </Text>
+          <div className="my-3 transition-all duration-150 ease-in-out">
+            <p className="mb-2 text-xs font-bold text-white/60">اطلاعات پرداخت را وارد کنید:</p>
             <PaymentElement
               options={{ layout: "accordion" }}
               onChange={(e) => {
                 setError(null)
                 setPaymentComplete(e.complete)
               }}
-              // Without a handler Stripe.js reports a failed mount as an
-              // unhandled "payment Element loaderror" and the option renders
-              // blank with no explanation. Surface it in the checkout's own
-              // error slot instead.
               onLoadError={(e) => {
                 setPaymentComplete(false)
-                setError(
-                  e.error?.message ?? "Could not load the payment methods."
-                )
+                setError(e.error?.message ?? "درگاه پرداخت بارگذاری نشد.")
               }}
             />
           </div>

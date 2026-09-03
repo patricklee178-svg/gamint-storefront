@@ -3,7 +3,6 @@
 import { isManual, isStripeLike } from "@lib/constants"
 import { placeOrder } from "@lib/data/cart"
 import { HttpTypes } from "@medusajs/types"
-import { Button } from "@modules/common/components/ui"
 import { useElements, useStripe } from "@stripe/react-stripe-js"
 import { useParams } from "next/navigation"
 import React, { useState } from "react"
@@ -14,10 +13,10 @@ type PaymentButtonProps = {
   "data-testid": string
 }
 
-const PaymentButton: React.FC<PaymentButtonProps> = ({
-  cart,
-  "data-testid": dataTestId,
-}) => {
+const primaryButtonClass =
+  "flex h-12 w-full items-center justify-center rounded-xl bg-gradient-to-l from-purple-600 to-fuchsia-600 text-sm font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+
+const PaymentButton: React.FC<PaymentButtonProps> = ({ cart, "data-testid": dataTestId }) => {
   const notReady =
     !cart ||
     !cart.shipping_address ||
@@ -29,19 +28,15 @@ const PaymentButton: React.FC<PaymentButtonProps> = ({
 
   switch (true) {
     case isStripeLike(paymentSession?.provider_id):
-      return (
-        <StripePaymentButton
-          notReady={notReady}
-          cart={cart}
-          data-testid={dataTestId}
-        />
-      )
+      return <StripePaymentButton notReady={notReady} cart={cart} data-testid={dataTestId} />
     case isManual(paymentSession?.provider_id):
-      return (
-        <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
-      )
+      return <ManualTestPaymentButton notReady={notReady} data-testid={dataTestId} />
     default:
-      return <Button disabled>Select a payment method</Button>
+      return (
+        <button disabled className={primaryButtonClass}>
+          یک روش پرداخت انتخاب کنید
+        </button>
+      )
   }
 }
 
@@ -59,24 +54,18 @@ const StripePaymentButton = ({
 
   const onPaymentCompleted = async () => {
     await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message)
-      })
-      .finally(() => {
-        setSubmitting(false)
-      })
+      .catch((err) => setErrorMessage(err.message))
+      .finally(() => setSubmitting(false))
   }
 
   const stripe = useStripe()
   const elements = useElements()
   const { countryCode } = useParams()
 
-  const disabled = !stripe || !elements ? true : false
+  const disabled = !stripe || !elements
 
   const handlePayment = async () => {
-    if (!stripe || !elements || !cart) {
-      return
-    }
+    if (!stripe || !elements || !cart) return
 
     setSubmitting(true)
 
@@ -87,10 +76,7 @@ const StripePaymentButton = ({
           return_url: `${window.location.origin}/api/payment-return?cart_id=${cart.id}&country_code=${countryCode}`,
           payment_method_data: {
             billing_details: {
-              name:
-                cart.billing_address?.first_name +
-                " " +
-                cart.billing_address?.last_name,
+              name: cart.billing_address?.first_name + " " + cart.billing_address?.last_name,
               address: {
                 city: cart.billing_address?.city ?? undefined,
                 country: cart.billing_address?.country_code ?? undefined,
@@ -104,31 +90,21 @@ const StripePaymentButton = ({
             },
           },
         },
-        // Only leave the site when the selected method actually requires it, so
-        // card payments still complete inline.
         redirect: "if_required",
       })
       .then(({ error, paymentIntent }) => {
         if (error) {
           const pi = error.payment_intent
-
-          if (
-            (pi && pi.status === "requires_capture") ||
-            (pi && pi.status === "succeeded")
-          ) {
+          if ((pi && pi.status === "requires_capture") || (pi && pi.status === "succeeded")) {
             onPaymentCompleted()
             return
           }
-
           setErrorMessage(error.message || null)
           setSubmitting(false)
           return
         }
 
-        if (
-          paymentIntent.status === "requires_capture" ||
-          paymentIntent.status === "succeeded"
-        ) {
+        if (paymentIntent.status === "requires_capture" || paymentIntent.status === "succeeded") {
           onPaymentCompleted()
           return
         }
@@ -139,19 +115,15 @@ const StripePaymentButton = ({
 
   return (
     <>
-      <Button
+      <button
         disabled={disabled || notReady}
         onClick={handlePayment}
-        size="large"
-        isLoading={submitting}
         data-testid={dataTestId}
+        className={primaryButtonClass}
       >
-        Place order
-      </Button>
-      <ErrorMessage
-        error={errorMessage}
-        data-testid="stripe-payment-error-message"
-      />
+        {submitting ? "..." : "ثبت نهایی سفارش"}
+      </button>
+      <ErrorMessage error={errorMessage} data-testid="stripe-payment-error-message" />
     </>
   )
 }
@@ -162,35 +134,26 @@ const ManualTestPaymentButton = ({ notReady }: { notReady: boolean }) => {
 
   const onPaymentCompleted = async () => {
     await placeOrder()
-      .catch((err) => {
-        setErrorMessage(err.message)
-      })
-      .finally(() => {
-        setSubmitting(false)
-      })
+      .catch((err) => setErrorMessage(err.message))
+      .finally(() => setSubmitting(false))
   }
 
   const handlePayment = () => {
     setSubmitting(true)
-
     onPaymentCompleted()
   }
 
   return (
     <>
-      <Button
+      <button
         disabled={notReady}
-        isLoading={submitting}
         onClick={handlePayment}
-        size="large"
         data-testid="submit-order-button"
+        className={primaryButtonClass}
       >
-        Place order
-      </Button>
-      <ErrorMessage
-        error={errorMessage}
-        data-testid="manual-payment-error-message"
-      />
+        {submitting ? "..." : "ثبت نهایی سفارش"}
+      </button>
+      <ErrorMessage error={errorMessage} data-testid="manual-payment-error-message" />
     </>
   )
 }
