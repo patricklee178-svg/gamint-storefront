@@ -1,5 +1,6 @@
 import "server-only"
 
+import { HttpTypes } from "@medusajs/types"
 import { getCategoryByHandle } from "./categories"
 import { listProducts } from "./products"
 import { getProductPrice } from "@lib/util/get-product-price"
@@ -16,17 +17,45 @@ export async function listCategoryGames({
   limit = 24,
   offset = 0,
   badge,
+  sortBy = "created_at",
 }: {
   categoryHandle: string
   countryCode: string
   limit?: number
   offset?: number
   badge?: string
+  sortBy?: "created_at" | "release_year"
 }): Promise<Game[]> {
   const category = await getCategoryByHandle([categoryHandle])
 
   if (!category) {
     return []
+  }
+
+  if (sortBy === "release_year") {
+    // No store-API field for real-world release date, so we pull the
+    // (up to 100) products in the category and sort by the product's real
+    // `metadata.release_year` ourselves — falls back to created_at only to
+    // break ties among products that share a release year.
+    const {
+      response: { products },
+    } = await listProducts({
+      countryCode,
+      queryParams: {
+        category_id: [category.id],
+        limit: 100,
+        order: "-created_at",
+      },
+    })
+
+    const sorted = [...products].sort((a, b) => {
+      const yearA = Number(a.metadata?.release_year) || 0
+      const yearB = Number(b.metadata?.release_year) || 0
+      if (yearB !== yearA) return yearB - yearA
+      return new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime()
+    })
+
+    return sorted.slice(offset, offset + limit).map((product) => mapToGame(product, badge))
   }
 
   const {
@@ -41,22 +70,24 @@ export async function listCategoryGames({
     },
   })
 
-  return products.map((product) => {
-    const { cheapestPrice } = getProductPrice({ product })
-    const platform =
-      (product.metadata?.platform as string | undefined) ||
-      product.variants?.[0]?.title ||
-      "PS5"
+  return products.map((product) => mapToGame(product, badge))
+}
 
-    return {
-      title: product.title,
-      platform,
-      price: cheapestPrice
-        ? cheapestPrice.calculated_price_number.toLocaleString("fa-IR")
-        : "—",
-      image: product.thumbnail || product.images?.[0]?.url || "",
-      badge,
-      handle: product.handle,
-    }
-  })
+function mapToGame(product: HttpTypes.StoreProduct, badge?: string): Game {
+  const { cheapestPrice } = getProductPrice({ product })
+  const platform =
+    (product.metadata?.platform as string | undefined) ||
+    product.variants?.[0]?.title ||
+    "PS5"
+
+  return {
+    title: product.title,
+    platform,
+    price: cheapestPrice
+      ? cheapestPrice.calculated_price_number.toLocaleString("fa-IR")
+      : "—",
+    image: product.thumbnail || product.images?.[0]?.url || "",
+    badge,
+    handle: product.handle,
+  }
 }

@@ -181,7 +181,7 @@ export default async function Home({
 
   const [bestSellers, newestGames, preorders] = await Promise.all([
     listCategoryGames({ categoryHandle: "games", countryCode, limit: 6 }),
-    listCategoryGames({ categoryHandle: "games", countryCode, limit: 6, offset: 6 }),
+    listCategoryGames({ categoryHandle: "games", countryCode, limit: 6, sortBy: "release_year" }),
     listCategoryGames({
       categoryHandle: "preorders",
       countryCode,
