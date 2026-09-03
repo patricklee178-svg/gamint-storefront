@@ -1,5 +1,3 @@
-import { clx } from "@modules/common/components/ui"
-
 import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
 
@@ -18,40 +16,30 @@ export default function ProductPrice({
   const selectedPrice = variant ? variantPrice : cheapestPrice
 
   if (!selectedPrice) {
-    return <div className="block w-32 h-9 bg-gray-100 animate-pulse" />
+    return <div className="block h-9 w-32 animate-pulse rounded-lg bg-white/[0.06]" />
   }
 
   return (
-    <div className="flex flex-col text-ui-fg-base">
+    <div className="flex flex-col">
       <span
-        className={clx("text-xl-semi", {
-          "text-ui-fg-interactive": selectedPrice.price_type === "sale",
-        })}
+        className={`text-2xl font-black ${
+          selectedPrice.price_type === "sale" ? "text-purple-300" : "text-white"
+        }`}
       >
-        {!variant && "From "}
-        <span
-          data-testid="product-price"
-          data-value={selectedPrice.calculated_price_number}
-        >
+        {!variant && <span className="ml-1 text-sm font-normal text-white/40">از</span>}
+        <span data-testid="product-price" data-value={selectedPrice.calculated_price_number}>
           {selectedPrice.calculated_price}
         </span>
       </span>
       {selectedPrice.price_type === "sale" && (
-        <>
-          <p>
-            <span className="text-ui-fg-subtle">Original: </span>
-            <span
-              className="line-through"
-              data-testid="original-product-price"
-              data-value={selectedPrice.original_price_number}
-            >
-              {selectedPrice.original_price}
-            </span>
-          </p>
-          <span className="text-ui-fg-interactive">
+        <div className="mt-1 flex items-center gap-2">
+          <span className="text-xs text-white/35 line-through" data-testid="original-product-price">
+            {selectedPrice.original_price}
+          </span>
+          <span className="rounded-md bg-rose-500/15 px-1.5 py-0.5 text-[11px] font-bold text-rose-400">
             -{selectedPrice.percentage_diff}%
           </span>
-        </>
+        </div>
       )}
     </div>
   )

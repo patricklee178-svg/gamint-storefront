@@ -1,7 +1,7 @@
 import { listProducts } from "@lib/data/products"
-import { getRegion } from "@lib/data/regions"
+import { getProductPrice } from "@lib/util/get-product-price"
 import { HttpTypes } from "@medusajs/types"
-import Product from "../product-preview"
+import { GameSection } from "@modules/marketing/components"
 
 type RelatedProductsProps = {
   product: HttpTypes.StoreProduct
@@ -12,58 +12,52 @@ export default async function RelatedProducts({
   product,
   countryCode,
 }: RelatedProductsProps) {
-  const region = await getRegion(countryCode)
+  const genreCategoryIds = (product.categories || [])
+    .filter((c) => c.handle?.startsWith("genre-"))
+    .map((c) => c.id)
 
-  if (!region) {
+  const otherCategoryIds = (product.categories || [])
+    .filter((c) => !c.handle?.startsWith("genre-"))
+    .map((c) => c.id)
+
+  const categoryIds = genreCategoryIds.length > 0 ? genreCategoryIds : otherCategoryIds
+
+  if (categoryIds.length === 0) {
     return null
   }
 
-  // edit this function to define your related products logic
-  const queryParams: HttpTypes.StoreProductListParams = {}
-  if (region?.id) {
-    queryParams.region_id = region.id
-  }
-  if (product.collection_id) {
-    queryParams.collection_id = [product.collection_id]
-  }
-  if (product.tags) {
-    queryParams.tag_id = product.tags
-      .map((t) => t.id)
-      .filter(Boolean) as string[]
-  }
-  queryParams.is_giftcard = false
-
-  const products = await listProducts({
-    queryParams,
+  const { response } = await listProducts({
     countryCode,
-  }).then(({ response }) => {
-    return response.products.filter(
-      (responseProduct) => responseProduct.id !== product.id
-    )
+    queryParams: {
+      category_id: categoryIds,
+      limit: 7,
+      fields: "*categories",
+    },
   })
+
+  const products = response.products.filter((p) => p.id !== product.id).slice(0, 6)
 
   if (!products.length) {
     return null
   }
 
-  return (
-    <div className="product-page-constraint">
-      <div className="flex flex-col items-center text-center mb-16">
-        <span className="text-base-regular text-gray-600 mb-6">
-          Related products
-        </span>
-        <p className="text-2xl-regular text-ui-fg-base max-w-lg">
-          You might also want to check out these products.
-        </p>
-      </div>
+  const games = products.map((p) => {
+    const { cheapestPrice } = getProductPrice({ product: p })
+    return {
+      title: p.title,
+      platform: (p.metadata?.platform as string | undefined) || p.variants?.[0]?.title || "PS5",
+      price: cheapestPrice ? cheapestPrice.calculated_price_number.toLocaleString("fa-IR") : "—",
+      image: p.thumbnail || p.images?.[0]?.url || "",
+      handle: p.handle,
+    }
+  })
 
-      <ul className="grid grid-cols-2 small:grid-cols-3 medium:grid-cols-4 gap-x-6 gap-y-8">
-        {products.map((product) => (
-          <li key={product.id}>
-            <Product region={region} product={product} />
-          </li>
-        ))}
-      </ul>
-    </div>
+  return (
+    <GameSection
+      eyebrow="پیشنهاد ما"
+      title="بازی‌های مشابه"
+      games={games}
+      viewAllHref="/categories/games"
+    />
   )
 }

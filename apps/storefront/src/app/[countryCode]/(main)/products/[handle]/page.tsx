@@ -10,6 +10,9 @@ type Props = {
   searchParams: Promise<{ v_id?: string }>
 }
 
+const PRODUCT_DETAIL_FIELDS =
+  "*variants.calculated_price,+variants.inventory_quantity,*variants.images,*variants.options,*variants.options.option,+metadata,+tags,*categories,*options.values,*images"
+
 export async function generateStaticParams() {
   try {
     const countryCodes = await listRegions().then((regions) =>
@@ -80,19 +83,21 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   const product = await listProducts({
     countryCode: params.countryCode,
-    queryParams: { handle },
+    queryParams: { handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
 
   if (!product) {
     notFound()
   }
 
+  const description = product.description || `خرید ${product.title} از گیمینت`
+
   return {
     title: `${product.title} | گیمینت`,
-    description: `${product.title}`,
+    description,
     openGraph: {
       title: `${product.title} | گیمینت`,
-      description: `${product.title}`,
+      description,
       images: product.thumbnail ? [product.thumbnail] : [],
     },
   }
@@ -111,7 +116,7 @@ export default async function ProductPage(props: Props) {
 
   const pricedProduct = await listProducts({
     countryCode: params.countryCode,
-    queryParams: { handle: params.handle },
+    queryParams: { handle: params.handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
 
   if (!pricedProduct) {

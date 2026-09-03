@@ -12,9 +12,16 @@ type Props = {
   initialWishlisted: boolean
   isAuthenticated: boolean
   className?: string
+  label?: string
 }
 
-const WishlistButton = ({ productId, initialWishlisted, isAuthenticated, className }: Props) => {
+const WishlistButton = ({
+  productId,
+  initialWishlisted,
+  isAuthenticated,
+  className,
+  label,
+}: Props) => {
   const [wishlisted, setWishlisted] = useState(initialWishlisted)
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
@@ -33,6 +40,23 @@ const WishlistButton = ({ productId, initialWishlisted, isAuthenticated, classNa
         setWishlisted(res.wishlisted)
       }
     })
+  }
+
+  if (label) {
+    return (
+      <button
+        type="button"
+        onClick={handleClick}
+        disabled={isPending}
+        aria-pressed={wishlisted}
+        className={`flex items-center gap-1.5 text-xs font-semibold transition ${
+          wishlisted ? "text-purple-300" : "text-white/45 hover:text-white"
+        }`}
+      >
+        <HeartIcon className="h-4 w-4" filled={wishlisted} />
+        {wishlisted ? "در علاقه‌مندی‌ها" : label}
+      </button>
+    )
   }
 
   return (

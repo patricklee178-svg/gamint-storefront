@@ -1,39 +1,61 @@
+"use client"
+
+import { useState } from "react"
 import { HttpTypes } from "@medusajs/types"
-import { Container } from "@modules/common/components/ui"
-import Image from "next/image"
 
-type ImageGalleryProps = {
+type Badge = { label: string; tone: "purple" | "emerald" }
+
+const ImageGallery = ({
+  images,
+  badges = [],
+}: {
   images: HttpTypes.StoreProductImage[]
-}
+  badges?: Badge[]
+}) => {
+  const [active, setActive] = useState(0)
+  const shown = images[active] || images[0]
 
-const ImageGallery = ({ images }: ImageGalleryProps) => {
   return (
-    <div className="flex items-start relative">
-      <div className="flex flex-col flex-1 small:mx-16 gap-y-4">
-        {images.map((image, index) => {
-          return (
-            <Container
-              key={image.id}
-              className="relative aspect-[29/34] w-full overflow-hidden bg-ui-bg-subtle"
-              id={image.id}
-            >
-              {!!image.url && (
-                <Image
-                  src={image.url}
-                  priority={index <= 2 ? true : false}
-                  className="absolute inset-0 rounded-rounded"
-                  alt={`Product image ${index + 1}`}
-                  fill
-                  sizes="(max-width: 576px) 280px, (max-width: 768px) 360px, (max-width: 992px) 480px, 800px"
-                  style={{
-                    objectFit: "cover",
-                  }}
-                />
-              )}
-            </Container>
-          )
-        })}
+    <div className="w-full">
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14]">
+        {shown?.url && (
+          <img src={shown.url} alt="" className="h-full w-full object-cover" />
+        )}
+
+        <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
+          <div className="flex flex-wrap gap-1.5">
+            {badges.map((b) => (
+              <span
+                key={b.label}
+                className={`rounded-lg border px-2.5 py-1 text-[11px] font-bold backdrop-blur ${
+                  b.tone === "purple"
+                    ? "border-purple-300/25 bg-purple-600/80 text-white"
+                    : "border-emerald-300/25 bg-emerald-600/80 text-white"
+                }`}
+              >
+                {b.label}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {images.length > 1 && (
+        <div className="mt-3 flex gap-2 overflow-x-auto no-scrollbar">
+          {images.map((image, i) => (
+            <button
+              key={image.id}
+              type="button"
+              onClick={() => setActive(i)}
+              className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border transition ${
+                i === active ? "border-purple-400" : "border-white/10 opacity-60 hover:opacity-100"
+              }`}
+            >
+              {image.url && <img src={image.url} alt="" className="h-full w-full object-cover" />}
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

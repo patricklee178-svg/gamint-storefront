@@ -1,38 +1,41 @@
 import { HttpTypes } from "@medusajs/types"
-import { Heading, Text } from "@modules/common/components/ui"
-import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 type ProductInfoProps = {
   product: HttpTypes.StoreProduct
 }
 
 const ProductInfo = ({ product }: ProductInfoProps) => {
-  return (
-    <div id="product-info">
-      <div className="flex flex-col gap-y-4 lg:max-w-[500px] mx-auto">
-        {product.collection && (
-          <LocalizedClientLink
-            href={`/collections/${product.collection.handle}`}
-            className="text-medium text-ui-fg-muted hover:text-ui-fg-subtle"
-          >
-            {product.collection.title}
-          </LocalizedClientLink>
-        )}
-        <Heading
-          level="h2"
-          className="text-3xl leading-10 text-ui-fg-base"
-          data-testid="product-title"
-        >
-          {product.title}
-        </Heading>
+  const genres = (product.categories || []).filter((c) => c.handle?.startsWith("genre-"))
 
-        <Text
-          className="text-medium text-ui-fg-subtle whitespace-pre-line"
+  return (
+    <div id="product-info" className="flex flex-col gap-y-3">
+      <h1 className="text-2xl font-black text-white sm:text-3xl" data-testid="product-title">
+        {product.title}
+      </h1>
+
+      {product.subtitle && <p className="text-sm text-white/50">{product.subtitle}</p>}
+
+      {genres.length > 0 && (
+        <div className="flex flex-wrap gap-1.5">
+          {genres.map((g) => (
+            <span
+              key={g.id}
+              className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-bold text-white/60"
+            >
+              {g.name}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {product.description && (
+        <p
+          className="whitespace-pre-line text-sm leading-7 text-white/50"
           data-testid="product-description"
         >
           {product.description}
-        </Text>
-      </div>
+        </p>
+      )}
     </div>
   )
 }
