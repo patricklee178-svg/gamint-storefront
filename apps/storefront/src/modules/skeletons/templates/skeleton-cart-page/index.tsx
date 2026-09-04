@@ -1,60 +1,55 @@
-import { Table } from "@modules/common/components/ui"
-
 import repeat from "@lib/util/repeat"
-import SkeletonCartItem from "@modules/skeletons/components/skeleton-cart-item"
-import SkeletonCodeForm from "@modules/skeletons/components/skeleton-code-form"
-import SkeletonOrderSummary from "@modules/skeletons/components/skeleton-order-summary"
+
+const Bar = ({ className = "" }: { className?: string }) => (
+  <div className={`animate-pulse rounded-md bg-white/10 ${className}`} />
+)
 
 const SkeletonCartPage = () => {
   return (
-    <div className="py-12">
+    <div dir="rtl" className="min-h-[calc(100vh-72px)] bg-[#05070b] py-8 text-white">
       <div className="content-container">
-        <div className="grid grid-cols-1 small:grid-cols-[1fr_360px] gap-x-40">
-          <div className="flex flex-col bg-white p-6 gap-y-6">
-            <div className="bg-white flex items-start justify-between">
-              <div className="flex flex-col gap-y-2">
-                <div className="w-60 h-8 bg-gray-200 animate-pulse" />
-                <div className="w-48 h-6 bg-gray-200 animate-pulse" />
-              </div>
-              <div>
-                <div className="w-14 h-8 bg-gray-200 animate-pulse" />
+        <Bar className="h-4 w-40" />
+
+        <div className="mt-6 mb-8 h-16 rounded-2xl border border-white/10 bg-[#0a0d14]" />
+
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
+          <div className="min-w-0">
+            <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
+              <Bar className="mb-4 h-4 w-32" />
+              <div className="flex flex-col gap-4">
+                {repeat(3).map((index) => (
+                  <div key={index} className="flex items-center gap-4 border-t border-white/5 pt-4 first:border-t-0 first:pt-0">
+                    <Bar className="h-16 w-16 shrink-0 rounded-xl" />
+                    <div className="flex flex-1 flex-col gap-2">
+                      <Bar className="h-4 w-1/2" />
+                      <Bar className="h-3 w-1/3" />
+                    </div>
+                    <Bar className="h-4 w-16" />
+                  </div>
+                ))}
               </div>
             </div>
-            <div>
-              <div className="pb-3 flex items-center">
-                <div className="w-20 h-12 bg-gray-200 animate-pulse" />
-              </div>
-              <Table>
-                <Table.Header className="border-t-0">
-                  <Table.Row>
-                    <Table.HeaderCell className="!pl-0">
-                      <div className="w-10 h-6 bg-gray-200 animate-pulse" />
-                    </Table.HeaderCell>
-                    <Table.HeaderCell></Table.HeaderCell>
-                    <Table.HeaderCell>
-                      <div className="w-16 h-6 bg-gray-200 animate-pulse" />
-                    </Table.HeaderCell>
-                    <Table.HeaderCell>
-                      <div className="w-12 h-6 bg-gray-200 animate-pulse" />
-                    </Table.HeaderCell>
-                    <Table.HeaderCell className="!pr-0">
-                      <div className="flex justify-end">
-                        <div className="w-12 h-6 bg-gray-200 animate-pulse" />
-                      </div>
-                    </Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-                <Table.Body>
-                  {repeat(4).map((index) => (
-                    <SkeletonCartItem key={index} />
-                  ))}
-                </Table.Body>
-              </Table>
+
+            <div className="mt-4 grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-[#0a0d14] p-5 sm:grid-cols-4">
+              {repeat(4).map((index) => (
+                <div key={index} className="flex flex-col items-center gap-1.5">
+                  <Bar className="h-9 w-9 rounded-lg" />
+                  <Bar className="h-3 w-16" />
+                </div>
+              ))}
             </div>
           </div>
-          <div className="flex flex-col gap-y-8">
-            <SkeletonOrderSummary />
-            <SkeletonCodeForm />
+
+          <div className="flex flex-col gap-4">
+            <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
+              <Bar className="mb-4 h-4 w-24" />
+              <div className="flex flex-col gap-3">
+                <Bar className="h-3 w-full" />
+                <Bar className="h-3 w-full" />
+                <Bar className="h-10 w-full rounded-xl" />
+              </div>
+            </div>
+            <div className="h-24 rounded-2xl border border-white/10 bg-[#0a0d14]" />
           </div>
         </div>
       </div>
