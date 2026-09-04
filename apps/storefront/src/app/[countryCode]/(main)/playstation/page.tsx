@@ -27,7 +27,7 @@ export default async function PlayStationPage({
       <div className="mx-auto w-full max-w-[1480px] px-4 sm:px-6 lg:px-8">
         <PageHero
           eyebrow="دنیای پلی‌استیشن"
-          title="بازی‌ها و لوازم جانبی پلی‌استیشن"
+          title="بازی‌های پلی‌استیشن ۴ و ۵"
           description="بزرگ‌ترین مجموعه‌ی بازی‌های PS5 و PS4 در گیمینت، با ضمانت اصالت و پشتیبانی کامل."
           image="/images/playstation-hero-banner.jpg"
         />
