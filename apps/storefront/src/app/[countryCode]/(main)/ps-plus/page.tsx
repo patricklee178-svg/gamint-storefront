@@ -137,7 +137,8 @@ export default async function PsPlusPage({
           eyebrow="اشتراک ویژه"
           title="پلی‌استیشن پلاس"
           description="اشتراک PS Plus با فعال‌سازی مطمئن، تحویل سریع و پشتیبانی کامل گیمینت تا اجرای کامل."
-          image="/images/ps-plus-banner.jpg"
+          video="/videos/ps-plus-hero.mp4"
+          videoPoster="/images/ps-plus-hero-poster.jpg"
         />
 
         {plans.length > 0 ? (

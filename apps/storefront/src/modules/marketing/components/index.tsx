@@ -93,15 +93,33 @@ export function PageHero({
   title,
   description,
   image,
+  video,
+  videoPoster,
 }: {
   eyebrow: string
   title: string
   description: string
   image?: string
+  video?: string
+  videoPoster?: string
 }) {
   return (
     <section className="relative mt-4 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14] sm:mt-5">
-      {image && (
+      {video && (
+        <>
+          <video
+            src={video}
+            poster={videoPoster}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-[#0a0d14]/70 to-[#0a0d14]/20" />
+        </>
+      )}
+      {!video && image && (
         <>
           <img
             src={image}
