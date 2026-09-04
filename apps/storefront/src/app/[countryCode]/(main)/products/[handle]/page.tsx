@@ -44,7 +44,13 @@ export async function generateStaticParams() {
           handle: product.handle,
         }))
       )
-      .filter((param) => param.handle)
+      // Next.js mis-encodes non-ASCII handles (e.g. "ragnarök") when baking
+      // them into a static page at build time: the literal percent-escaped
+      // string ends up as params.handle instead of the decoded character,
+      // so the prerendered page permanently 404s. Skip static generation
+      // for these handles — they still work fine, they just render on
+      // demand instead, where Next's normal request-URL decoding is used.
+      .filter((param) => param.handle && /^[\x00-\x7F]*$/.test(param.handle))
   } catch (error) {
     console.error(
       `Failed to generate static paths for product pages: ${
@@ -77,16 +83,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { handle } = params
   const region = await getRegion(params.countryCode)
 
-  console.error("[DEBUG generateMetadata]", JSON.stringify({
-    handle,
-    handleLength: handle?.length,
-    handleCharCodes: handle ? Array.from(handle).map(c => c.codePointAt(0)) : null,
-    countryCode: params.countryCode,
-    hasRegion: !!region,
-  }))
-
   if (!region) {
-    console.error("[DEBUG generateMetadata] no region, calling notFound")
     notFound()
   }
 
@@ -94,8 +91,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     countryCode: params.countryCode,
     queryParams: { handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
-
-  console.error("[DEBUG generateMetadata] product found:", !!product)
 
   if (!product) {
     notFound()
@@ -121,15 +116,6 @@ export default async function ProductPage(props: Props) {
 
   const selectedVariantId = searchParams.v_id
 
-  console.error("[DEBUG product page]", JSON.stringify({
-    handle: params.handle,
-    handleLength: params.handle?.length,
-    handleCharCodes: params.handle ? Array.from(params.handle).map(c => c.codePointAt(0)) : null,
-    countryCode: params.countryCode,
-    hasRegion: !!region,
-    regionId: region?.id,
-  }))
-
   if (!region) {
     notFound()
   }
@@ -138,8 +124,6 @@ export default async function ProductPage(props: Props) {
     countryCode: params.countryCode,
     queryParams: { handle: params.handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
-
-  console.error("[DEBUG product page] found product:", !!pricedProduct)
 
   if (!pricedProduct) {
     notFound()
