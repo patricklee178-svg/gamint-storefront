@@ -60,7 +60,7 @@ export default async function Footer() {
 
               <li>
                 <LocalizedClientLink
-                  href="/store"
+                  href="/shared-accounts"
                   className="transition hover:text-purple-300"
                 >
                   اکانت ظرفیتی
@@ -78,7 +78,7 @@ export default async function Footer() {
 
               <li>
                 <LocalizedClientLink
-                  href="/store"
+                  href="/gift-cards"
                   className="transition hover:text-purple-300"
                 >
                   گیفت کارت
@@ -87,7 +87,7 @@ export default async function Footer() {
 
               <li>
                 <LocalizedClientLink
-                  href="/store"
+                  href="/ps-plus"
                   className="transition hover:text-purple-300"
                 >
                   PS Plus
