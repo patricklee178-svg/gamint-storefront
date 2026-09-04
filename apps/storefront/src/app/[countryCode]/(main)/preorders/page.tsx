@@ -26,7 +26,7 @@ export default async function PreordersPage({
           eyebrow="قبل از همه بازی کن"
           title="پیش‌فروش‌های ویژه گیمینت"
           description="با پیش‌خرید از گیمینت، بازی موردعلاقه‌ات همون روز عرضه با تحویل فوری و ضمانت اصالت دستته."
-          image="/images/games/gta6-hero.jpg"
+          image="/images/games/gta6-hero-2.jpg"
         />
 
         <section className="mt-12">

@@ -119,21 +119,30 @@ export default async function Footer() {
               </li>
 
               <li>
-                <span className="cursor-default transition hover:text-purple-300">
+                <LocalizedClientLink
+                  href="/account/orders"
+                  className="transition hover:text-purple-300"
+                >
                   پیگیری سفارش
-                </span>
+                </LocalizedClientLink>
               </li>
 
               <li>
-                <span className="cursor-default transition hover:text-purple-300">
+                <LocalizedClientLink
+                  href="/buying-guide"
+                  className="transition hover:text-purple-300"
+                >
                   راهنمای خرید
-                </span>
+                </LocalizedClientLink>
               </li>
 
               <li>
-                <span className="cursor-default transition hover:text-purple-300">
+                <LocalizedClientLink
+                  href="/faq"
+                  className="transition hover:text-purple-300"
+                >
                   سوالات متداول
-                </span>
+                </LocalizedClientLink>
               </li>
             </ul>
           </div>

@@ -84,7 +84,25 @@ export default async function GiftCardsPage({
           eyebrow="تحویل فوری"
           title="گیفت کارت پلی‌استیشن"
           description="گیفت کارت PSN با ریجن‌های آمریکا، ترکیه و امارات، تحویل آنی کد دیجیتال بعد از پرداخت."
+          image="/images/gift-cards-banner.jpg"
         />
+
+        <section className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <img
+              src="/images/gift-card-heroes.jpg"
+              alt="طرح گیفت کارت پلی‌استیشن با شخصیت‌های محبوب"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-white/10">
+            <img
+              src="/images/gift-card-birthday.jpg"
+              alt="طرح گیفت کارت پلی‌استیشن مخصوص تولد"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        </section>
 
         <section className="mt-12">
           <div className="mb-5">

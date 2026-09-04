@@ -7,12 +7,6 @@ export const metadata: Metadata = {
   description: "خرید بازی‌های PS5 و PS4 با بهترین قیمت، تحویل سریع و ضمانت اصالت از گیمینت",
 }
 
-const consoles = [
-  { title: "کنسول PS5 Slim", text: "نسل جدید، سرعت فوق‌العاده", price: "از ۴۵,۰۰۰,۰۰۰ تومان" },
-  { title: "کنسول PS5 Pro", text: "بالاترین کیفیت گرافیک و فریم", price: "از ۶۵,۰۰۰,۰۰۰ تومان" },
-  { title: "دسته DualSense", text: "لرزش هوشمند و صدای فضایی", price: "از ۴,۲۰۰,۰۰۰ تومان" },
-]
-
 export default async function PlayStationPage({
   params,
 }: {
@@ -38,14 +32,12 @@ export default async function PlayStationPage({
           image="/images/games/god-of-war.jpg"
         />
 
-        <section className="mt-12 grid gap-4 sm:grid-cols-3">
-          {consoles.map((item) => (
-            <article key={item.title} className="rounded-2xl border border-white/10 bg-[#0a0d14] p-6 transition hover:-translate-y-1 hover:border-purple-500/40">
-              <h3 className="text-lg font-black text-white">{item.title}</h3>
-              <p className="mt-2 text-xs leading-6 text-gray-400">{item.text}</p>
-              <p className="mt-4 text-sm font-bold text-purple-300">{item.price}</p>
-            </article>
-          ))}
+        <section className="mt-12 overflow-hidden rounded-2xl border border-white/10 bg-white">
+          <img
+            src="/images/ps5-dualsense-render.jpg"
+            alt="کنسول PS5 و دسته DualSense"
+            className="h-auto w-full object-contain"
+          />
         </section>
 
         {ps5Games.length > 0 && (

@@ -61,6 +61,21 @@ export async function generateStaticParams() {
   }
 }
 
+// Non-ASCII dynamic segments (e.g. "ragnarök") arrive at this route with
+// literal percent-escapes still in params.handle instead of being decoded
+// by Next.js — this happens specifically for requests that reach here via
+// the middleware's internal rewrite (see middleware.ts), which bypasses
+// the normal incoming-request URL decoding. Decoding here is a no-op for
+// already-correct handles (nothing to unescape) and fixes the mis-encoded
+// ones either way.
+function decodeHandle(handle: string): string {
+  try {
+    return decodeURIComponent(handle)
+  } catch {
+    return handle
+  }
+}
+
 function getImagesForVariant(
   product: HttpTypes.StoreProduct,
   selectedVariantId?: string
@@ -80,15 +95,8 @@ function getImagesForVariant(
 
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
-  const { handle } = params
+  const handle = decodeHandle(params.handle)
   const region = await getRegion(params.countryCode)
-
-  console.error("[RUNTIME-DEBUG meta]", JSON.stringify({
-    handle,
-    handleCharCodes: handle ? Array.from(handle).map(c => c.codePointAt(0)) : null,
-    countryCode: params.countryCode,
-    hasRegion: !!region,
-  }))
 
   if (!region) {
     notFound()
@@ -98,8 +106,6 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     countryCode: params.countryCode,
     queryParams: { handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
-
-  console.error("[RUNTIME-DEBUG meta] found:", !!product)
 
   if (!product) {
     notFound()
@@ -125,23 +131,14 @@ export default async function ProductPage(props: Props) {
 
   const selectedVariantId = searchParams.v_id
 
-  console.error("[RUNTIME-DEBUG]", JSON.stringify({
-    handle: params.handle,
-    handleCharCodes: params.handle ? Array.from(params.handle).map(c => c.codePointAt(0)) : null,
-    countryCode: params.countryCode,
-    hasRegion: !!region,
-  }))
-
   if (!region) {
     notFound()
   }
 
   const pricedProduct = await listProducts({
     countryCode: params.countryCode,
-    queryParams: { handle: params.handle, fields: PRODUCT_DETAIL_FIELDS },
+    queryParams: { handle: decodeHandle(params.handle), fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
-
-  console.error("[RUNTIME-DEBUG] found:", !!pricedProduct)
 
   if (!pricedProduct) {
     notFound()
