@@ -16,7 +16,7 @@ export default async function PlayStationPage({
   const games = await listCategoryGames({
     categoryHandle: "games",
     countryCode,
-    limit: 50,
+    limit: 200,
   })
 
   const ps5Games = games.filter((g) => g.platform === "PS5")

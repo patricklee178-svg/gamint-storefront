@@ -64,7 +64,10 @@ export async function listCategoryGames({
     countryCode,
     queryParams: {
       category_id: [category.id],
-      limit: 100,
+      // Fetch enough of the category to sort pinned items correctly and
+      // to let callers request a larger `limit` (e.g. the combined
+      // PS5+PS4 games page) without silently truncating the category.
+      limit: Math.max(limit, 200),
       order: "-created_at",
     },
   })
