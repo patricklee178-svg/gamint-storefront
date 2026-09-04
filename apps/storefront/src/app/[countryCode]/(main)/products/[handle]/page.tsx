@@ -83,6 +83,13 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { handle } = params
   const region = await getRegion(params.countryCode)
 
+  console.error("[RUNTIME-DEBUG meta]", JSON.stringify({
+    handle,
+    handleCharCodes: handle ? Array.from(handle).map(c => c.codePointAt(0)) : null,
+    countryCode: params.countryCode,
+    hasRegion: !!region,
+  }))
+
   if (!region) {
     notFound()
   }
@@ -91,6 +98,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     countryCode: params.countryCode,
     queryParams: { handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
+
+  console.error("[RUNTIME-DEBUG meta] found:", !!product)
 
   if (!product) {
     notFound()
@@ -116,6 +125,13 @@ export default async function ProductPage(props: Props) {
 
   const selectedVariantId = searchParams.v_id
 
+  console.error("[RUNTIME-DEBUG]", JSON.stringify({
+    handle: params.handle,
+    handleCharCodes: params.handle ? Array.from(params.handle).map(c => c.codePointAt(0)) : null,
+    countryCode: params.countryCode,
+    hasRegion: !!region,
+  }))
+
   if (!region) {
     notFound()
   }
@@ -124,6 +140,8 @@ export default async function ProductPage(props: Props) {
     countryCode: params.countryCode,
     queryParams: { handle: params.handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
+
+  console.error("[RUNTIME-DEBUG] found:", !!pricedProduct)
 
   if (!pricedProduct) {
     notFound()
