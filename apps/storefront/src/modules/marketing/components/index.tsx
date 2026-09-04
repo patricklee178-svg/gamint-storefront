@@ -114,9 +114,9 @@ export function PageHero({
             muted
             loop
             playsInline
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-[#0a0d14]/70 to-[#0a0d14]/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-[#0a0d14]/40 to-transparent" />
         </>
       )}
       {!video && image && (
