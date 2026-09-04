@@ -48,13 +48,13 @@ function PlanCard({ plan }: { plan: Plan }) {
         <img src="/images/playstation-plus-logo.png" alt="" className="h-9 w-9 object-contain" aria-hidden="true" />
         <div>
           <h3 className="text-lg font-black text-white">{plan.name}</h3>
-          <p className="text-xs text-gray-400">{plan.tagline}</p>
+          <p className="text-sm text-gray-400">{plan.tagline}</p>
         </div>
       </div>
 
       <ul className="mt-5 flex flex-1 flex-col gap-2.5">
         {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-xs leading-6 text-gray-300">
+          <li key={feature} className="flex items-start gap-2 text-sm leading-7 text-gray-300">
             <span className="mt-0.5 text-purple-400">✓</span> {feature}
           </li>
         ))}
@@ -65,12 +65,12 @@ function PlanCard({ plan }: { plan: Plan }) {
           <LocalizedClientLink
             key={tier.duration}
             href={`/products/${plan.handle}`}
-            className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[.03] px-4 py-3 text-xs transition hover:border-purple-400/40 hover:bg-purple-500/10"
+            className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[.03] px-4 py-3 text-sm transition hover:border-purple-400/40 hover:bg-purple-500/10"
           >
             <span className="font-semibold text-gray-200">
               {tier.duration}
               {tier.badge && (
-                <span className="mr-2 rounded-md bg-purple-600/90 px-1.5 py-0.5 text-[10px] font-bold text-white">{tier.badge}</span>
+                <span className="mr-2 rounded-md bg-purple-600/90 px-1.5 py-0.5 text-xs font-bold text-white">{tier.badge}</span>
               )}
             </span>
             <span className="font-bold text-white">{tier.price}</span>
@@ -199,7 +199,7 @@ function PlusExplainer() {
   return (
     <section className="mt-14">
       <div className="mb-6">
-        <p className="mb-1 text-xs font-semibold text-purple-400">راهنمای انتخاب</p>
+        <p className="mb-1 text-sm font-semibold text-purple-400">راهنمای انتخاب</p>
         <h2 className="text-xl font-black text-white sm:text-2xl">کدوم پلن پلی‌استیشن پلاس مناسب شماست؟</h2>
       </div>
 
@@ -208,17 +208,17 @@ function PlusExplainer() {
           <div key={tier.name} className={`rounded-2xl border p-5 ${tier.color}`}>
             <div className="mb-3 flex items-center gap-2">
               <span className={`h-2 w-2 rounded-full ${tier.dot}`} />
-              <h3 className="text-sm font-black text-white">{tier.name}</h3>
+              <h3 className="text-base font-black text-white">{tier.name}</h3>
             </div>
-            <p className="text-xs leading-7 text-gray-300">{tier.text}</p>
+            <p className="text-sm leading-7 text-gray-300">{tier.text}</p>
           </div>
         ))}
       </div>
 
       <div className="mt-8 overflow-x-auto rounded-2xl border border-white/10 bg-[#0a0d14]">
-        <table className="w-full min-w-[560px] text-sm">
+        <table className="w-full min-w-[560px] text-base">
           <thead>
-            <tr className="border-b border-white/10 text-xs text-gray-400">
+            <tr className="border-b border-white/10 text-sm text-gray-400">
               <th className="p-4 text-right font-bold">امکانات</th>
               <th className="p-4 text-center font-bold text-amber-300">Essential</th>
               <th className="p-4 text-center font-bold text-purple-300">Extra</th>
@@ -228,7 +228,7 @@ function PlusExplainer() {
           <tbody>
             {comparisonRows.map((row, i) => (
               <tr key={row.label} className={i !== comparisonRows.length - 1 ? "border-b border-white/5" : ""}>
-                <td className="p-4 text-xs text-gray-200">{row.label}</td>
+                <td className="p-4 text-sm text-gray-200">{row.label}</td>
                 <td className="p-4"><Check ok={row.essential} /></td>
                 <td className="p-4"><Check ok={row.extra} /></td>
                 <td className="p-4"><Check ok={row.premium} /></td>
