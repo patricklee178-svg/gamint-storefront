@@ -14,6 +14,7 @@ type GiftCard = {
   title: string
   price: string
   handle?: string
+  thumbnail?: string | null
 }
 
 function GiftCardTile({ card }: { card: GiftCard }) {
@@ -22,9 +23,9 @@ function GiftCardTile({ card }: { card: GiftCard }) {
       href={card.handle ? `/products/${card.handle}` : "/store"}
       className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] transition duration-300 hover:-translate-y-1 hover:border-blue-400/40"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#060a14]">
+      <div className="relative aspect-square w-full overflow-hidden bg-[#060a14]">
         <img
-          src="/images/psn-gift-card-icon.jpg"
+          src={card.thumbnail || "/images/psn-gift-card-icon.jpg"}
           alt="گیفت کارت PSN"
           className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
         />
@@ -68,6 +69,7 @@ export default async function GiftCardsPage({
         title: product.title,
         price: cheapestPrice?.calculated_price || "—",
         handle: product.handle,
+        thumbnail: product.thumbnail,
       }
     })
   }
