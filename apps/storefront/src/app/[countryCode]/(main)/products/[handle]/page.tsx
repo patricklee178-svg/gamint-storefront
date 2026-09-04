@@ -77,7 +77,16 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
   const { handle } = params
   const region = await getRegion(params.countryCode)
 
+  console.error("[DEBUG generateMetadata]", JSON.stringify({
+    handle,
+    handleLength: handle?.length,
+    handleCharCodes: handle ? Array.from(handle).map(c => c.codePointAt(0)) : null,
+    countryCode: params.countryCode,
+    hasRegion: !!region,
+  }))
+
   if (!region) {
+    console.error("[DEBUG generateMetadata] no region, calling notFound")
     notFound()
   }
 
@@ -85,6 +94,8 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
     countryCode: params.countryCode,
     queryParams: { handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
+
+  console.error("[DEBUG generateMetadata] product found:", !!product)
 
   if (!product) {
     notFound()
