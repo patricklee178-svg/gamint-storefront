@@ -64,13 +64,26 @@ export async function listCategoryGames({
     countryCode,
     queryParams: {
       category_id: [category.id],
-      limit,
-      offset,
+      limit: 100,
       order: "-created_at",
     },
   })
 
-  return products.map((product) => mapToGame(product, badge))
+  // Products can be manually pinned to the front of a listing via
+  // `metadata.pin_rank` (lower = earlier); everything else keeps the
+  // API's -created_at order, since Array#sort is stable.
+  const sorted = [...products].sort((a, b) => {
+    const pinA = Number(a.metadata?.pin_rank)
+    const pinB = Number(b.metadata?.pin_rank)
+    const hasPinA = Number.isFinite(pinA)
+    const hasPinB = Number.isFinite(pinB)
+    if (hasPinA && hasPinB) return pinA - pinB
+    if (hasPinA) return -1
+    if (hasPinB) return 1
+    return 0
+  })
+
+  return sorted.slice(offset, offset + limit).map((product) => mapToGame(product, badge))
 }
 
 function mapToGame(product: HttpTypes.StoreProduct, badge?: string): Game {
