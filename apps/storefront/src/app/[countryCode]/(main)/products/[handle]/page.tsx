@@ -110,6 +110,15 @@ export default async function ProductPage(props: Props) {
 
   const selectedVariantId = searchParams.v_id
 
+  console.error("[DEBUG product page]", JSON.stringify({
+    handle: params.handle,
+    handleLength: params.handle?.length,
+    handleCharCodes: params.handle ? Array.from(params.handle).map(c => c.codePointAt(0)) : null,
+    countryCode: params.countryCode,
+    hasRegion: !!region,
+    regionId: region?.id,
+  }))
+
   if (!region) {
     notFound()
   }
@@ -118,6 +127,8 @@ export default async function ProductPage(props: Props) {
     countryCode: params.countryCode,
     queryParams: { handle: params.handle, fields: PRODUCT_DETAIL_FIELDS },
   }).then(({ response }) => response.products[0])
+
+  console.error("[DEBUG product page] found product:", !!pricedProduct)
 
   if (!pricedProduct) {
     notFound()
