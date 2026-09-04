@@ -209,7 +209,7 @@ export default async function Home({
           <GameSection eyebrow="انتخاب گیمرها" title="پرفروش‌ترین بازی‌ها" games={bestSellers} viewAllHref="/categories/games" />
         )}
         {newestGames.length > 0 && (
-          <GameSection eyebrow="تازه‌رسیده‌ها" title="جدیدترین بازی‌ها" games={newestGames} viewAllHref="/categories/games" />
+          <GameSection eyebrow="تازه‌رسیده‌ها" title="جدیدترین بازی‌ها" games={newestGames} viewAllHref="/categories/games?sortBy=created_at" />
         )}
         {preorders.length > 0 && (
           <GameSection eyebrow="قبل از همه بازی کن" title="پیش‌فروش‌های ویژه" games={preorders} viewAllHref="/preorders" />
