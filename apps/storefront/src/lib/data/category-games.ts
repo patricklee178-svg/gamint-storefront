@@ -18,6 +18,7 @@ export async function listCategoryGames({
   offset = 0,
   badge,
   sortBy = "created_at",
+  platform,
 }: {
   categoryHandle: string
   countryCode: string
@@ -25,6 +26,7 @@ export async function listCategoryGames({
   offset?: number
   badge?: string
   sortBy?: "created_at" | "release_year"
+  platform?: string
 }): Promise<Game[]> {
   const category = await getCategoryByHandle([categoryHandle])
 
@@ -55,7 +57,11 @@ export async function listCategoryGames({
       return new Date(b.created_at!).getTime() - new Date(a.created_at!).getTime()
     })
 
-    return sorted.slice(offset, offset + limit).map((product) => mapToGame(product, badge))
+    let games = sorted.map((product) => mapToGame(product, badge))
+    if (platform) {
+      games = games.filter((g) => g.platform === platform)
+    }
+    return games.slice(offset, offset + limit)
   }
 
   const {
@@ -86,7 +92,11 @@ export async function listCategoryGames({
     return 0
   })
 
-  return sorted.slice(offset, offset + limit).map((product) => mapToGame(product, badge))
+  let games = sorted.map((product) => mapToGame(product, badge))
+  if (platform) {
+    games = games.filter((g) => g.platform === platform)
+  }
+  return games.slice(offset, offset + limit)
 }
 
 function mapToGame(product: HttpTypes.StoreProduct, badge?: string): Game {

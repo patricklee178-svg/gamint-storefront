@@ -33,10 +33,10 @@ export default async function PlayStationPage({
         />
 
         {ps5Games.length > 0 && (
-          <GameSection eyebrow="بازی‌های نسل جدید" title="بازی‌های PS5" games={ps5Games} viewAllHref="/categories/games" />
+          <GameSection eyebrow="بازی‌های نسل جدید" title="بازی‌های PS5" games={ps5Games} viewAllHref="/ps5-games" />
         )}
         {ps4Games.length > 0 && (
-          <GameSection eyebrow="کلاسیک‌های همیشگی" title="بازی‌های PS4" games={ps4Games} viewAllHref="/categories/games" />
+          <GameSection eyebrow="کلاسیک‌های همیشگی" title="بازی‌های PS4" games={ps4Games} viewAllHref="/ps4-games" />
         )}
       </div>
     </main>
