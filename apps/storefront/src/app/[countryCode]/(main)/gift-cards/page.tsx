@@ -7,40 +7,36 @@ import { ArrowIcon, PageHero } from "@modules/marketing/components"
 
 export const metadata: Metadata = {
   title: "گیفت کارت پلی‌استیشن | گیمینت",
-  description: "خرید گیفت کارت PSN با ریجن‌های مختلف و تحویل فوری کد دیجیتال از گیمینت",
+  description: "خرید گیفت کارت PSN آمریکا با تحویل فوری کد دیجیتال از گیمینت",
 }
 
 type GiftCard = {
   title: string
-  flag: string
   price: string
   handle?: string
-}
-
-function flagFor(title: string) {
-  if (title.includes("آمریکا")) return "🇺🇸"
-  if (title.includes("ترکیه")) return "🇹🇷"
-  if (title.includes("امارات")) return "🇦🇪"
-  return "🎁"
 }
 
 function GiftCardTile({ card }: { card: GiftCard }) {
   return (
     <LocalizedClientLink
       href={card.handle ? `/products/${card.handle}` : "/store"}
-      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] p-6 transition duration-300 hover:-translate-y-1 hover:border-blue-400/40"
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] transition duration-300 hover:-translate-y-1 hover:border-blue-400/40"
     >
-      <div className="absolute -left-8 -top-8 h-28 w-28 rounded-full bg-blue-500/20 blur-3xl transition group-hover:bg-blue-400/25" />
-      <div className="relative z-10 flex items-start justify-between">
-        <span className="text-3xl">{card.flag}</span>
-        <span className="rounded-lg border border-white/10 bg-white/5 px-2 py-1 text-[10px] font-bold text-gray-300">PSN</span>
+      <div className="relative aspect-[4/3] w-full overflow-hidden bg-[#060a14]">
+        <img
+          src="/images/psn-gift-card-icon.jpg"
+          alt="گیفت کارت PSN"
+          className="h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
+        />
       </div>
-      <h3 className="relative z-10 mt-4 text-lg font-black text-white">{card.title}</h3>
-      <div className="relative z-10 mt-5 flex items-end justify-between">
-        <p className="text-sm font-bold text-gray-100">{card.price}</p>
-        <span className="flex items-center gap-1 text-xs font-semibold text-blue-300 transition group-hover:text-blue-200">
-          خرید <ArrowIcon />
-        </span>
+      <div className="p-5">
+        <h3 className="text-lg font-black text-white">{card.title}</h3>
+        <div className="mt-4 flex items-end justify-between">
+          <p className="text-sm font-bold text-gray-100">{card.price}</p>
+          <span className="flex items-center gap-1 text-xs font-semibold text-blue-300 transition group-hover:text-blue-200">
+            خرید <ArrowIcon />
+          </span>
+        </div>
       </div>
     </LocalizedClientLink>
   )
@@ -70,7 +66,6 @@ export default async function GiftCardsPage({
       const { cheapestPrice } = getProductPrice({ product })
       return {
         title: product.title,
-        flag: flagFor(product.title),
         price: cheapestPrice?.calculated_price || "—",
         handle: product.handle,
       }
@@ -83,13 +78,13 @@ export default async function GiftCardsPage({
         <PageHero
           eyebrow="تحویل فوری"
           title="گیفت کارت پلی‌استیشن"
-          description="گیفت کارت PSN با ریجن‌های آمریکا، ترکیه و امارات، تحویل آنی کد دیجیتال بعد از پرداخت."
+          description="گیفت کارت PSN آمریکا، تحویل آنی کد دیجیتال بعد از پرداخت."
           image="/images/gift-cards-banner-v7.jpg"
         />
 
         <section className="mt-12">
           <div className="mb-5">
-            <p className="mb-1 text-xs font-semibold text-blue-400">همه‌ی مبالغ و ریجن‌ها</p>
+            <p className="mb-1 text-xs font-semibold text-blue-400">همه‌ی مبالغ</p>
             <h2 className="text-xl font-black text-white sm:text-2xl">گیفت کارت‌های موجود</h2>
           </div>
           {giftCards.length > 0 ? (
