@@ -125,9 +125,9 @@ export function PageHero({
             src={image}
             alt=""
             aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-center opacity-40"
+            className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-[#0a0d14]/70 to-[#0a0d14]/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0d14] via-[#0a0d14]/40 to-transparent" />
         </>
       )}
       <div className="relative z-10 px-6 py-14 sm:px-10 sm:py-20">
