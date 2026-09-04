@@ -32,14 +32,6 @@ export default async function PlayStationPage({
           image="/images/playstation-hero-banner.jpg"
         />
 
-        <section className="mt-12 overflow-hidden rounded-2xl border border-white/10 bg-white">
-          <img
-            src="/images/ps5-dualsense-render.jpg"
-            alt="کنسول PS5 و دسته DualSense"
-            className="h-auto w-full object-contain"
-          />
-        </section>
-
         {ps5Games.length > 0 && (
           <GameSection eyebrow="بازی‌های نسل جدید" title="بازی‌های PS5" games={ps5Games} viewAllHref="/categories/games" />
         )}
