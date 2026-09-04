@@ -29,7 +29,7 @@ export default async function PlayStationPage({
           eyebrow="دنیای پلی‌استیشن"
           title="بازی‌ها و لوازم جانبی پلی‌استیشن"
           description="بزرگ‌ترین مجموعه‌ی بازی‌های PS5 و PS4 در گیمینت، با ضمانت اصالت و پشتیبانی کامل."
-          image="/images/games/god-of-war.jpg"
+          image="/images/playstation-hero-banner.jpg"
         />
 
         <section className="mt-12 overflow-hidden rounded-2xl border border-white/10 bg-white">
