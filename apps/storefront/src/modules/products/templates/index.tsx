@@ -91,12 +91,24 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
                 با پیش‌خرید در گیمینت، بازی رو در اسرع وقت پس از انتشار رسمی و بدون نگرانی از موجودی دریافت می‌کنی.
               </p>
             </div>
-            <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
-              <p className="text-sm font-bold text-white">بونوس‌های احتمالی</p>
-              <p className="mt-1 text-xs leading-6 text-white/45">
-                در صورت اعلام محتوای پیش‌خرید ویژه از سمت ناشر، برای مشتریان گیمینت هم اعمال می‌شه.
-              </p>
-            </div>
+            {product.handle === "grand-theft-auto-vi" ? (
+              <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
+                <div className="mb-2 flex items-center gap-2">
+                  <img src="/images/gta-plus-logo.svg" alt="GTA+" className="h-6 w-auto rounded bg-white p-1" />
+                  <p className="text-sm font-bold text-white">بونوس پیش‌خرید</p>
+                </div>
+                <p className="text-xs leading-6 text-white/45">
+                  همراه با یک ماه اشتراک رایگان GTA+. در صورت خرید، ظرفیت کامل این اشتراک به‌طور اختصاصی به خودت تعلق می‌گیره.
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-white/10 bg-[#0a0d14] p-5">
+                <p className="text-sm font-bold text-white">بونوس‌های احتمالی</p>
+                <p className="mt-1 text-xs leading-6 text-white/45">
+                  در صورت اعلام محتوای پیش‌خرید ویژه از سمت ناشر، برای مشتریان گیمینت هم اعمال می‌شه.
+                </p>
+              </div>
+            )}
           </div>
         )}
 
