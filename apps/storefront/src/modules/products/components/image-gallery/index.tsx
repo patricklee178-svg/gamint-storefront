@@ -19,7 +19,19 @@ const ImageGallery = ({
     <div className="w-full">
       <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14]">
         {shown?.url && (
-          <img src={shown.url} alt="" className="h-full w-full object-cover" />
+          <>
+            <img
+              src={shown.url}
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-40 blur-2xl"
+            />
+            <img
+              src={shown.url}
+              alt=""
+              className="absolute inset-0 h-full w-full object-contain"
+            />
+          </>
         )}
 
         <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
@@ -47,11 +59,21 @@ const ImageGallery = ({
               key={image.id}
               type="button"
               onClick={() => setActive(i)}
-              className={`h-16 w-16 shrink-0 overflow-hidden rounded-xl border transition ${
+              className={`relative h-16 w-16 shrink-0 overflow-hidden rounded-xl border bg-[#0a0d14] transition ${
                 i === active ? "border-purple-400" : "border-white/10 opacity-60 hover:opacity-100"
               }`}
             >
-              {image.url && <img src={image.url} alt="" className="h-full w-full object-cover" />}
+              {image.url && (
+                <>
+                  <img
+                    src={image.url}
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-40 blur-md"
+                  />
+                  <img src={image.url} alt="" className="absolute inset-0 h-full w-full object-contain" />
+                </>
+              )}
             </button>
           ))}
         </div>
