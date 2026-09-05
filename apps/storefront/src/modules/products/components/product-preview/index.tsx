@@ -26,12 +26,21 @@ export default async function ProductPreview({
     >
       <div className="relative aspect-video overflow-hidden bg-[#111827]">
         {thumbnail ? (
-          <img
-            src={thumbnail}
-            alt={product.title}
-            loading="lazy"
-            className="block h-full w-full object-cover object-center transition duration-300"
-          />
+          <>
+            <img
+              src={thumbnail}
+              alt=""
+              aria-hidden="true"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-40 blur-xl"
+            />
+            <img
+              src={thumbnail}
+              alt={product.title}
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-contain transition duration-300"
+            />
+          </>
         ) : (
           <div className="grid h-full w-full place-items-center text-xs text-gray-600">
             بدون تصویر
