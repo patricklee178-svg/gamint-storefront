@@ -10,6 +10,7 @@ import { SortOptions } from "@modules/store/components/refinement-list/sort-prod
 import PaginatedProducts from "@modules/store/templates/paginated-products"
 import CategorySidebar from "@modules/categories/components/category-sidebar"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { PageHero } from "@modules/marketing/components"
 import { HttpTypes } from "@medusajs/types"
 import { OptionValueIds } from "@lib/util/product-option-filters"
 
@@ -110,6 +111,16 @@ export default async function CategoryTemplate({
   return (
     <main dir="rtl" className="min-h-screen bg-[#05070b] pb-16 text-white">
       <div className="content-container">
+        <PageHero
+          eyebrow="کاتالوگ بازی‌ها"
+          title={category.name}
+          description={
+            category.description ||
+            "بزرگ‌ترین مجموعه‌ی بازی‌های PS5 و PS4 در گیمینت، با ضمانت اصالت و پشتیبانی کامل."
+          }
+          image="/images/games-catalog-banner.jpg"
+        />
+
         <div className="flex items-center gap-2 py-6 text-xs text-white/40">
           <LocalizedClientLink href="/" className="hover:text-white">
             خانه
