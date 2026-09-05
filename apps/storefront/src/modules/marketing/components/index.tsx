@@ -111,7 +111,7 @@ export function PageHero({
   videoPoster?: string
 }) {
   return (
-    <section className="relative mt-4 overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14] sm:mt-5">
+    <section className="relative mt-4 overflow-hidden rounded-2xl border border-x-white/10 border-b-white/10 border-t-0 bg-[#0a0d14] sm:mt-5">
       {video && (
         <>
           <video
