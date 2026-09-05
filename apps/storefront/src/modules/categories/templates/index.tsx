@@ -118,7 +118,7 @@ export default async function CategoryTemplate({
             category.description ||
             "بزرگ‌ترین مجموعه‌ی بازی‌های PS5 و PS4 در گیمینت، با ضمانت اصالت و پشتیبانی کامل."
           }
-          image="/images/games-catalog-banner.jpg"
+          image="/images/games-catalog-banner.png"
         />
 
         <div className="flex items-center gap-2 py-6 text-xs text-white/40">
