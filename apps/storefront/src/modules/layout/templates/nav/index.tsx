@@ -126,7 +126,7 @@ export default async function Nav() {
                     {customer.first_name || "حساب کاربری"}
                   </>
                 ) : (
-                  "ورود / ثبت‌نام"
+                  "حساب کاربری"
                 )}
               </LocalizedClientLink>
             </div>
