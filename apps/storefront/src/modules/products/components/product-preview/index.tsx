@@ -24,7 +24,7 @@ export default async function ProductPreview({
       className="group block min-w-0 overflow-hidden rounded-2xl border border-t-0 border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]"
       data-testid="product-wrapper"
     >
-      <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827]">
+      <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
         {thumbnail ? (
           <>
             <img

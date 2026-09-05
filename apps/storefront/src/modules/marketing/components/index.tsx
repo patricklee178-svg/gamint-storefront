@@ -29,7 +29,7 @@ export function GameCard({ game }: { game: Game }) {
         href={game.handle ? `/products/${game.handle}` : "/store"}
         className="block"
       >
-        <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827]">
+        <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
           <img
             src={game.image}
             alt=""

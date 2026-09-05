@@ -17,7 +17,7 @@ const ImageGallery = ({
 
   return (
     <div className="w-full">
-      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14]">
+      <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0a0d14] [transform:translateZ(0)]">
         {shown?.url && (
           <>
             <img
