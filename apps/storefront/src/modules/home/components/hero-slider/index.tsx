@@ -5,6 +5,7 @@ import LocalizedClientLink from "@modules/common/components/localized-client-lin
 
 type HeroSlide = {
   id: string
+  handle: string
   image: string
   alt: string
   objectPosition: string
@@ -24,6 +25,7 @@ type HeroSlide = {
 const slides: HeroSlide[] = [
   {
     id: "gta6",
+    handle: "grand-theft-auto-vi",
     image: "/images/games/gta6-hero.jpg",
     alt: "Grand Theft Auto VI",
     objectPosition: "50% 0%",
@@ -39,6 +41,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "fc27",
+    handle: "ea-sports-fc-27",
     image: "/images/games/fc27-final.png",
     alt: "EA SPORTS FC 27",
     objectPosition: "50% 28%",
@@ -55,6 +58,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "mw4",
+    handle: "call-of-duty-modern-warfare-4",
     image: "/images/games/mw4-hero.webp",
     alt: "Call of Duty Modern Warfare 4",
     objectPosition: "50% 30%",
@@ -71,6 +75,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "ufc6",
+    handle: "ea-sports-ufc-6",
     image: "/images/games/ufc6-hero-v2.jpg",
     alt: "EA Sports UFC 6",
     objectPosition: "50% 15%",
@@ -86,6 +91,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "nba2k27",
+    handle: "nba-2k27",
     image: "/images/games/nba2k27-hero-v2.jpg",
     alt: "NBA 2K27",
     objectPosition: "50% 20%",
@@ -101,6 +107,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "bond-first-light",
+    handle: "007-first-light",
     image: "/images/games/bond-first-light-hero-v2.jpg",
     alt: "007 First Light",
     objectPosition: "50% 15%",
@@ -116,6 +123,7 @@ const slides: HeroSlide[] = [
   },
   {
     id: "re-requiem",
+    handle: "resident-evil-requiem",
     image: "/images/games/re-requiem-hero-grace.jpg",
     alt: "Resident Evil Requiem",
     objectPosition: "50% 15%",
@@ -211,10 +219,10 @@ export default function HeroSlider() {
                   ))}
                 </div>
                 <div className="mt-7 flex flex-wrap gap-3">
-                  <LocalizedClientLink href="/store" className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-black text-gray-950 shadow-xl transition hover:bg-purple-500 hover:text-white">
+                  <LocalizedClientLink href={`/products/${slide.handle}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-black text-gray-950 shadow-xl transition hover:bg-purple-500 hover:text-white">
                     {slide.primaryLabel} <ArrowIcon />
                   </LocalizedClientLink>
-                  <LocalizedClientLink href="/store" className="inline-flex items-center rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-purple-400/50 hover:bg-purple-500/10">
+                  <LocalizedClientLink href={`/products/${slide.handle}`} className="inline-flex items-center rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-purple-400/50 hover:bg-purple-500/10">
                     {slide.secondaryLabel}
                   </LocalizedClientLink>
                 </div>
