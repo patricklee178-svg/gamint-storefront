@@ -71,9 +71,9 @@ const slides: HeroSlide[] = [
   },
   {
     id: "ufc6",
-    image: "/images/games/ufc6-hero.jpg",
+    image: "/images/games/ufc6-hero-v2.jpg",
     alt: "EA Sports UFC 6",
-    objectPosition: "50% 20%",
+    objectPosition: "50% 15%",
     publisher: "EA SPORTS",
     eyebrow: "پیش‌فروش نسل جدید مبارزه",
     title: "UFC",
@@ -101,9 +101,9 @@ const slides: HeroSlide[] = [
   },
   {
     id: "bond-first-light",
-    image: "/images/games/bond-first-light-hero.jpg",
+    image: "/images/games/bond-first-light-hero-v2.jpg",
     alt: "007 First Light",
-    objectPosition: "55% 15%",
+    objectPosition: "50% 15%",
     publisher: "IO INTERACTIVE",
     eyebrow: "پیش‌فروش ویژه گیمینت",
     title: "007",
