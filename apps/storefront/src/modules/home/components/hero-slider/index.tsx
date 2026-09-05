@@ -86,9 +86,9 @@ const slides: HeroSlide[] = [
   },
   {
     id: "nba2k27",
-    image: "/images/games/nba2k27-hero.jpg",
+    image: "/images/games/nba2k27-hero-v2.jpg",
     alt: "NBA 2K27",
-    objectPosition: "50% 15%",
+    objectPosition: "50% 20%",
     publisher: "2K SPORTS",
     eyebrow: "پیش‌فروش فصل تازه بسکتبال",
     title: "NBA",
