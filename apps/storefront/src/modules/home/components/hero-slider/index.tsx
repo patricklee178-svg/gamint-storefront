@@ -116,9 +116,9 @@ const slides: HeroSlide[] = [
   },
   {
     id: "re-requiem",
-    image: "/images/games/resident-evil-requiem-2.jpg",
+    image: "/images/games/re-requiem-hero-grace.jpg",
     alt: "Resident Evil Requiem",
-    objectPosition: "45% 10%",
+    objectPosition: "50% 15%",
     publisher: "CAPCOM",
     eyebrow: "پیش‌فروش ویژه گیمینت",
     title: "Resident Evil",
