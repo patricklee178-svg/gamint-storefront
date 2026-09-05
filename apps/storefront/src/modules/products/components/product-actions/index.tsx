@@ -56,7 +56,18 @@ export default function ProductActions({
     if (product.variants?.length === 1) {
       const variantOptions = optionsAsKeymap(product.variants[0].options)
       setOptions(variantOptions ?? {})
+      return
     }
+
+    const preselectedVariantId = searchParams.get("v_id")
+    if (preselectedVariantId) {
+      const variant = product.variants?.find((v) => v.id === preselectedVariantId)
+      if (variant) {
+        const variantOptions = optionsAsKeymap(variant.options)
+        setOptions(variantOptions ?? {})
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product.variants])
 
   const selectedVariant = useMemo(() => {

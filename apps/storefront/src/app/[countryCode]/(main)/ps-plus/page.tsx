@@ -38,8 +38,10 @@ type Plan = {
   tagline: string
   color: string
   features: string[]
-  prices: { duration: string; price: string; badge?: string }[]
+  prices: { duration: string; price: string; badge?: string; variantId: string }[]
 }
+
+const DURATION_ORDER = ["۱ ماهه", "۳ ماهه", "۱۲ ماهه"]
 
 function PlanCard({ plan }: { plan: Plan }) {
   return (
@@ -64,7 +66,7 @@ function PlanCard({ plan }: { plan: Plan }) {
         {plan.prices.map((tier) => (
           <LocalizedClientLink
             key={tier.duration}
-            href={`/products/${plan.handle}`}
+            href={`/products/${plan.handle}?v_id=${tier.variantId}`}
             className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[.03] px-4 py-3 text-sm transition hover:border-purple-400/40 hover:bg-purple-500/10"
           >
             <span className="font-semibold text-gray-200">
@@ -105,19 +107,24 @@ export default async function PsPlusPage({
       const key = Object.keys(planMeta).find((k) => product.title.includes(k))
       const meta = key ? planMeta[key] : { tagline: "", color: "from-purple-500/20 to-transparent border-purple-400/30", features: [] }
 
-      const prices = (product.variants || []).map((variant) => {
-        const price = variant.calculated_price
-        return {
-          duration: variant.title || "",
-          price: price
-            ? convertToLocale({
-                amount: price.calculated_amount,
-                currency_code: price.currency_code,
-              })
-            : "—",
-          badge: meta.badgeDuration === variant.title ? meta.badge : undefined,
-        }
-      })
+      const prices = (product.variants || [])
+        .map((variant) => {
+          const price = variant.calculated_price
+          return {
+            duration: variant.title || "",
+            price: price
+              ? convertToLocale({
+                  amount: price.calculated_amount,
+                  currency_code: price.currency_code,
+                })
+              : "—",
+            badge: meta.badgeDuration === variant.title ? meta.badge : undefined,
+            variantId: variant.id,
+          }
+        })
+        .sort(
+          (a, b) => DURATION_ORDER.indexOf(a.duration) - DURATION_ORDER.indexOf(b.duration)
+        )
 
       return {
         name: product.title,
