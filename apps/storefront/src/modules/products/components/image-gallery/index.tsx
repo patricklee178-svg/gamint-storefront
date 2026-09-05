@@ -24,7 +24,7 @@ const ImageGallery = ({
               src={shown.url}
               alt=""
               aria-hidden="true"
-              className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-80 blur-2xl"
+              className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-2xl"
             />
             <img
               src={shown.url}
@@ -69,7 +69,7 @@ const ImageGallery = ({
                     src={image.url}
                     alt=""
                     aria-hidden="true"
-                    className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-80 blur-md"
+                    className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-md"
                   />
                   <img src={image.url} alt="" className="absolute inset-0 h-full w-full object-contain" />
                 </>
