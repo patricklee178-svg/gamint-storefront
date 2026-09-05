@@ -33,7 +33,7 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50" dir="rtl">
-      <header className="border-b border-white/10 bg-[#07070a]/95 text-white backdrop-blur-xl">
+      <header className="bg-[#07070a]/95 text-white backdrop-blur-xl">
         <nav className="content-container flex h-[72px] w-full items-center justify-between gap-6">
 
           <div className="flex items-center gap-5">
