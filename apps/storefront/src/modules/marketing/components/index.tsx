@@ -35,7 +35,7 @@ export function GameCard({ game }: { game: Game }) {
             alt=""
             aria-hidden="true"
             loading="lazy"
-            className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-40 blur-xl"
+            className="absolute inset-0 h-full w-full scale-110 object-cover object-center opacity-80 blur-xl"
           />
           <img
             src={game.image}
