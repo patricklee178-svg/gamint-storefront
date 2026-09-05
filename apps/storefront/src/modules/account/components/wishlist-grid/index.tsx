@@ -39,7 +39,7 @@ const WishlistGrid = ({ items }: { items: WishlistItem[] }) => {
       {list.map((item) => (
         <article
           key={item.productId}
-          className="group relative overflow-hidden rounded-2xl border border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50"
+          className="group relative overflow-hidden rounded-2xl border border-t-0 border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50"
         >
           <button
             type="button"

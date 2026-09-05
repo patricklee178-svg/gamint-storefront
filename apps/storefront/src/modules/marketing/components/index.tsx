@@ -24,7 +24,7 @@ export const CartIcon = () => (
 
 export function GameCard({ game }: { game: Game }) {
   return (
-    <article className="group min-w-0 overflow-hidden rounded-2xl border border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]">
+    <article className="group min-w-0 overflow-hidden rounded-2xl border border-t-0 border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]">
       <LocalizedClientLink
         href={game.handle ? `/products/${game.handle}` : "/store"}
         className="block"
