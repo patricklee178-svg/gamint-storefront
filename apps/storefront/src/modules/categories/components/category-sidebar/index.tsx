@@ -10,6 +10,8 @@ import {
   MIN_PRICE_QUERY_KEY,
 } from "@lib/util/category-filters"
 import SortProducts, { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import { ArrowIcon } from "@modules/marketing/components"
 
 const FilterIcon = ({ className = "h-4 w-4" }: { className?: string }) => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className={className}>
@@ -247,6 +249,31 @@ const CategorySidebar = ({
           پاک کردن فیلترها ({activeFilterCount.toLocaleString("fa-IR")})
         </button>
       )}
+
+      <div className="h-px bg-white/[0.06]" />
+
+      <div className="flex flex-col gap-2.5">
+        <LocalizedClientLink
+          href="/ps-plus"
+          className="group flex items-center justify-between gap-2 rounded-xl border border-purple-400/20 bg-gradient-to-br from-purple-500/15 to-transparent p-3 transition hover:border-purple-400/40"
+        >
+          <div>
+            <p className="text-xs font-bold text-white">اشتراک PS Plus</p>
+            <p className="mt-0.5 text-[11px] text-white/45">بازی آنلاین و کتابخونه‌ی بزرگ</p>
+          </div>
+          <ArrowIcon className="h-4 w-4 shrink-0 -scale-x-100 text-purple-300 transition group-hover:translate-x-[-2px]" />
+        </LocalizedClientLink>
+        <LocalizedClientLink
+          href="/gift-cards"
+          className="group flex items-center justify-between gap-2 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/15 to-transparent p-3 transition hover:border-blue-400/40"
+        >
+          <div>
+            <p className="text-xs font-bold text-white">گیفت کارت PSN</p>
+            <p className="mt-0.5 text-[11px] text-white/45">تحویل آنی، تمام مبالغ</p>
+          </div>
+          <ArrowIcon className="h-4 w-4 shrink-0 -scale-x-100 text-blue-300 transition group-hover:translate-x-[-2px]" />
+        </LocalizedClientLink>
+      </div>
     </div>
   )
 
