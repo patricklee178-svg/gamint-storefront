@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useSearchParams } from "next/navigation"
-import { Button } from "@modules/common/components/ui"
 import { confirmEmailVerification } from "@lib/data/customer"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
@@ -34,36 +33,48 @@ const VerifyAccount = () => {
 
   return (
     <div
-      className="max-w-sm w-full flex flex-col items-center text-center gap-y-4"
+      dir="rtl"
+      className="mx-auto w-full max-w-sm rounded-2xl border border-white/10 bg-[#0a0d14] p-8 text-center text-white"
       data-testid="verify-account-page"
     >
-      <h1 className="text-large-semi uppercase">Email verification</h1>
+      <div className="mx-auto mb-5 grid h-14 w-14 place-items-center rounded-full border border-purple-400/30 bg-purple-500/10 text-2xl">
+        {state === "verifying" && "⏳"}
+        {state === "success" && "✅"}
+        {state === "error" && "⚠️"}
+      </div>
+
+      <h1 className="text-lg font-black">تأیید ایمیل</h1>
 
       {state === "verifying" && (
-        <p className="text-base-regular text-ui-fg-base">
-          Verifying your email...
+        <p className="mt-3 text-sm leading-7 text-white/50">
+          در حال تأیید ایمیل شما...
         </p>
       )}
 
       {state === "success" && (
         <>
-          <p className="text-base-regular text-ui-fg-base">
-            Your email is verified. You can now sign in to your account.
+          <p className="mt-3 text-sm leading-7 text-white/50">
+            ایمیل شما با موفقیت تأیید شد. حالا می‌تونی وارد حسابت بشی.
           </p>
-          <LocalizedClientLink href="/account">
-            <Button variant="primary">Go to sign in</Button>
+          <LocalizedClientLink
+            href="/account"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-xl bg-purple-600 py-3 text-sm font-bold text-white transition hover:bg-purple-500"
+          >
+            ورود به حساب
           </LocalizedClientLink>
         </>
       )}
 
       {state === "error" && (
         <>
-          <p className="text-base-regular text-ui-fg-base">
-            This verification link is invalid or has expired. Sign in to receive
-            a new verification email.
+          <p className="mt-3 text-sm leading-7 text-white/50">
+            این لینک تأیید نامعتبر یا منقضی شده. برای دریافت لینک جدید وارد حسابت شو.
           </p>
-          <LocalizedClientLink href="/account">
-            <Button variant="secondary">Go to sign in</Button>
+          <LocalizedClientLink
+            href="/account"
+            className="mt-6 inline-flex w-full items-center justify-center rounded-xl border border-white/15 py-3 text-sm font-bold text-white/70 transition hover:border-white/30 hover:text-white"
+          >
+            ورود به حساب
           </LocalizedClientLink>
         </>
       )}

@@ -1,3 +1,5 @@
+// Auto-generated from email-verification.html — do not edit the .html separately, keep them in sync.
+export const html = `
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
@@ -39,21 +41,35 @@
         <tr>
           <td align="center" style="padding:16px 32px 0 32px;">
             <p style="margin:0; color:#ffffff; font-size:20px; font-weight:bold; line-height:1.6;">
-              سلام {{customer_name}} 👋
+              سلام 👋
             </p>
             <p style="margin:12px 0 0 0; color:#9ca3af; font-size:14px; line-height:1.9;">
-              برای ورود به حساب کاربری‌ت در گیمینت، از کد زیر استفاده کن. این کد تا ۱۰ دقیقه دیگه معتبره.
+              برای ورود و تأیید ایمیلت در گیمینت، روی دکمه‌ی زیر بزن. این لینک تا ۱۰ دقیقه دیگه معتبره.
             </p>
           </td>
         </tr>
 
-        <!-- OTP Code Box -->
+        <!-- CTA -->
         <tr>
-          <td align="center" style="padding:28px 32px;">
+          <td align="center" style="padding:24px 32px 8px 32px;">
+            <table role="presentation" cellpadding="0" cellspacing="0">
+              <tr>
+                <td style="background-color:#7c3aed; background-image:linear-gradient(135deg, #7c3aed, #d946ef); border-radius:12px;">
+                  <a href="{{verification_url}}" style="display:inline-block; padding:14px 40px; color:#ffffff; font-size:14px; font-weight:bold; text-decoration:none;">تأیید و ورود به حساب</a>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- Fallback code -->
+        <tr>
+          <td align="center" style="padding:20px 32px 8px 32px;">
+            <p style="margin:0 0 10px 0; color:#6b7280; font-size:11px;">اگه دکمه کار نکرد، این کد رو دستی وارد کن:</p>
             <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%; max-width:360px; background:linear-gradient(135deg, rgba(124,58,237,0.16), rgba(217,70,239,0.10)); background-color:#12081f; border:1px solid rgba(168,85,247,0.4); border-radius:16px;">
               <tr>
-                <td align="center" style="padding:22px 20px;">
-                  <span style="color:#ffffff; font-size:34px; font-weight:bold; letter-spacing:10px; font-family:Tahoma, Arial, sans-serif;">{{otp_code}}</span>
+                <td align="center" style="padding:16px 20px;">
+                  <span style="color:#ffffff; font-size:22px; font-weight:bold; letter-spacing:6px; font-family:Tahoma, Arial, sans-serif; word-break:break-all;">{{otp_code}}</span>
                 </td>
               </tr>
             </table>
@@ -61,9 +77,9 @@
         </tr>
 
         <tr>
-          <td align="center" style="padding:0 32px 8px 32px;">
+          <td align="center" style="padding:8px 32px 8px 32px;">
             <p style="margin:0; color:#6b7280; font-size:12px; line-height:1.8;">
-              اگه درخواست ورود ندادی، نگران نباش — کافیه این ایمیل رو نادیده بگیری. کسی بدون این کد نمی‌تونه وارد حسابت بشه.
+              اگه درخواست ورود ندادی، نگران نباش — کافیه این ایمیل رو نادیده بگیری.
             </p>
           </td>
         </tr>
@@ -108,3 +124,4 @@
 </table>
 </body>
 </html>
+`

@@ -5,6 +5,7 @@ loadEnv(process.env.NODE_ENV || "development", process.cwd())
 module.exports = defineConfig({
 
   admin: {
+    storefrontUrl: process.env.STOREFRONT_URL || "https://gamint.ir",
     vite: (config) => {
       return {
         ...config,
@@ -35,12 +36,36 @@ module.exports = defineConfig({
       authCors: process.env.AUTH_CORS!,
       jwtSecret: process.env.JWT_SECRET,
       cookieSecret: process.env.COOKIE_SECRET,
+      authVerificationsPerActor: {
+        customer: [
+          {
+            entity_type: "email",
+            auth_provider: "emailpass",
+          },
+        ],
+      },
     },
   },
 
   modules: [
     {
       resolve: "./src/modules/capacity-account",
+    },
+    {
+      resolve: "@medusajs/medusa/notification",
+      options: {
+        providers: [
+          {
+            resolve: "./src/modules/resend",
+            id: "resend",
+            options: {
+              channels: ["email"],
+              api_key: process.env.RESEND_API_KEY,
+              from: process.env.RESEND_FROM_EMAIL,
+            },
+          },
+        ],
+      },
     },
     {
       resolve: "@medusajs/medusa/file",
