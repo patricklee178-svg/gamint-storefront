@@ -85,7 +85,7 @@ export function GameSection({
           <p className="mb-1 text-xs font-semibold text-purple-400">{eyebrow}</p>
           <h2 className="text-xl font-black text-white sm:text-2xl">{title}</h2>
         </div>
-        <LocalizedClientLink href={viewAllHref} className="flex items-center gap-2 text-xs font-semibold text-purple-400 transition hover:text-purple-300">
+        <LocalizedClientLink href={viewAllHref} prefetch={false} className="flex items-center gap-2 text-xs font-semibold text-purple-400 transition hover:text-purple-300">
           مشاهده همه <ArrowIcon />
         </LocalizedClientLink>
       </div>
