@@ -89,6 +89,7 @@ export default function FaqPage() {
           </p>
           <LocalizedClientLink
             href="/contact"
+            prefetch={false}
             className="mt-5 inline-flex items-center justify-center rounded-xl bg-purple-600 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-purple-500"
           >
             تماس با پشتیبانی

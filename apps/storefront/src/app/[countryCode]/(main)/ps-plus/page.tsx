@@ -67,6 +67,7 @@ function PlanCard({ plan }: { plan: Plan }) {
           <LocalizedClientLink
             key={tier.duration}
             href={`/products/${plan.handle}?v_id=${tier.variantId}`}
+            prefetch={false}
             className="flex items-center justify-between rounded-xl border border-white/10 bg-white/[.03] px-4 py-3 text-sm transition hover:border-purple-400/40 hover:bg-purple-500/10"
           >
             <span className="font-semibold text-gray-200">

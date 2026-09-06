@@ -11,6 +11,7 @@ export default function CheckoutLayout({
         <nav className="content-container flex h-16 items-center justify-between">
           <LocalizedClientLink
             href="/"
+            prefetch={false}
             className="group flex items-center gap-3"
             data-testid="store-link"
           >

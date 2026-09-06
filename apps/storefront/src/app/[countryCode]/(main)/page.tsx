@@ -198,7 +198,7 @@ export default async function Home({
 
         <section className="relative z-10 mt-4 grid overflow-hidden rounded-2xl sm:mt-5 border border-white/10 bg-[#0a0d14]/95 shadow-2xl backdrop-blur sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">
           {categories.map((category, index) => (
-            <LocalizedClientLink href={category.href} key={category.title} className={`group flex items-center gap-3 border-white/10 px-4 py-5 transition hover:bg-purple-500/10 ${index < categories.length - 1 ? "xl:border-l" : ""}`}>
+            <LocalizedClientLink href={category.href} key={category.title} prefetch={false} className={`group flex items-center gap-3 border-white/10 px-4 py-5 transition hover:bg-purple-500/10 ${index < categories.length - 1 ? "xl:border-l" : ""}`}>
               <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl border border-white/10 bg-white/[.03] text-purple-300 transition group-hover:border-purple-400/40 group-hover:bg-purple-500/15"><CategoryIcon name={category.icon} /></span>
               <span><strong className="block text-sm text-white">{category.title}</strong><small className="mt-1 block text-[10px] text-gray-500">{category.text}</small></span>
             </LocalizedClientLink>
@@ -225,7 +225,7 @@ export default async function Home({
               <p className="text-xs font-bold text-amber-300">اشتراک ویژه</p>
               <h3 className="mt-2 text-2xl font-black">PS Plus Essential</h3>
               <p className="mt-2 text-sm leading-7 text-gray-400">اشتراک ۱۲ ماهه با فعال‌سازی مطمئن و پشتیبانی گیمینت</p>
-              <LocalizedClientLink href="/ps-plus" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+              <LocalizedClientLink href="/ps-plus" prefetch={false} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
             </div>
           </article>
           <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-blue-400/30 sm:pl-28">
@@ -237,7 +237,7 @@ export default async function Home({
               <p className="text-xs font-bold text-blue-400">تحویل فوری</p>
               <h3 className="mt-2 text-2xl font-black">گیفت کارت آمریکا</h3>
               <p className="mt-2 text-sm leading-7 text-gray-400">خرید گیفت کارت پلی‌استیشن با بهترین قیمت و کد دیجیتال</p>
-              <LocalizedClientLink href="/gift-cards" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
+              <LocalizedClientLink href="/gift-cards" prefetch={false} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">مشاهده و خرید <ArrowIcon /></LocalizedClientLink>
             </div>
           </article>
           <article className="group relative min-h-[230px] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#241608] to-[#0a0d14] p-6 pl-24 transition duration-300 hover:-translate-y-1 hover:border-amber-400/30 sm:pl-28">
@@ -249,7 +249,7 @@ export default async function Home({
               <p className="text-xs font-bold text-amber-300">همیشه کنار شما</p>
               <h3 className="mt-2 text-2xl font-black">پشتیبانی ۲۴/۷</h3>
               <p className="mt-2 text-sm leading-7 text-gray-400">قبل و بعد از خرید برای انتخاب، فعال‌سازی و رفع مشکلات</p>
-              <LocalizedClientLink href="/contact" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">تماس با پشتیبانی <ArrowIcon /></LocalizedClientLink>
+              <LocalizedClientLink href="/contact" prefetch={false} className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-white">تماس با پشتیبانی <ArrowIcon /></LocalizedClientLink>
             </div>
           </article>
         </section>

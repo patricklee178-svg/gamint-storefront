@@ -38,6 +38,7 @@ export default async function Orders() {
           <p className="text-sm text-white/40">هنوز سفارشی ثبت نکردی.</p>
           <LocalizedClientLink
             href="/categories/games"
+            prefetch={false}
             className="mt-4 inline-block rounded-xl bg-purple-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-purple-500"
           >
             شروع خرید
@@ -52,6 +53,7 @@ export default async function Orders() {
               <LocalizedClientLink
                 key={order.id}
                 href={`/account/orders/details/${order.id}`}
+                prefetch={false}
                 className="flex items-center gap-4 rounded-2xl border border-white/10 bg-[#0a0d14] p-4 transition hover:border-purple-400/30"
               >
                 <div className="flex -space-x-3 space-x-reverse">

@@ -21,6 +21,7 @@ function SharedAccountTile({ item }: { item: SharedAccount }) {
   return (
     <LocalizedClientLink
       href={item.handle ? `/products/${item.handle}` : "/store"}
+      prefetch={false}
       className="group relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#0b1730] to-[#0a0d14] transition duration-300 hover:-translate-y-1 hover:border-purple-400/40"
     >
       <div className="relative aspect-square w-full overflow-hidden bg-[#060a14]">

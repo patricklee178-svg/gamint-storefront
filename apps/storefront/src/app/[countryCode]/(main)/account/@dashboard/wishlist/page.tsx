@@ -55,6 +55,7 @@ export default async function Wishlist(props: { params: Promise<{ countryCode: s
           <p className="text-sm text-white/40">هنوز چیزی به علاقه‌مندی‌ها اضافه نکردی.</p>
           <LocalizedClientLink
             href="/categories/games"
+            prefetch={false}
             className="mt-4 inline-block rounded-xl bg-purple-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-purple-500"
           >
             مشاهده بازی‌ها
