@@ -29,7 +29,7 @@ export default async function PlayStationPage({
           eyebrow="دنیای پلی‌استیشن"
           title="بازی‌های پلی‌استیشن ۴ و ۵"
           description="بزرگ‌ترین مجموعه‌ی بازی‌های PS5 و PS4 در گیمینت، با ضمانت اصالت و پشتیبانی کامل."
-          image="/images/playstation-hero-banner.jpg"
+          image="/images/playstation-hero-banner-v2.jpg"
         />
 
         {ps5Games.length > 0 && (
