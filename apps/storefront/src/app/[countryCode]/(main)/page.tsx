@@ -194,6 +194,7 @@ export default async function Home({
     <main dir="rtl" className="min-h-screen overflow-hidden bg-[#05070b] pb-16 text-white">
       <div className="pointer-events-none fixed inset-0 bg-[radial-gradient(circle_at_80%_8%,rgba(126,34,206,.11),transparent_30%),radial-gradient(circle_at_10%_55%,rgba(76,29,149,.08),transparent_28%)]" />
       <div className="relative mx-auto w-full max-w-[1480px] px-4 sm:px-6 lg:px-8">
+        <h1 className="sr-only">گیمینت | خرید بازی PS5 و PS4، اکانت ظرفیتی، پیش‌فروش، گیفت کارت و اشتراک پلی‌استیشن</h1>
         <HeroSlider />
 
         <section className="relative z-10 mt-4 grid overflow-hidden rounded-2xl sm:mt-5 border border-white/10 bg-[#0a0d14]/95 shadow-2xl backdrop-blur sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-6">

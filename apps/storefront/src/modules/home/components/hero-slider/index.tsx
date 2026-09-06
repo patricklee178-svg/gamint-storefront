@@ -207,11 +207,11 @@ export default function HeroSlider() {
                   <span className="h-2 w-2 animate-pulse rounded-full bg-purple-400" /> {slide.eyebrow}
                 </span>
                 <p className="mb-2 text-sm font-semibold tracking-[.22em] text-purple-300">{slide.publisher}</p>
-                <h1 className="text-4xl font-black leading-tight text-white drop-shadow-2xl sm:text-6xl lg:text-7xl">
+                <h2 className="text-4xl font-black leading-tight text-white drop-shadow-2xl sm:text-6xl lg:text-7xl">
                   {slide.title}<br />
                   {slide.accentPrefix && <span className="text-white">{slide.accentPrefix}</span>}
                   <span className={`bg-gradient-to-l ${slide.accentClass} bg-clip-text text-transparent`}>{slide.accent}</span>
-                </h1>
+                </h2>
                 <p className="mt-5 max-w-lg text-sm leading-7 text-gray-300 sm:text-base">{slide.description}</p>
                 <div className="mt-5 flex flex-wrap gap-2 text-[11px] text-gray-300">
                   {slide.badges.map((item) => (
