@@ -18,7 +18,7 @@ const SupportCard = () => (
         href="https://t.me/gamintsup"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-white/20 hover:bg-white/[0.05] hover:text-white"
+        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-[#229ED9]/40 hover:bg-[#229ED9]/10 hover:text-[#229ED9]"
       >
         <TelegramIcon className="h-4 w-4" />
         <span className="text-[10px] font-bold">تلگرام</span>
@@ -27,7 +27,7 @@ const SupportCard = () => (
         href="https://wa.me/989372694786"
         target="_blank"
         rel="noopener noreferrer"
-        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-white/20 hover:bg-white/[0.05] hover:text-white"
+        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-[#25D366]/40 hover:bg-[#25D366]/10 hover:text-[#25D366]"
       >
         <WhatsappIcon className="h-4 w-4" />
         <span className="text-[10px] font-bold">واتساپ</span>
