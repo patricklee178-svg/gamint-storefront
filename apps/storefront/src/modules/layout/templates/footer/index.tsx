@@ -13,6 +13,7 @@ export default async function Footer() {
           <div className="large:col-span-1">
             <LocalizedClientLink
               href="/"
+              prefetch={false}
               className="group inline-flex items-center gap-3.5"
             >
               <span className="relative grid h-14 w-[72px] shrink-0 place-items-center">
@@ -52,6 +53,8 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/categories/games"
+                  prefetch={false}
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   بازی‌های PS5
@@ -61,6 +64,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/shared-accounts"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   اکانت ظرفیتی
@@ -70,6 +74,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/preorders"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   پیش‌فروش بازی‌ها
@@ -79,6 +84,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/gift-cards"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   گیفت کارت
@@ -88,6 +94,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/ps-plus"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   PS Plus
@@ -103,6 +110,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/account"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   حساب کاربری
@@ -112,6 +120,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/cart"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   سبد خرید
@@ -121,6 +130,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/account/orders"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   پیگیری سفارش
@@ -130,6 +140,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/buying-guide"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   راهنمای خرید
@@ -139,6 +150,7 @@ export default async function Footer() {
               <li>
                 <LocalizedClientLink
                   href="/faq"
+                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   سوالات متداول
@@ -175,10 +187,10 @@ export default async function Footer() {
           </p>
 
           <div className="flex items-center gap-4">
-            <LocalizedClientLink href="/terms" className="transition hover:text-purple-300">
+            <LocalizedClientLink href="/terms" prefetch={false} className="transition hover:text-purple-300">
               قوانین و مقررات
             </LocalizedClientLink>
-            <LocalizedClientLink href="/privacy" className="transition hover:text-purple-300">
+            <LocalizedClientLink href="/privacy" prefetch={false} className="transition hover:text-purple-300">
               حریم خصوصی
             </LocalizedClientLink>
           </div>

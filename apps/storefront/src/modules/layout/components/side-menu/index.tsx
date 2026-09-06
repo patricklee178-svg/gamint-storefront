@@ -92,6 +92,7 @@ const SideMenu = ({ locales, currentLocale }: SideMenuProps) => {
                           <li key={name}>
                             <LocalizedClientLink
                               href={href}
+                              prefetch={false}
                               className="text-xl leading-8 hover:text-ui-fg-disabled"
                               onClick={close}
                               data-testid={`${name.toLowerCase()}-link`}

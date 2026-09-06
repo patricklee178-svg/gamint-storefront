@@ -39,6 +39,7 @@ export default async function Nav() {
           <div className="flex items-center gap-5">
             <LocalizedClientLink
               href="/"
+              prefetch={false}
               className="group flex items-center gap-3"
               data-testid="nav-store-link"
             >
@@ -52,6 +53,7 @@ export default async function Nav() {
             <div className="hidden items-center gap-6 text-sm text-white/70 large:flex">
               <LocalizedClientLink
                 href="/categories/games"
+                prefetch={false}
                 className="transition-colors hover:text-white"
               >
                 بازی‌ها
@@ -59,6 +61,7 @@ export default async function Nav() {
 
               <LocalizedClientLink
                 href="/preorders"
+                prefetch={false}
                 className="transition-colors hover:text-white"
               >
                 پیش‌فروش
@@ -66,6 +69,7 @@ export default async function Nav() {
 
               <LocalizedClientLink
                 href="/playstation"
+                prefetch={false}
                 className="transition-colors hover:text-white"
               >
                 پلی‌استیشن
@@ -73,6 +77,7 @@ export default async function Nav() {
 
               <LocalizedClientLink
                 href="/gift-cards"
+                prefetch={false}
                 className="transition-colors hover:text-white"
               >
                 گیفت کارت
@@ -80,6 +85,7 @@ export default async function Nav() {
 
               <LocalizedClientLink
                 href="/ps-plus"
+                prefetch={false}
                 className="transition-colors hover:text-white"
               >
                 پلی‌استیشن پلاس
@@ -93,6 +99,7 @@ export default async function Nav() {
                 fallback={
                   <LocalizedClientLink
                     href="/cart"
+                    prefetch={false}
                     className="text-white/70 transition-colors hover:text-white"
                     data-testid="nav-cart-link"
                   >
@@ -115,6 +122,7 @@ export default async function Nav() {
             <div className="hidden small:block">
               <LocalizedClientLink
                 href="/account"
+                prefetch={false}
                 className="flex items-center gap-2 text-sm text-white/70 transition-colors hover:text-white"
                 data-testid="nav-account-link"
               >

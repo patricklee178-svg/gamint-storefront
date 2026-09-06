@@ -98,6 +98,7 @@ const CartDropdown = ({
           <LocalizedClientLink
             className="text-white/70 transition-colors hover:text-white"
             href="/cart"
+            prefetch={false}
             data-testid="nav-cart-link"
           >{`سبد خرید (${totalItems})`}</LocalizedClientLink>
         </PopoverButton>
