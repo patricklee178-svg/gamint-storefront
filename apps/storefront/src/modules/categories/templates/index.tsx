@@ -122,13 +122,13 @@ export default async function CategoryTemplate({
         />
 
         <div className="flex items-center gap-2 py-6 text-xs text-white/40">
-          <LocalizedClientLink href="/" className="hover:text-white">
+          <LocalizedClientLink href="/" prefetch={false} className="hover:text-white">
             خانه
           </LocalizedClientLink>
           {parents.map((parent) => (
             <span key={parent.id} className="flex items-center gap-2">
               <span>/</span>
-              <LocalizedClientLink href={`/categories/${parent.handle}`} className="hover:text-white">
+              <LocalizedClientLink href={`/categories/${parent.handle}`} prefetch={false} className="hover:text-white">
                 {parent.name}
               </LocalizedClientLink>
             </span>

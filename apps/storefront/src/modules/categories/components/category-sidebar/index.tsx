@@ -255,6 +255,7 @@ const CategorySidebar = ({
       <div className="flex flex-col gap-2.5">
         <LocalizedClientLink
           href="/ps-plus"
+          prefetch={false}
           className="group flex items-center justify-between gap-2 rounded-xl border border-purple-400/20 bg-gradient-to-br from-purple-500/15 to-transparent p-3 transition hover:border-purple-400/40"
         >
           <div>
@@ -265,6 +266,7 @@ const CategorySidebar = ({
         </LocalizedClientLink>
         <LocalizedClientLink
           href="/gift-cards"
+          prefetch={false}
           className="group flex items-center justify-between gap-2 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/15 to-transparent p-3 transition hover:border-blue-400/40"
         >
           <div>

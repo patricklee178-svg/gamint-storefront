@@ -52,9 +52,9 @@ const ProductTemplate: React.FC<ProductTemplateProps> = ({
     <div dir="rtl" className="min-h-screen bg-[#05070b] py-6 text-white">
       <div className="content-container">
         <div className="flex items-center gap-2 text-xs text-white/40">
-          <LocalizedClientLink href="/" className="hover:text-white">صفحه اصلی</LocalizedClientLink>
+          <LocalizedClientLink href="/" prefetch={false} className="hover:text-white">صفحه اصلی</LocalizedClientLink>
           <span>&lt;</span>
-          <LocalizedClientLink href="/categories/games" className="hover:text-white">بازی‌ها</LocalizedClientLink>
+          <LocalizedClientLink href="/categories/games" prefetch={false} className="hover:text-white">بازی‌ها</LocalizedClientLink>
           <span>&lt;</span>
           <span className="font-bold text-white">{product.title}</span>
         </div>
