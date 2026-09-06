@@ -14,24 +14,24 @@ const SupportCard = () => (
     </div>
 
     <div className="grid grid-cols-3 gap-2">
-      <button
-        type="button"
-        disabled
-        title="به‌زودی فعال می‌شود"
-        className="flex cursor-not-allowed flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/25"
+      <a
+        href="https://t.me/gamintsup"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-white/20 hover:bg-white/[0.05] hover:text-white"
       >
         <TelegramIcon className="h-4 w-4" />
         <span className="text-[10px] font-bold">تلگرام</span>
-      </button>
-      <button
-        type="button"
-        disabled
-        title="به‌زودی فعال می‌شود"
-        className="flex cursor-not-allowed flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/25"
+      </a>
+      <a
+        href="https://wa.me/989372694786"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-col items-center gap-1.5 rounded-xl border border-white/10 bg-white/[0.02] py-3 text-white/70 transition hover:border-white/20 hover:bg-white/[0.05] hover:text-white"
       >
         <WhatsappIcon className="h-4 w-4" />
         <span className="text-[10px] font-bold">واتساپ</span>
-      </button>
+      </a>
       <LocalizedClientLink
         href="/account"
         className="flex flex-col items-center gap-1.5 rounded-xl border border-purple-400/20 bg-purple-500/10 py-3 text-purple-300 transition hover:bg-purple-500/20"
