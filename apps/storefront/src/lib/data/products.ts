@@ -231,7 +231,8 @@ export const getCategoryFacets = async ({
     pageParam: 0,
     queryParams: {
       category_id: [categoryId],
-      limit: 100,
+      limit: 200,
+      fields: "id,categories.id,categories.handle,variants.calculated_price",
     } as ProductListQueryParams,
     countryCode,
   })

@@ -252,10 +252,10 @@ const CategorySidebar = ({
 
       <div className="h-px bg-white/[0.06]" />
 
-      <div className="grid grid-cols-2 gap-2.5">
+      <div className="flex flex-col gap-2.5">
         <LocalizedClientLink
           href="/ps-plus"
-          className="group flex h-full flex-col justify-between gap-2 rounded-xl border border-purple-400/20 bg-gradient-to-br from-purple-500/15 to-transparent p-3 transition hover:border-purple-400/40"
+          className="group flex items-center justify-between gap-2 rounded-xl border border-purple-400/20 bg-gradient-to-br from-purple-500/15 to-transparent p-3 transition hover:border-purple-400/40"
         >
           <div>
             <p className="text-xs font-bold text-white">اشتراک PS Plus</p>
@@ -265,7 +265,7 @@ const CategorySidebar = ({
         </LocalizedClientLink>
         <LocalizedClientLink
           href="/gift-cards"
-          className="group flex h-full flex-col justify-between gap-2 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/15 to-transparent p-3 transition hover:border-blue-400/40"
+          className="group flex items-center justify-between gap-2 rounded-xl border border-blue-400/20 bg-gradient-to-br from-blue-500/15 to-transparent p-3 transition hover:border-blue-400/40"
         >
           <div>
             <p className="text-xs font-bold text-white">گیفت کارت PSN</p>
