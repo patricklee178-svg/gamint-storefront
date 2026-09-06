@@ -49,7 +49,7 @@ const WishlistGrid = ({ items }: { items: WishlistItem[] }) => {
           >
             <HeartIcon className="h-4 w-4" filled />
           </button>
-          <LocalizedClientLink href={item.handle ? `/products/${item.handle}` : "/store"} className="block">
+          <LocalizedClientLink href={item.handle ? `/products/${item.handle}` : "/store"} prefetch={false} className="block">
             <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
               {item.image && (
                 <>

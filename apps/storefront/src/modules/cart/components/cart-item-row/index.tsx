@@ -41,6 +41,7 @@ const CartItemRow = ({
       <div className="flex items-center gap-3 sm:contents">
         <LocalizedClientLink
           href={`/products/${item.product_handle}`}
+          prefetch={false}
           className="order-2 h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-white/[0.06] sm:order-4 sm:h-20 sm:w-20"
         >
           {item.thumbnail && (
@@ -51,6 +52,7 @@ const CartItemRow = ({
         <div className="order-1 min-w-0 flex-1 sm:order-2">
           <LocalizedClientLink
             href={`/products/${item.product_handle}`}
+            prefetch={false}
             data-testid="product-link"
             className="text-sm font-bold text-white hover:text-purple-300"
           >

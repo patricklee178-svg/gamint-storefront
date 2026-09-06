@@ -85,6 +85,7 @@ const DashboardSidebar = ({ customer, tier }: Props) => {
             <LocalizedClientLink
               key={item.href}
               href={item.href}
+              prefetch={false}
               className={`flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-semibold transition ${
                 isActive
                   ? "bg-purple-600 text-white shadow-lg shadow-purple-950/30"

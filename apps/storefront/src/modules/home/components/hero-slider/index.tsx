@@ -219,10 +219,10 @@ export default function HeroSlider() {
                   ))}
                 </div>
                 <div className="mt-7 flex flex-wrap gap-3">
-                  <LocalizedClientLink href={`/products/${slide.handle}`} className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-black text-gray-950 shadow-xl transition hover:bg-purple-500 hover:text-white">
+                  <LocalizedClientLink href={`/products/${slide.handle}`} prefetch={false} className="inline-flex items-center gap-2 rounded-xl bg-white px-6 py-3.5 text-sm font-black text-gray-950 shadow-xl transition hover:bg-purple-500 hover:text-white">
                     {slide.primaryLabel} <ArrowIcon />
                   </LocalizedClientLink>
-                  <LocalizedClientLink href={`/products/${slide.handle}`} className="inline-flex items-center rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-purple-400/50 hover:bg-purple-500/10">
+                  <LocalizedClientLink href={`/products/${slide.handle}`} prefetch={false} className="inline-flex items-center rounded-xl border border-white/15 bg-white/5 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur transition hover:border-purple-400/50 hover:bg-purple-500/10">
                     {slide.secondaryLabel}
                   </LocalizedClientLink>
                 </div>

@@ -107,6 +107,7 @@ const Overview = ({ customer, orders }: Props) => {
             <h2 className="text-sm font-bold text-white">آخرین سفارش‌ها</h2>
             <LocalizedClientLink
               href="/account/orders"
+              prefetch={false}
               className="flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300"
             >
               مشاهده همه <ArrowIcon />
@@ -124,6 +125,7 @@ const Overview = ({ customer, orders }: Props) => {
                   <LocalizedClientLink
                     key={order.id}
                     href={`/account/orders/details/${order.id}`}
+                    prefetch={false}
                     className="flex items-center gap-3 py-3 transition hover:opacity-80"
                   >
                     <div className="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-white/[0.06]">
@@ -196,6 +198,7 @@ const Overview = ({ customer, orders }: Props) => {
               </div>
               <LocalizedClientLink
                 href={`/account/orders/details/${latestOrder.id}`}
+                prefetch={false}
                 className="block text-center text-xs font-semibold text-purple-400 hover:text-purple-300"
               >
                 مشاهده جزئیات سفارش
@@ -278,7 +281,7 @@ const StatCard = ({
 
   if (href) {
     return (
-      <LocalizedClientLink href={href} className="block h-full">
+      <LocalizedClientLink href={href} prefetch={false} className="block h-full">
         {content}
       </LocalizedClientLink>
     )
@@ -303,6 +306,7 @@ const MiniListCard = ({
       <h2 className="text-sm font-bold text-white">{title}</h2>
       <LocalizedClientLink
         href={viewAllHref}
+        prefetch={false}
         className="flex items-center gap-1.5 text-xs font-semibold text-purple-400 hover:text-purple-300"
       >
         مشاهده همه <ArrowIcon />

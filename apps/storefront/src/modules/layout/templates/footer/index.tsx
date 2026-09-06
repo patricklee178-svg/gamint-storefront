@@ -54,7 +54,6 @@ export default async function Footer() {
                 <LocalizedClientLink
                   href="/categories/games"
                   prefetch={false}
-                  prefetch={false}
                   className="transition hover:text-purple-300"
                 >
                   بازی‌های PS5
