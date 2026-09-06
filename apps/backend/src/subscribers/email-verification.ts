@@ -28,7 +28,6 @@ export default async function verificationRequestedHandler({
     template: "email-verification",
     data: {
       verification_url: `${storefrontUrl}/verify-account?token=${code}`,
-      otp_code: code,
     },
   })
 }
