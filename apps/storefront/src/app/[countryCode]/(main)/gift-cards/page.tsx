@@ -81,7 +81,7 @@ export default async function GiftCardsPage({
           eyebrow="تحویل فوری"
           title="گیفت کارت پلی‌استیشن"
           description="گیفت کارت PSN آمریکا، تحویل آنی کد دیجیتال بعد از پرداخت."
-          image="/images/gift-cards-banner-v7.jpg"
+          image="/images/gift-cards-banner-v8.jpg"
         />
 
         <section className="mt-12">
