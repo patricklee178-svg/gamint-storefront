@@ -457,3 +457,65 @@ export const updateCustomerAddress = async (
       return { success: false, error: err.toString() }
     })
 }
+
+export async function updateCustomerPassword(
+  _currentState: unknown,
+  formData: FormData
+): Promise<{ success: boolean; error?: string }> {
+  const customer = await retrieveCustomer()
+
+  if (!customer?.email) {
+    return { success: false, error: "ابتدا وارد حساب کاربری خود شوید." }
+  }
+
+  const oldPassword = formData.get("old_password") as string
+  const newPassword = formData.get("new_password") as string
+  const confirmPassword = formData.get("confirm_password") as string
+
+  if (!oldPassword || !newPassword || !confirmPassword) {
+    return { success: false, error: "همه فیلدها را پر کنید." }
+  }
+
+  if (newPassword.length < 8) {
+    return { success: false, error: "رمز عبور جدید باید حداقل ۸ کاراکتر باشد." }
+  }
+
+  if (newPassword !== confirmPassword) {
+    return { success: false, error: "رمز عبور جدید و تکرار آن یکسان نیستند." }
+  }
+
+  try {
+    await sdk.auth.login("customer", "emailpass", {
+      email: customer.email,
+      password: oldPassword,
+    })
+  } catch {
+    return { success: false, error: "رمز عبور فعلی اشتباه است." }
+  }
+
+  const authHeaders = await getAuthHeaders()
+  const token =
+    "authorization" in authHeaders
+      ? authHeaders.authorization.replace(/^Bearer\s+/i, "")
+      : undefined
+
+  if (!token) {
+    return { success: false, error: "نشست شما منقضی شده، دوباره وارد شوید." }
+  }
+
+  try {
+    await sdk.auth.updateProvider(
+      "customer",
+      "emailpass",
+      { password: newPassword },
+      token
+    )
+  } catch (err) {
+    return {
+      success: false,
+      error: (err as Error).message || "خطا در تغییر رمز عبور.",
+    }
+  }
+
+  return { success: true }
+}
