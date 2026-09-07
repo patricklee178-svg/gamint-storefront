@@ -25,20 +25,22 @@ export default async function ProductPreview({
       className="group block min-w-0 overflow-hidden rounded-2xl border border-t-0 border-white/10 bg-[#0c1018] shadow-[0_16px_50px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-1 hover:border-purple-500/50 hover:shadow-[0_18px_55px_rgba(124,58,237,.16)]"
       data-testid="product-wrapper"
     >
-      <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
+      <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827]">
         {thumbnail ? (
-          <img
-            src={thumbnail}
-            alt={product.title}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
-          />
+          <div className="absolute inset-0 transition duration-300 group-hover:scale-105">
+            <img
+              src={thumbnail}
+              alt={product.title}
+              loading="lazy"
+              className="h-full w-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
+          </div>
         ) : (
           <div className="grid h-full w-full place-items-center text-xs text-gray-600">
             بدون تصویر
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
       </div>
       <div className="p-3.5">
         <div className="mb-2 flex items-start justify-between gap-2">

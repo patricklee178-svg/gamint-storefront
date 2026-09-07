@@ -50,16 +50,18 @@ const WishlistGrid = ({ items }: { items: WishlistItem[] }) => {
             <HeartIcon className="h-4 w-4" filled />
           </button>
           <LocalizedClientLink href={item.handle ? `/products/${item.handle}` : "/store"} prefetch={false} className="block">
-            <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
+            <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827]">
               {item.image && (
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="absolute inset-0 h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
-                />
+                <div className="absolute inset-0 transition duration-300 group-hover:scale-105">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    loading="lazy"
+                    className="h-full w-full object-cover object-top"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
+                </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
             </div>
             <div className="p-3.5">
               <div className="mb-2 flex items-start justify-between gap-2">

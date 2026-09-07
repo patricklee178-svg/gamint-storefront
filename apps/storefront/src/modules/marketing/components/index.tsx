@@ -30,14 +30,16 @@ export function GameCard({ game }: { game: Game }) {
         prefetch={false}
         className="block"
       >
-        <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
-          <img
-            src={game.image}
-            alt={game.title}
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
+        <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827]">
+          <div className="absolute inset-0 transition duration-300 group-hover:scale-105">
+            <img
+              src={game.image}
+              alt={game.title}
+              loading="lazy"
+              className="h-full w-full object-cover object-top"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
+          </div>
           {game.badge && (
             <span className="absolute right-2.5 top-2.5 rounded-lg border border-purple-300/25 bg-purple-600/90 px-2.5 py-1 text-[10px] font-bold text-white shadow-lg shadow-purple-950/40">
               {game.badge}
