@@ -1,4 +1,5 @@
 import { HttpTypes } from "@medusajs/types"
+import { sortOptionValues } from "@lib/util/sort-product-options"
 import React from "react"
 
 type OptionSelectProps = {
@@ -18,7 +19,7 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
   "data-testid": dataTestId,
   disabled,
 }) => {
-  const filteredOptions = (option.values ?? []).map((v) => v.value)
+  const filteredOptions = sortOptionValues(option.values).map((v) => v.value)
 
   return (
     <div className="flex flex-col gap-y-2.5">
