@@ -52,21 +52,12 @@ const WishlistGrid = ({ items }: { items: WishlistItem[] }) => {
           <LocalizedClientLink href={item.handle ? `/products/${item.handle}` : "/store"} prefetch={false} className="block">
             <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
               {item.image && (
-                <>
-                  <img
-                    src={item.image}
-                    alt=""
-                    aria-hidden="true"
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-xl"
-                  />
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-contain transition duration-300"
-                  />
-                </>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
+                />
               )}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
             </div>

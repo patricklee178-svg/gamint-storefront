@@ -33,16 +33,9 @@ export function GameCard({ game }: { game: Game }) {
         <div className="relative aspect-video overflow-hidden rounded-t-2xl bg-[#111827] [transform:translateZ(0)]">
           <img
             src={game.image}
-            alt=""
-            aria-hidden="true"
-            loading="lazy"
-            className="absolute inset-0 h-full w-full scale-110 object-cover object-center blur-xl"
-          />
-          <img
-            src={game.image}
             alt={game.title}
             loading="lazy"
-            className="absolute inset-0 h-full w-full object-contain transition duration-300"
+            className="absolute inset-0 h-full w-full object-cover object-top transition duration-300 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0c1018] via-transparent to-transparent" />
           {game.badge && (
