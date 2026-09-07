@@ -7,6 +7,7 @@ import ChevronDown from "@modules/common/icons/chevron-down"
 import X from "@modules/common/icons/x"
 
 import { getProductPrice } from "@lib/util/get-product-price"
+import { sortProductOptions } from "@lib/util/sort-product-options"
 import OptionSelect from "./option-select"
 import { HttpTypes } from "@medusajs/types"
 import { isSimpleProduct } from "@lib/util/product"
@@ -174,7 +175,7 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                   <div className="bg-[#0a0d14] px-6 py-12">
                     {(product.variants?.length ?? 0) > 1 && (
                       <div className="flex flex-col gap-y-6">
-                        {(product.options || []).map((option) => {
+                        {sortProductOptions(product.options).map((option) => {
                           return (
                             <div key={option.id}>
                               <OptionSelect

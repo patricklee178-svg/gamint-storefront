@@ -3,6 +3,7 @@
 import { addToCart } from "@lib/data/cart"
 import { useIntersection } from "@lib/hooks/use-in-view"
 import { HttpTypes } from "@medusajs/types"
+import { sortProductOptions } from "@lib/util/sort-product-options"
 import OptionSelect from "@modules/products/components/product-actions/option-select"
 import { isEqual } from "lodash"
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation"
@@ -173,7 +174,7 @@ export default function ProductActions({
     >
       {(product.variants?.length ?? 0) > 1 && (
         <div className="flex flex-col gap-y-4">
-          {(product.options || []).map((option) => (
+          {sortProductOptions(product.options).map((option) => (
             <OptionSelect
               key={option.id}
               option={option}
