@@ -62,11 +62,11 @@ export default async function Footer() {
 
               <li>
                 <LocalizedClientLink
-                  href="/shared-accounts"
+                  href="/ps4-games"
                   prefetch={false}
                   className="transition hover:text-purple-300"
                 >
-                  اکانت ظرفیتی
+                  بازی‌های PS4
                 </LocalizedClientLink>
               </li>
 

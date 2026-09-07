@@ -14,7 +14,6 @@ const STATIC_PATHS: { path: string; priority: number; changeFrequency: MetadataR
   { path: "/gift-cards", priority: 0.8, changeFrequency: "weekly" },
   { path: "/ps-plus", priority: 0.8, changeFrequency: "weekly" },
   { path: "/playstation", priority: 0.6, changeFrequency: "weekly" },
-  { path: "/shared-accounts", priority: 0.6, changeFrequency: "weekly" },
   { path: "/ps4-games", priority: 0.6, changeFrequency: "weekly" },
   { path: "/ps5-games", priority: 0.6, changeFrequency: "weekly" },
   { path: "/buying-guide", priority: 0.4, changeFrequency: "monthly" },
